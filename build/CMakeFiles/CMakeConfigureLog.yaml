@@ -1,0 +1,342 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.26100 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
+      
+      The C compiler identification is Clang, found in:
+        E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/3.31.0-rc2/CompilerIdC/a.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1288 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:250 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting C compiler /showIncludes prefix:
+        
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1288 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:250 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting C compiler /showIncludes prefix:
+        
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang++.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is Clang, found in:
+        E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/3.31.0-rc2/CompilerIdCXX/a.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1288 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:250 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting CXX compiler /showIncludes prefix:
+        
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:1288 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:250 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Detecting CXX compiler /showIncludes prefix:
+        
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj'
+        
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_eb730/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_eb730.dir\\build.make CMakeFiles/cmTC_eb730.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj'
+        Building C object CMakeFiles/cmTC_eb730.dir/CMakeCCompilerABI.c.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_eb730.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_eb730.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles\\cmTC_eb730.dir\\CMakeCCompilerABI.c.obj -c C:\\cmake-3.31.0-rc2-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c
+        Linking C executable cmTC_eb730.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_eb730.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview  -v -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_eb730.dir\\objects1.rsp -o cmTC_eb730.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_eb730.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b865sj\\cmTC_eb730.pdb -Xlinker /version:0.0 
+        clang version 19.1.5
+        Target: x86_64-pc-windows-msvc
+        Thread model: posix
+        InstalledDir: C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin
+         "C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\bin\\\\lld-link" -out:cmTC_eb730.exe "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\lib\\\\x64" "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\atlmfc\\\\lib\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\ucrt\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\um\\\\x64" "-libpath:C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\lib\\\\clang\\\\19\\\\lib\\\\windows" -nologo -debug /subsystem:console CMakeFiles/cmTC_eb730.dir/CMakeCCompilerABI.c.obj /MANIFEST:EMBED /implib:cmTC_eb730.lib "/pdb:E:\\\\_prog\\\\C++\\\\Engine\\\\SimpleWorldBuilder\\\\SimpleWorldBuilder\\\\build\\\\CMakeFiles\\\\CMakeScratch\\\\TryCompile-b865sj\\\\cmTC_eb730.pdb" /version:0.0
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'C': C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/lld-link
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/lld-link" "-v"
+      lld-link: warning: ignoring unknown argument '-v'
+      lld-link: error: no input files
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/lld-link" "-V"
+      lld-link: warning: ignoring unknown argument '-V'
+      lld-link: error: no input files
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/lld-link" "--version"
+      LLD 19.1.5
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-O0"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18'
+        
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_82e9a/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_82e9a.dir\\build.make CMakeFiles/cmTC_82e9a.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18'
+        Building CXX object CMakeFiles/cmTC_82e9a.dir/CMakeCXXCompilerABI.cpp.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_82e9a.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_82e9a.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles\\cmTC_82e9a.dir\\CMakeCXXCompilerABI.cpp.obj -c C:\\cmake-3.31.0-rc2-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp
+        Linking CXX executable cmTC_82e9a.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_82e9a.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview  -v -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_82e9a.dir\\objects1.rsp -o cmTC_82e9a.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_82e9a.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-bbhh18\\cmTC_82e9a.pdb -Xlinker /version:0.0 
+        clang version 19.1.5
+        Target: x86_64-pc-windows-msvc
+        Thread model: posix
+        InstalledDir: C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin
+         "C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\bin\\\\lld-link" -out:cmTC_82e9a.exe "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\lib\\\\x64" "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\atlmfc\\\\lib\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\ucrt\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\um\\\\x64" "-libpath:C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\lib\\\\clang\\\\19\\\\lib\\\\windows" -nologo -debug /subsystem:console CMakeFiles/cmTC_82e9a.dir/CMakeCXXCompilerABI.cpp.obj /MANIFEST:EMBED /implib:cmTC_82e9a.lib "/pdb:E:\\\\_prog\\\\C++\\\\Engine\\\\SimpleWorldBuilder\\\\SimpleWorldBuilder\\\\build\\\\CMakeFiles\\\\CMakeScratch\\\\TryCompile-bbhh18\\\\cmTC_82e9a.pdb" /version:0.0
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/lld-link
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/lld-link" "-v"
+      lld-link: warning: ignoring unknown argument '-v'
+      lld-link: error: no input files
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/lld-link" "-V"
+      lld-link: warning: ignoring unknown argument '-V'
+      lld-link: error: no input files
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/lld-link" "--version"
+      LLD 19.1.5
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/FeatureTesting.cmake:34 (try_compile)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/FeatureTesting.cmake:87 (_record_compiler_features)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake:124 (_record_compiler_features_cxx)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerSupport.cmake:70 (cmake_record_cxx_compile_features)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:83 (CMAKE_DETERMINE_COMPILER_SUPPORT)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compile features"
+    directories:
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-O0"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_FEATURE_TEST"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4'
+        
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_c328d/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_c328d.dir\\build.make CMakeFiles/cmTC_c328d.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4'
+        Building CXX object CMakeFiles/cmTC_c328d.dir/feature_tests.cxx.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview   -std=c++14 -MD -MT CMakeFiles/cmTC_c328d.dir/feature_tests.cxx.obj -MF CMakeFiles\\cmTC_c328d.dir\\feature_tests.cxx.obj.d -o CMakeFiles\\cmTC_c328d.dir\\feature_tests.cxx.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m8wfi4\\feature_tests.cxx
+        Linking CXX executable cmTC_c328d.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_c328d.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_c328d.dir\\objects1.rsp -o cmTC_c328d.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_c328d.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m8wfi4\\cmTC_c328d.pdb -Xlinker /version:0.0  @CMakeFiles\\cmTC_c328d.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/FeatureTesting.cmake:34 (try_compile)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/FeatureTesting.cmake:87 (_record_compiler_features)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Compiler/CMakeCommonCompilerMacros.cmake:132 (_record_compiler_features_cxx)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeDetermineCompilerSupport.cmake:70 (cmake_record_cxx_compile_features)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:83 (CMAKE_DETERMINE_COMPILER_SUPPORT)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compile features"
+    directories:
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-O0"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_FEATURE_TEST"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e'
+        
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_35d02/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_35d02.dir\\build.make CMakeFiles/cmTC_35d02.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e'
+        Building CXX object CMakeFiles/cmTC_35d02.dir/feature_tests.cxx.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview   -std=c++14 -MD -MT CMakeFiles/cmTC_35d02.dir/feature_tests.cxx.obj -MF CMakeFiles\\cmTC_35d02.dir\\feature_tests.cxx.obj.d -o CMakeFiles\\cmTC_35d02.dir\\feature_tests.cxx.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-52564e\\feature_tests.cxx
+        Linking CXX executable cmTC_35d02.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_35d02.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_35d02.dir\\objects1.rsp -o cmTC_35d02.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_35d02.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-52564e\\cmTC_35d02.pdb -Xlinker /version:0.0  @CMakeFiles\\cmTC_35d02.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e'
+        
+      exitCode: 0
+...

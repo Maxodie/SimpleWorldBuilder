@@ -1,0 +1,20 @@
+[
+{
+  "directory": "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build",
+  "command": "C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -DWB_LOGGER @CMakeFiles/WorldBuilder.dir/includes_CXX.rsp -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -std=c++23 -g -o CMakeFiles\\WorldBuilder.dir\\WorldBuilder\\src\\EntryPoint.cpp.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\WorldBuilder\\src\\EntryPoint.cpp",
+  "file": "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/EntryPoint.cpp",
+  "output": "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/EntryPoint.cpp.obj"
+},
+{
+  "directory": "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build",
+  "command": "C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -DWB_LOGGER @CMakeFiles/WorldBuilder.dir/includes_CXX.rsp -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -std=c++23 -g -o CMakeFiles\\WorldBuilder.dir\\WorldBuilder\\src\\Core\\Log\\Log.cpp.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\WorldBuilder\\src\\Core\\Log\\Log.cpp",
+  "file": "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/Log/Log.cpp",
+  "output": "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj"
+},
+{
+  "directory": "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build",
+  "command": "C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -DWB_LOGGER @CMakeFiles/WorldBuilder.dir/includes_CXX.rsp -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -std=c++23 -g -o CMakeFiles\\WorldBuilder.dir\\WorldBuilder\\src\\Core\\Application.cpp.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\WorldBuilder\\src\\Core\\Application.cpp",
+  "file": "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/Application.cpp",
+  "output": "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj"
+}
+]
