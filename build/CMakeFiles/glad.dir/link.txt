@@ -1,2 +1,0 @@
-C:\LLVM_clang\clang+llvm-19.1.5-x86_64\bin\llvm-ar.exe qc E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\bin\Windows\glad.lib CMakeFiles/glad.dir/WorldBuilder/vendors/glad/glad/src/glad.c.obj
-C:\LLVM_clang\clang+llvm-19.1.5-x86_64\bin\llvm-ranlib.exe E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\bin\Windows\glad.lib
