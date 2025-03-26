@@ -29,36 +29,36 @@ enum class LogLevel : uint8_t{
 class Logger
 {
 public:
-    template<typename ... T>
-    void LoggerLog(const char* prefix, Log::LogLevel level, const char* fmt, T&&... args)
+    template<typename ... TArgs>
+    void LoggerLog(const char* prefix, Log::LogLevel level, const char* fmt, TArgs&&... args)
     {
         PrefixLog(prefix, level);
-        (LogMessage(level, fmt, args), ...);
+        LogMessage(level, fmt, args...);
 
         SuffixLog();
     }
 
-    template<typename ... T>
-    void ContextLoggerLog(const char* prefix, Log::LogLevel level, const char* functionCtx, const char* fileCtx, uint32_t lineCtx, const char* fmt, T&&... args)
+    template<typename ... TArgs>
+    void ContextLoggerLog(const char* prefix, Log::LogLevel level, const char* functionCtx, const char* fileCtx, uint32_t lineCtx, const char* fmt, TArgs&&... args)
     {
         PrefixLog(prefix, level);
 
         std::printf("%s() from %s, line %d : ", functionCtx, fileCtx, lineCtx);
-        (LogMessage(level, fmt, args), ...);
+        LogMessage(level, fmt, args...);
 
         SuffixLog();
     }
 
-    template<typename ... T>
-    void LogMessage(Log::LogLevel level, const char* fmt, T&&... args)
+    template<typename ... TArgs>
+    void LogMessage(Log::LogLevel level, const char* fmt, TArgs&&... args)
     {
         switch (level)
         {
         case Log::LogLevel::LOG_ERROR :
-            (std::printf(fmt, args), ...);
+            std::printf(fmt, std::forward<TArgs>(args)...);
             break;
         default:
-            (std::printf(fmt, args), ...);
+            std::printf(fmt, std::forward<TArgs>(args)...);
             break;
         }
     }

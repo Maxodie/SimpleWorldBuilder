@@ -1,6 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj"
   "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj.d"
+  "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj"
+  "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj.d"
+  "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj"
+  "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj.d"
   "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj"
   "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj.d"
   "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/EntryPoint.cpp.obj"

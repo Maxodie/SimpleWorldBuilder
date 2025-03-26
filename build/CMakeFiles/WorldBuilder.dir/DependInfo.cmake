@@ -9,6 +9,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/Application.cpp" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj" "gcc" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj.d"
+  "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/Event/Event.cpp" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj" "gcc" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj.d"
+  "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/LayerStack.cpp" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj" "gcc" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj.d"
   "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/Log/Log.cpp" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj" "gcc" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj.d"
   "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/EntryPoint.cpp" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/EntryPoint.cpp.obj" "gcc" "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/EntryPoint.cpp.obj.d"
   )

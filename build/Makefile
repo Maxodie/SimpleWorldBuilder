@@ -84,6 +84,51 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	C:\cmake-3.31.0-rc2-windows-x86_64\bin\cmake.exe -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	C:\cmake-3.31.0-rc2-windows-x86_64\bin\cmake.exe -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	C:\cmake-3.31.0-rc2-windows-x86_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	C:\cmake-3.31.0-rc2-windows-x86_64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	C:\cmake-3.31.0-rc2-windows-x86_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	C:\cmake-3.31.0-rc2-windows-x86_64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\\CMakeFiles\progress.marks
@@ -128,6 +173,58 @@ WorldBuilder/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/build
 .PHONY : WorldBuilder/fast
 
+#=============================================================================
+# Target rules for targets named glad
+
+# Build rule for target.
+glad: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 glad
+.PHONY : glad
+
+# fast build rule for target.
+glad/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/build
+.PHONY : glad/fast
+
+#=============================================================================
+# Target rules for targets named uninstall
+
+# Build rule for target.
+uninstall: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 uninstall
+.PHONY : uninstall
+
+# fast build rule for target.
+uninstall/fast:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\CMakeFiles\uninstall.dir\build.make WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/build
+.PHONY : uninstall/fast
+
+#=============================================================================
+# Target rules for targets named glfw
+
+# Build rule for target.
+glfw: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 glfw
+.PHONY : glfw
+
+# fast build rule for target.
+glfw/fast:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\glfw.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/build
+.PHONY : glfw/fast
+
+#=============================================================================
+# Target rules for targets named update_mappings
+
+# Build rule for target.
+update_mappings: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 update_mappings
+.PHONY : update_mappings
+
+# fast build rule for target.
+update_mappings/fast:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\update_mappings.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/build
+.PHONY : update_mappings/fast
+
 WorldBuilder/src/Core/Application.obj: WorldBuilder/src/Core/Application.cpp.obj
 .PHONY : WorldBuilder/src/Core/Application.obj
 
@@ -151,6 +248,54 @@ WorldBuilder/src/Core/Application.s: WorldBuilder/src/Core/Application.cpp.s
 WorldBuilder/src/Core/Application.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.s
 .PHONY : WorldBuilder/src/Core/Application.cpp.s
+
+WorldBuilder/src/Core/Event/Event.obj: WorldBuilder/src/Core/Event/Event.cpp.obj
+.PHONY : WorldBuilder/src/Core/Event/Event.obj
+
+# target to build an object file
+WorldBuilder/src/Core/Event/Event.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj
+.PHONY : WorldBuilder/src/Core/Event/Event.cpp.obj
+
+WorldBuilder/src/Core/Event/Event.i: WorldBuilder/src/Core/Event/Event.cpp.i
+.PHONY : WorldBuilder/src/Core/Event/Event.i
+
+# target to preprocess a source file
+WorldBuilder/src/Core/Event/Event.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.i
+.PHONY : WorldBuilder/src/Core/Event/Event.cpp.i
+
+WorldBuilder/src/Core/Event/Event.s: WorldBuilder/src/Core/Event/Event.cpp.s
+.PHONY : WorldBuilder/src/Core/Event/Event.s
+
+# target to generate assembly for a file
+WorldBuilder/src/Core/Event/Event.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.s
+.PHONY : WorldBuilder/src/Core/Event/Event.cpp.s
+
+WorldBuilder/src/Core/LayerStack.obj: WorldBuilder/src/Core/LayerStack.cpp.obj
+.PHONY : WorldBuilder/src/Core/LayerStack.obj
+
+# target to build an object file
+WorldBuilder/src/Core/LayerStack.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj
+.PHONY : WorldBuilder/src/Core/LayerStack.cpp.obj
+
+WorldBuilder/src/Core/LayerStack.i: WorldBuilder/src/Core/LayerStack.cpp.i
+.PHONY : WorldBuilder/src/Core/LayerStack.i
+
+# target to preprocess a source file
+WorldBuilder/src/Core/LayerStack.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.i
+.PHONY : WorldBuilder/src/Core/LayerStack.cpp.i
+
+WorldBuilder/src/Core/LayerStack.s: WorldBuilder/src/Core/LayerStack.cpp.s
+.PHONY : WorldBuilder/src/Core/LayerStack.s
+
+# target to generate assembly for a file
+WorldBuilder/src/Core/LayerStack.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.s
+.PHONY : WorldBuilder/src/Core/LayerStack.cpp.s
 
 WorldBuilder/src/Core/Log/Log.obj: WorldBuilder/src/Core/Log/Log.cpp.obj
 .PHONY : WorldBuilder/src/Core/Log/Log.obj
@@ -200,6 +345,30 @@ WorldBuilder/src/EntryPoint.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/WorldBuilder/src/EntryPoint.cpp.s
 .PHONY : WorldBuilder/src/EntryPoint.cpp.s
 
+WorldBuilder/vendors/glad/glad/src/glad.obj: WorldBuilder/vendors/glad/glad/src/glad.c.obj
+.PHONY : WorldBuilder/vendors/glad/glad/src/glad.obj
+
+# target to build an object file
+WorldBuilder/vendors/glad/glad/src/glad.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/WorldBuilder/vendors/glad/glad/src/glad.c.obj
+.PHONY : WorldBuilder/vendors/glad/glad/src/glad.c.obj
+
+WorldBuilder/vendors/glad/glad/src/glad.i: WorldBuilder/vendors/glad/glad/src/glad.c.i
+.PHONY : WorldBuilder/vendors/glad/glad/src/glad.i
+
+# target to preprocess a source file
+WorldBuilder/vendors/glad/glad/src/glad.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/WorldBuilder/vendors/glad/glad/src/glad.c.i
+.PHONY : WorldBuilder/vendors/glad/glad/src/glad.c.i
+
+WorldBuilder/vendors/glad/glad/src/glad.s: WorldBuilder/vendors/glad/glad/src/glad.c.s
+.PHONY : WorldBuilder/vendors/glad/glad/src/glad.s
+
+# target to generate assembly for a file
+WorldBuilder/vendors/glad/glad/src/glad.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/WorldBuilder/vendors/glad/glad/src/glad.c.s
+.PHONY : WorldBuilder/vendors/glad/glad/src/glad.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -207,17 +376,34 @@ help:
 	@echo ... clean
 	@echo ... depend
 	@echo ... edit_cache
+	@echo ... install
+	@echo ... install/local
+	@echo ... install/strip
+	@echo ... list_install_components
 	@echo ... rebuild_cache
+	@echo ... uninstall
+	@echo ... update_mappings
 	@echo ... WorldBuilder
+	@echo ... glad
+	@echo ... glfw
 	@echo ... WorldBuilder/src/Core/Application.obj
 	@echo ... WorldBuilder/src/Core/Application.i
 	@echo ... WorldBuilder/src/Core/Application.s
+	@echo ... WorldBuilder/src/Core/Event/Event.obj
+	@echo ... WorldBuilder/src/Core/Event/Event.i
+	@echo ... WorldBuilder/src/Core/Event/Event.s
+	@echo ... WorldBuilder/src/Core/LayerStack.obj
+	@echo ... WorldBuilder/src/Core/LayerStack.i
+	@echo ... WorldBuilder/src/Core/LayerStack.s
 	@echo ... WorldBuilder/src/Core/Log/Log.obj
 	@echo ... WorldBuilder/src/Core/Log/Log.i
 	@echo ... WorldBuilder/src/Core/Log/Log.s
 	@echo ... WorldBuilder/src/EntryPoint.obj
 	@echo ... WorldBuilder/src/EntryPoint.i
 	@echo ... WorldBuilder/src/EntryPoint.s
+	@echo ... WorldBuilder/vendors/glad/glad/src/glad.obj
+	@echo ... WorldBuilder/vendors/glad/glad/src/glad.i
+	@echo ... WorldBuilder/vendors/glad/glad/src/glad.s
 .PHONY : help
 
 

@@ -101,8 +101,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj"
-      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj"
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-gact4c"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-gact4c"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
       CMAKE_C_FLAGS: ""
@@ -112,22 +112,22 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj'
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-gact4c'
         
-        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_eb730/fast
-        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_eb730.dir\\build.make CMakeFiles/cmTC_eb730.dir/build
-        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj'
-        Building C object CMakeFiles/cmTC_eb730.dir/CMakeCCompilerABI.c.obj
-        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_eb730.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_eb730.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles\\cmTC_eb730.dir\\CMakeCCompilerABI.c.obj -c C:\\cmake-3.31.0-rc2-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c
-        Linking C executable cmTC_eb730.exe
-        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_eb730.dir\\link.txt --verbose=1
-        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview  -v -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_eb730.dir\\objects1.rsp -o cmTC_eb730.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_eb730.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b865sj\\cmTC_eb730.pdb -Xlinker /version:0.0 
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_343ad/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_343ad.dir\\build.make CMakeFiles/cmTC_343ad.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-gact4c'
+        Building C object CMakeFiles/cmTC_343ad.dir/CMakeCCompilerABI.c.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_343ad.dir/CMakeCCompilerABI.c.obj -MF CMakeFiles\\cmTC_343ad.dir\\CMakeCCompilerABI.c.obj.d -o CMakeFiles\\cmTC_343ad.dir\\CMakeCCompilerABI.c.obj -c C:\\cmake-3.31.0-rc2-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c
+        Linking C executable cmTC_343ad.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_343ad.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview  -v -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_343ad.dir\\objects1.rsp -o cmTC_343ad.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_343ad.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-gact4c\\cmTC_343ad.pdb -Xlinker /version:0.0 
         clang version 19.1.5
         Target: x86_64-pc-windows-msvc
         Thread model: posix
         InstalledDir: C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin
-         "C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\bin\\\\lld-link" -out:cmTC_eb730.exe "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\lib\\\\x64" "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\atlmfc\\\\lib\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\ucrt\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\um\\\\x64" "-libpath:C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\lib\\\\clang\\\\19\\\\lib\\\\windows" -nologo -debug /subsystem:console CMakeFiles/cmTC_eb730.dir/CMakeCCompilerABI.c.obj /MANIFEST:EMBED /implib:cmTC_eb730.lib "/pdb:E:\\\\_prog\\\\C++\\\\Engine\\\\SimpleWorldBuilder\\\\SimpleWorldBuilder\\\\build\\\\CMakeFiles\\\\CMakeScratch\\\\TryCompile-b865sj\\\\cmTC_eb730.pdb" /version:0.0
-        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-b865sj'
+         "C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\bin\\\\lld-link" -out:cmTC_343ad.exe "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\lib\\\\x64" "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\atlmfc\\\\lib\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\ucrt\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\um\\\\x64" "-libpath:C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\lib\\\\clang\\\\19\\\\lib\\\\windows" -nologo -debug /subsystem:console CMakeFiles/cmTC_343ad.dir/CMakeCCompilerABI.c.obj /MANIFEST:EMBED /implib:cmTC_343ad.lib "/pdb:E:\\\\_prog\\\\C++\\\\Engine\\\\SimpleWorldBuilder\\\\SimpleWorldBuilder\\\\build\\\\CMakeFiles\\\\CMakeScratch\\\\TryCompile-gact4c\\\\cmTC_343ad.pdb" /version:0.0
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-gact4c'
         
       exitCode: 0
   -
@@ -188,8 +188,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18"
-      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18"
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-rwb96t"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-rwb96t"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
       CMAKE_CXX_FLAGS: ""
@@ -200,22 +200,22 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18'
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-rwb96t'
         
-        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_82e9a/fast
-        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_82e9a.dir\\build.make CMakeFiles/cmTC_82e9a.dir/build
-        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18'
-        Building CXX object CMakeFiles/cmTC_82e9a.dir/CMakeCXXCompilerABI.cpp.obj
-        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_82e9a.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_82e9a.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles\\cmTC_82e9a.dir\\CMakeCXXCompilerABI.cpp.obj -c C:\\cmake-3.31.0-rc2-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp
-        Linking CXX executable cmTC_82e9a.exe
-        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_82e9a.dir\\link.txt --verbose=1
-        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview  -v -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_82e9a.dir\\objects1.rsp -o cmTC_82e9a.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_82e9a.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-bbhh18\\cmTC_82e9a.pdb -Xlinker /version:0.0 
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_2cf98/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_2cf98.dir\\build.make CMakeFiles/cmTC_2cf98.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-rwb96t'
+        Building CXX object CMakeFiles/cmTC_2cf98.dir/CMakeCXXCompilerABI.cpp.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_2cf98.dir/CMakeCXXCompilerABI.cpp.obj -MF CMakeFiles\\cmTC_2cf98.dir\\CMakeCXXCompilerABI.cpp.obj.d -o CMakeFiles\\cmTC_2cf98.dir\\CMakeCXXCompilerABI.cpp.obj -c C:\\cmake-3.31.0-rc2-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp
+        Linking CXX executable cmTC_2cf98.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_2cf98.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview  -v -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_2cf98.dir\\objects1.rsp -o cmTC_2cf98.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_2cf98.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-rwb96t\\cmTC_2cf98.pdb -Xlinker /version:0.0 
         clang version 19.1.5
         Target: x86_64-pc-windows-msvc
         Thread model: posix
         InstalledDir: C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin
-         "C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\bin\\\\lld-link" -out:cmTC_82e9a.exe "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\lib\\\\x64" "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\atlmfc\\\\lib\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\ucrt\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\um\\\\x64" "-libpath:C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\lib\\\\clang\\\\19\\\\lib\\\\windows" -nologo -debug /subsystem:console CMakeFiles/cmTC_82e9a.dir/CMakeCXXCompilerABI.cpp.obj /MANIFEST:EMBED /implib:cmTC_82e9a.lib "/pdb:E:\\\\_prog\\\\C++\\\\Engine\\\\SimpleWorldBuilder\\\\SimpleWorldBuilder\\\\build\\\\CMakeFiles\\\\CMakeScratch\\\\TryCompile-bbhh18\\\\cmTC_82e9a.pdb" /version:0.0
-        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-bbhh18'
+         "C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\bin\\\\lld-link" -out:cmTC_2cf98.exe "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\lib\\\\x64" "-libpath:C:\\\\Program Files\\\\Microsoft Visual Studio\\\\2022\\\\Community\\\\VC\\\\Tools\\\\MSVC\\\\14.42.34433\\\\atlmfc\\\\lib\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\ucrt\\\\x64" "-libpath:C:\\\\Program Files (x86)\\\\Windows Kits\\\\10\\\\Lib\\\\10.0.22621.0\\\\um\\\\x64" "-libpath:C:\\\\LLVM_clang\\\\clang+llvm-19.1.5-x86_64\\\\lib\\\\clang\\\\19\\\\lib\\\\windows" -nologo -debug /subsystem:console CMakeFiles/cmTC_2cf98.dir/CMakeCXXCompilerABI.cpp.obj /MANIFEST:EMBED /implib:cmTC_2cf98.lib "/pdb:E:\\\\_prog\\\\C++\\\\Engine\\\\SimpleWorldBuilder\\\\SimpleWorldBuilder\\\\build\\\\CMakeFiles\\\\CMakeScratch\\\\TryCompile-rwb96t\\\\cmTC_2cf98.pdb" /version:0.0
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-rwb96t'
         
       exitCode: 0
   -
@@ -279,8 +279,8 @@ events:
     checks:
       - "Detecting CXX compile features"
     directories:
-      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4"
-      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4"
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-jg38lt"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-jg38lt"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
       CMAKE_CXX_FLAGS: ""
@@ -290,17 +290,17 @@ events:
       variable: "CMAKE_CXX_FEATURE_TEST"
       cached: true
       stdout: |
-        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4'
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-jg38lt'
         
-        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_c328d/fast
-        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_c328d.dir\\build.make CMakeFiles/cmTC_c328d.dir/build
-        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4'
-        Building CXX object CMakeFiles/cmTC_c328d.dir/feature_tests.cxx.obj
-        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview   -std=c++14 -MD -MT CMakeFiles/cmTC_c328d.dir/feature_tests.cxx.obj -MF CMakeFiles\\cmTC_c328d.dir\\feature_tests.cxx.obj.d -o CMakeFiles\\cmTC_c328d.dir\\feature_tests.cxx.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m8wfi4\\feature_tests.cxx
-        Linking CXX executable cmTC_c328d.exe
-        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_c328d.dir\\link.txt --verbose=1
-        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_c328d.dir\\objects1.rsp -o cmTC_c328d.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_c328d.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-m8wfi4\\cmTC_c328d.pdb -Xlinker /version:0.0  @CMakeFiles\\cmTC_c328d.dir\\linkLibs.rsp
-        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-m8wfi4'
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_13726/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_13726.dir\\build.make CMakeFiles/cmTC_13726.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-jg38lt'
+        Building CXX object CMakeFiles/cmTC_13726.dir/feature_tests.cxx.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview   -std=c++14 -MD -MT CMakeFiles/cmTC_13726.dir/feature_tests.cxx.obj -MF CMakeFiles\\cmTC_13726.dir\\feature_tests.cxx.obj.d -o CMakeFiles\\cmTC_13726.dir\\feature_tests.cxx.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jg38lt\\feature_tests.cxx
+        Linking CXX executable cmTC_13726.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_13726.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_13726.dir\\objects1.rsp -o cmTC_13726.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_13726.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-jg38lt\\cmTC_13726.pdb -Xlinker /version:0.0  @CMakeFiles\\cmTC_13726.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-jg38lt'
         
       exitCode: 0
   -
@@ -315,8 +315,8 @@ events:
     checks:
       - "Detecting CXX compile features"
     directories:
-      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e"
-      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e"
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-d3009u"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-d3009u"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
       CMAKE_CXX_FLAGS: ""
@@ -326,17 +326,175 @@ events:
       variable: "CMAKE_CXX_FEATURE_TEST"
       cached: true
       stdout: |
-        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e'
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-d3009u'
         
-        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_35d02/fast
-        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_35d02.dir\\build.make CMakeFiles/cmTC_35d02.dir/build
-        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e'
-        Building CXX object CMakeFiles/cmTC_35d02.dir/feature_tests.cxx.obj
-        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview   -std=c++14 -MD -MT CMakeFiles/cmTC_35d02.dir/feature_tests.cxx.obj -MF CMakeFiles\\cmTC_35d02.dir\\feature_tests.cxx.obj.d -o CMakeFiles\\cmTC_35d02.dir\\feature_tests.cxx.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-52564e\\feature_tests.cxx
-        Linking CXX executable cmTC_35d02.exe
-        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_35d02.dir\\link.txt --verbose=1
-        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_35d02.dir\\objects1.rsp -o cmTC_35d02.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_35d02.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-52564e\\cmTC_35d02.pdb -Xlinker /version:0.0  @CMakeFiles\\cmTC_35d02.dir\\linkLibs.rsp
-        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-52564e'
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_143be/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_143be.dir\\build.make CMakeFiles/cmTC_143be.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-d3009u'
+        Building CXX object CMakeFiles/cmTC_143be.dir/feature_tests.cxx.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview   -std=c++14 -MD -MT CMakeFiles/cmTC_143be.dir/feature_tests.cxx.obj -MF CMakeFiles\\cmTC_143be.dir\\feature_tests.cxx.obj.d -o CMakeFiles\\cmTC_143be.dir\\feature_tests.cxx.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d3009u\\feature_tests.cxx
+        Linking CXX executable cmTC_143be.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_143be.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang++.exe -nostartfiles -nostdlib -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_143be.dir\\objects1.rsp -o cmTC_143be.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_143be.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d3009u\\cmTC_143be.pdb -Xlinker /version:0.0  @CMakeFiles\\cmTC_143be.dir\\linkLibs.rsp
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-d3009u'
         
       exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/Internal/CheckSourceCompiles.cmake:108 (try_compile)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "WorldBuilder/vendors/GLFW/glfw/CMakeLists.txt:52 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-yrmhum"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-yrmhum"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/vendors/GLFW/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-yrmhum'
+        
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_f56e3/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_f56e3.dir\\build.make CMakeFiles/cmTC_f56e3.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-yrmhum'
+        Building C object CMakeFiles/cmTC_f56e3.dir/src.c.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe -DCMAKE_HAVE_LIBC_PTHREAD  -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_f56e3.dir/src.c.obj -MF CMakeFiles\\cmTC_f56e3.dir\\src.c.obj.d -o CMakeFiles\\cmTC_f56e3.dir\\src.c.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yrmhum\\src.c
+        E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yrmhum\\src.c:1:10: fatal error: 'pthread.h' file not found
+            1 | #include <pthread.h>
+              |          ^~~~~~~~~~~
+        1 error generated.
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_f56e3.dir\\build.make:81: CMakeFiles/cmTC_f56e3.dir/src.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-yrmhum'
+        mingw32-make: *** [Makefile:132: cmTC_f56e3/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CheckLibraryExists.cmake:78 (try_compile)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "WorldBuilder/vendors/GLFW/glfw/CMakeLists.txt:52 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-q51ewf"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-q51ewf"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/vendors/GLFW/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-q51ewf'
+        
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_27f2b/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_27f2b.dir\\build.make CMakeFiles/cmTC_27f2b.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-q51ewf'
+        Building C object CMakeFiles/cmTC_27f2b.dir/CheckFunctionExists.c.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe   -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_27f2b.dir/CheckFunctionExists.c.obj -MF CMakeFiles\\cmTC_27f2b.dir\\CheckFunctionExists.c.obj.d -o CMakeFiles\\cmTC_27f2b.dir\\CheckFunctionExists.c.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-q51ewf\\CheckFunctionExists.c
+        Linking C executable cmTC_27f2b.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_27f2b.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe -nostartfiles -nostdlib  -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_27f2b.dir\\objects1.rsp -o cmTC_27f2b.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_27f2b.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-q51ewf\\cmTC_27f2b.pdb -Xlinker /version:0.0  @CMakeFiles\\cmTC_27f2b.dir\\linkLibs.rsp
+        lld-link: error: could not open 'pthreads.lib': no such file or directory
+        clang: error: linker command failed with exit code 1 (use -v to see invocation)
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_27f2b.dir\\build.make:104: cmTC_27f2b.exe] Error 1
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-q51ewf'
+        mingw32-make: *** [Makefile:132: cmTC_27f2b/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/CheckLibraryExists.cmake:78 (try_compile)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "WorldBuilder/vendors/GLFW/glfw/CMakeLists.txt:52 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-ofsa98"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-ofsa98"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/vendors/GLFW/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-ofsa98'
+        
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_d09a2/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_d09a2.dir\\build.make CMakeFiles/cmTC_d09a2.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-ofsa98'
+        Building C object CMakeFiles/cmTC_d09a2.dir/CheckFunctionExists.c.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe   -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_d09a2.dir/CheckFunctionExists.c.obj -MF CMakeFiles\\cmTC_d09a2.dir\\CheckFunctionExists.c.obj.d -o CMakeFiles\\cmTC_d09a2.dir\\CheckFunctionExists.c.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ofsa98\\CheckFunctionExists.c
+        Linking C executable cmTC_d09a2.exe
+        C:\\cmake-3.31.0-rc2-windows-x86_64\\bin\\cmake.exe -E cmake_link_script CMakeFiles\\cmTC_d09a2.dir\\link.txt --verbose=1
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe -nostartfiles -nostdlib  -DCHECK_FUNCTION_EXISTS=pthread_create -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -Xlinker /subsystem:console -fuse-ld=lld-link @CMakeFiles\\cmTC_d09a2.dir\\objects1.rsp -o cmTC_d09a2.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:cmTC_d09a2.lib -Xlinker /pdb:E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ofsa98\\cmTC_d09a2.pdb -Xlinker /version:0.0  @CMakeFiles\\cmTC_d09a2.dir\\linkLibs.rsp
+        lld-link: error: could not open 'pthread.lib': no such file or directory
+        clang: error: linker command failed with exit code 1 (use -v to see invocation)
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_d09a2.dir\\build.make:104: cmTC_d09a2.exe] Error 1
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-ofsa98'
+        mingw32-make: *** [Makefile:132: cmTC_d09a2/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/FindThreads.cmake:136 (try_compile)"
+      - "C:/cmake-3.31.0-rc2-windows-x86_64/share/cmake-3.31/Modules/FindThreads.cmake:179 (_threads_check_flag_pthread)"
+      - "WorldBuilder/vendors/GLFW/glfw/CMakeLists.txt:52 (find_package)"
+    checks:
+      - "Check if compiler accepts -pthread"
+    directories:
+      source: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-xrdiif"
+      binary: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-xrdiif"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "C:/LLVM_clang/clang+llvm-19.1.5-x86_64/bin/clang-scan-deps.exe"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-O0"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/vendors/GLFW/glfw/CMake/modules"
+    buildResult:
+      variable: "THREADS_HAVE_PTHREAD_ARG"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-xrdiif'
+        
+        Run Build Command(s): C:/cmake-3.31.0-rc2-windows-x86_64/bin/cmake.exe -E env VERBOSE=1 C:/MinGW/bin/mingw32-make.exe -f Makefile cmTC_e2bc0/fast
+        C:/MinGW/bin/mingw32-make.exe  -f CMakeFiles\\cmTC_e2bc0.dir\\build.make CMakeFiles/cmTC_e2bc0.dir/build
+        mingw32-make[1]: Entering directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-xrdiif'
+        Building C object CMakeFiles/cmTC_e2bc0.dir/CheckForPthreads.c.obj
+        C:\\LLVM_clang\\clang+llvm-19.1.5-x86_64\\bin\\clang.exe   -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -MD -MT CMakeFiles/cmTC_e2bc0.dir/CheckForPthreads.c.obj -MF CMakeFiles\\cmTC_e2bc0.dir\\CheckForPthreads.c.obj.d -o CMakeFiles\\cmTC_e2bc0.dir\\CheckForPthreads.c.obj -c E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xrdiif\\CheckForPthreads.c
+        E:\\_prog\\C++\\Engine\\SimpleWorldBuilder\\SimpleWorldBuilder\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xrdiif\\CheckForPthreads.c:1:10: fatal error: 'pthread.h' file not found
+            1 | #include <pthread.h>
+              |          ^~~~~~~~~~~
+        1 error generated.
+        mingw32-make[1]: *** [CMakeFiles\\cmTC_e2bc0.dir\\build.make:81: CMakeFiles/cmTC_e2bc0.dir/CheckForPthreads.c.obj] Error 1
+        mingw32-make[1]: Leaving directory 'E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/build/CMakeFiles/CMakeScratch/TryCompile-xrdiif'
+        mingw32-make: *** [Makefile:132: cmTC_e2bc0/fast] Error 2
+        
+      exitCode: 2
 ...

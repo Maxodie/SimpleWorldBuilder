@@ -86,26 +86,11 @@ CMakeFiles/WorldBuilder.dir/WorldBuilder/src/EntryPoint.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldBuilder.dir/WorldBuilder/src/EntryPoint.cpp.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
 
-CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj: CMakeFiles/WorldBuilder.dir/flags.make
-CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj: CMakeFiles/WorldBuilder.dir/includes_CXX.rsp
-CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj: E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/Log/Log.cpp
-CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj: CMakeFiles/WorldBuilder.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj"
-	C:\LLVM_clang\clang+llvm-19.1.5-x86_64\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj -MF CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\Log\Log.cpp.obj.d -o CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\Log\Log.cpp.obj -c E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\WorldBuilder\src\Core\Log\Log.cpp
-
-CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
-
 CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj: CMakeFiles/WorldBuilder.dir/flags.make
 CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj: CMakeFiles/WorldBuilder.dir/includes_CXX.rsp
 CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj: E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/Application.cpp
 CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj: CMakeFiles/WorldBuilder.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj"
 	C:\LLVM_clang\clang+llvm-19.1.5-x86_64\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj -MF CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\Application.cpp.obj.d -o CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\Application.cpp.obj -c E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\WorldBuilder\src\Core\Application.cpp
 
 CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.i: cmake_force
@@ -116,23 +101,74 @@ CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
 
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj: CMakeFiles/WorldBuilder.dir/flags.make
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj: CMakeFiles/WorldBuilder.dir/includes_CXX.rsp
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj: E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/LayerStack.cpp
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj: CMakeFiles/WorldBuilder.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj"
+	C:\LLVM_clang\clang+llvm-19.1.5-x86_64\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj -MF CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\LayerStack.cpp.obj.d -o CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\LayerStack.cpp.obj -c E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\WorldBuilder\src\Core\LayerStack.cpp
+
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj: CMakeFiles/WorldBuilder.dir/flags.make
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj: CMakeFiles/WorldBuilder.dir/includes_CXX.rsp
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj: E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/Log/Log.cpp
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj: CMakeFiles/WorldBuilder.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj"
+	C:\LLVM_clang\clang+llvm-19.1.5-x86_64\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj -MF CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\Log\Log.cpp.obj.d -o CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\Log\Log.cpp.obj -c E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\WorldBuilder\src\Core\Log\Log.cpp
+
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj: CMakeFiles/WorldBuilder.dir/flags.make
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj: CMakeFiles/WorldBuilder.dir/includes_CXX.rsp
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj: E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/WorldBuilder/src/Core/Event/Event.cpp
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj: CMakeFiles/WorldBuilder.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj"
+	C:\LLVM_clang\clang+llvm-19.1.5-x86_64\bin\clang++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj -MF CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\Event\Event.cpp.obj.d -o CMakeFiles\WorldBuilder.dir\WorldBuilder\src\Core\Event\Event.cpp.obj -c E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\WorldBuilder\src\Core\Event\Event.cpp
+
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CXX_CREATE_ASSEMBLY_SOURCE
+
 # Object files for target WorldBuilder
 WorldBuilder_OBJECTS = \
 "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/EntryPoint.cpp.obj" \
+"CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj" \
+"CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj" \
 "CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj" \
-"CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj"
+"CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj"
 
 # External object files for target WorldBuilder
 WorldBuilder_EXTERNAL_OBJECTS =
 
 E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/WorldBuilder/src/EntryPoint.cpp.obj
-E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj
 E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Application.cpp.obj
+E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/LayerStack.cpp.obj
+E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Log/Log.cpp.obj
+E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/WorldBuilder/src/Core/Event/Event.cpp.obj
 E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/build.make
+E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: WorldBuilder/vendors/GLFW/glfw/src/glfw3.lib
+E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/glad.lib
 E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/linkLibs.rsp
 E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/objects1.rsp
 E:/_prog/C++/Engine/SimpleWorldBuilder/SimpleWorldBuilder/bin/Windows/WorldBuilder.exe: CMakeFiles/WorldBuilder.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\bin\Windows\WorldBuilder.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\bin\Windows\WorldBuilder.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\WorldBuilder.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

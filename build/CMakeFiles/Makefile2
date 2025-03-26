@@ -63,33 +63,103 @@ CMAKE_BINARY_DIR = E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\bui
 
 # The main recursive "all" target.
 all: CMakeFiles/WorldBuilder.dir/all
+all: CMakeFiles/glad.dir/all
+all: WorldBuilder/vendors/GLFW/glfw/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/WorldBuilder.dir/codegen
+codegen: CMakeFiles/glad.dir/codegen
+codegen: WorldBuilder/vendors/GLFW/glfw/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: WorldBuilder/vendors/GLFW/glfw/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/WorldBuilder.dir/clean
+clean: CMakeFiles/glad.dir/clean
+clean: WorldBuilder/vendors/GLFW/glfw/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory WorldBuilder/vendors/GLFW/glfw
+
+# Recursive "all" directory target.
+WorldBuilder/vendors/GLFW/glfw/all: WorldBuilder/vendors/GLFW/glfw/src/all
+WorldBuilder/vendors/GLFW/glfw/all: WorldBuilder/vendors/GLFW/glfw/docs/all
+.PHONY : WorldBuilder/vendors/GLFW/glfw/all
+
+# Recursive "codegen" directory target.
+WorldBuilder/vendors/GLFW/glfw/codegen: WorldBuilder/vendors/GLFW/glfw/src/codegen
+WorldBuilder/vendors/GLFW/glfw/codegen: WorldBuilder/vendors/GLFW/glfw/docs/codegen
+.PHONY : WorldBuilder/vendors/GLFW/glfw/codegen
+
+# Recursive "preinstall" directory target.
+WorldBuilder/vendors/GLFW/glfw/preinstall: WorldBuilder/vendors/GLFW/glfw/src/preinstall
+WorldBuilder/vendors/GLFW/glfw/preinstall: WorldBuilder/vendors/GLFW/glfw/docs/preinstall
+.PHONY : WorldBuilder/vendors/GLFW/glfw/preinstall
+
+# Recursive "clean" directory target.
+WorldBuilder/vendors/GLFW/glfw/clean: WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/clean
+WorldBuilder/vendors/GLFW/glfw/clean: WorldBuilder/vendors/GLFW/glfw/src/clean
+WorldBuilder/vendors/GLFW/glfw/clean: WorldBuilder/vendors/GLFW/glfw/docs/clean
+.PHONY : WorldBuilder/vendors/GLFW/glfw/clean
+
+#=============================================================================
+# Directory level rules for directory WorldBuilder/vendors/GLFW/glfw/docs
+
+# Recursive "all" directory target.
+WorldBuilder/vendors/GLFW/glfw/docs/all:
+.PHONY : WorldBuilder/vendors/GLFW/glfw/docs/all
+
+# Recursive "codegen" directory target.
+WorldBuilder/vendors/GLFW/glfw/docs/codegen:
+.PHONY : WorldBuilder/vendors/GLFW/glfw/docs/codegen
+
+# Recursive "preinstall" directory target.
+WorldBuilder/vendors/GLFW/glfw/docs/preinstall:
+.PHONY : WorldBuilder/vendors/GLFW/glfw/docs/preinstall
+
+# Recursive "clean" directory target.
+WorldBuilder/vendors/GLFW/glfw/docs/clean:
+.PHONY : WorldBuilder/vendors/GLFW/glfw/docs/clean
+
+#=============================================================================
+# Directory level rules for directory WorldBuilder/vendors/GLFW/glfw/src
+
+# Recursive "all" directory target.
+WorldBuilder/vendors/GLFW/glfw/src/all: WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/all
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/all
+
+# Recursive "codegen" directory target.
+WorldBuilder/vendors/GLFW/glfw/src/codegen: WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/codegen
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/codegen
+
+# Recursive "preinstall" directory target.
+WorldBuilder/vendors/GLFW/glfw/src/preinstall:
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/preinstall
+
+# Recursive "clean" directory target.
+WorldBuilder/vendors/GLFW/glfw/src/clean: WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/clean
+WorldBuilder/vendors/GLFW/glfw/src/clean: WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/clean
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/WorldBuilder.dir
 
 # All Build rule for target.
-CMakeFiles/WorldBuilder.dir/all:
+CMakeFiles/WorldBuilder.dir/all: CMakeFiles/glad.dir/all
+CMakeFiles/WorldBuilder.dir/all: WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=1,2,3,4 "Built target WorldBuilder"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Built target WorldBuilder"
 .PHONY : CMakeFiles/WorldBuilder.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/WorldBuilder.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 30
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/WorldBuilder.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 0
 .PHONY : CMakeFiles/WorldBuilder.dir/rule
@@ -107,6 +177,130 @@ CMakeFiles/WorldBuilder.dir/codegen:
 CMakeFiles/WorldBuilder.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\WorldBuilder.dir\build.make CMakeFiles/WorldBuilder.dir/clean
 .PHONY : CMakeFiles/WorldBuilder.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/glad.dir
+
+# All Build rule for target.
+CMakeFiles/glad.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=7,8 "Built target glad"
+.PHONY : CMakeFiles/glad.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/glad.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/glad.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 0
+.PHONY : CMakeFiles/glad.dir/rule
+
+# Convenience name for target.
+glad: CMakeFiles/glad.dir/rule
+.PHONY : glad
+
+# codegen rule for target.
+CMakeFiles/glad.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/codegen
+.PHONY : CMakeFiles/glad.dir/codegen
+
+# clean rule for target.
+CMakeFiles/glad.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/clean
+.PHONY : CMakeFiles/glad.dir/clean
+
+#=============================================================================
+# Target rules for target WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir
+
+# All Build rule for target.
+WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/all:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\CMakeFiles\uninstall.dir\build.make WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/depend
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\CMakeFiles\uninstall.dir\build.make WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num= "Built target uninstall"
+.PHONY : WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/all
+
+# Build rule for subdir invocation for target.
+WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 0
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 0
+.PHONY : WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/rule
+
+# Convenience name for target.
+uninstall: WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/rule
+.PHONY : uninstall
+
+# codegen rule for target.
+WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\CMakeFiles\uninstall.dir\build.make WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/codegen
+.PHONY : WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/codegen
+
+# clean rule for target.
+WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/clean:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\CMakeFiles\uninstall.dir\build.make WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/clean
+.PHONY : WorldBuilder/vendors/GLFW/glfw/CMakeFiles/uninstall.dir/clean
+
+#=============================================================================
+# Target rules for target WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir
+
+# All Build rule for target.
+WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/all:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\glfw.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/depend
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\glfw.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30 "Built target glfw"
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/all
+
+# Build rule for subdir invocation for target.
+WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 22
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 0
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/rule
+
+# Convenience name for target.
+glfw: WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/rule
+.PHONY : glfw
+
+# codegen rule for target.
+WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\glfw.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/codegen
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/codegen
+
+# clean rule for target.
+WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/clean:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\glfw.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/clean
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/glfw.dir/clean
+
+#=============================================================================
+# Target rules for target WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir
+
+# All Build rule for target.
+WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/all:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\update_mappings.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/depend
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\update_mappings.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles --progress-num=31 "Built target update_mappings"
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/all
+
+# Build rule for subdir invocation for target.
+WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\build\CMakeFiles 0
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/rule
+
+# Convenience name for target.
+update_mappings: WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/rule
+.PHONY : update_mappings
+
+# codegen rule for target.
+WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\update_mappings.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/codegen
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/codegen
+
+# clean rule for target.
+WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/clean:
+	$(MAKE) $(MAKESILENT) -f WorldBuilder\vendors\GLFW\glfw\src\CMakeFiles\update_mappings.dir\build.make WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/clean
+.PHONY : WorldBuilder/vendors/GLFW/glfw/src/CMakeFiles/update_mappings.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
