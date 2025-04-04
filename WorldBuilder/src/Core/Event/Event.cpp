@@ -1,6 +1,7 @@
 #include "Core/Event/Event.hpp"
+#include "Core/Log/Log.hpp"
 
-namespace WB::Event
+namespace WB
 {
 
 EventDispatcher::~EventDispatcher()
@@ -17,11 +18,14 @@ void EventDispatcher::PollEvent()
     for(auto& [_, registryPtr] : m_registry)
     {
         auto registry = CastRegistry<char>(registryPtr);
-        for(auto& listener : registry->Listeners)
+        while(!registry->Queue.empty())
         {
-            listener.CallbackFuns(registry->Queue.front());
+            for(auto& listener : registry->Listeners)
+            {
+                listener.CallbackFuns(registry->Queue.front());
+            }
+            registry->Queue.pop();
         }
-        registry->Queue.pop();
     }
 
     ProcessTasks();

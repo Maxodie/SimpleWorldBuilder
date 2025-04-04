@@ -27,5 +27,8 @@ set(BIN_OUTPUT_DIR "/bin/${CMAKE_SYSTEM_NAME}")
 set(OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}${BIN_OUTPUT_DIR}")
 
 include(WorldBuilder/SimpleWorldBuilder.cmake)
+include(WorldBuilderEditor/WorldBuilderEditor.cmake)
 include(WorldBuilder/vendors/GLFW/GLFW.cmake)
 include(WorldBuilder/vendors/glad/glad.cmake)
+include(WorldBuilder/vendors/glm/glm.cmake)
+include(WorldBuilder/vendors/assimp/assimp.cmake)

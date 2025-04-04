@@ -17,7 +17,7 @@ void Logger::LoggerGetTime()
     m_time = std::localtime(&m_currentTime);
 }
 
-void Logger::PrefixLog(const char* prefix, Log::LogLevel level)
+void Logger::PrefixLog(const char* const prefix, Log::LogLevel level)
 {
     LoggerGetTime();
 

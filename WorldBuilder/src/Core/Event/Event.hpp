@@ -1,7 +1,7 @@
 #pragma once
 #include "Core/Core.hpp"
 
-namespace WB::Event
+namespace WB
 {
 
 using EventID = TypeID;
@@ -18,10 +18,14 @@ struct Task
     std::function<void()> Fun;
 };
 
-template<typename Event>
+struct Event
+{
+};
+
+template<typename TEvent>
 struct EventListener
 {
-    using CallbackFun = std::function<void(const Event&)>;
+    using CallbackFun = std::function<void(const TEvent&)>;
 
     EventListener(EventID id, CallbackFun callbackFun)
         : ID(id), CallbackFuns(callbackFun)
@@ -33,11 +37,11 @@ struct EventListener
     CallbackFun CallbackFuns;
 };
 
-template<typename Event>
+template<typename TEvent>
 struct EventRegistry
 {
-    std::queue<Event> Queue;
-    std::vector<EventListener<Event>> Listeners;
+    std::queue<TEvent> Queue;
+    std::vector<EventListener<TEvent>> Listeners;
 };
 
 class EventDispatcher
@@ -47,24 +51,36 @@ public:
 
     void PollEvent();
 
-    template<typename Event, typename ... TArgs>
+    template<typename TEvent, typename ... TArgs>
     void PostEvent(TArgs&&... args)
     {
-        auto& registry = GetRegistry<Event>();
-        registry.Queue.queue((std::forward<TArgs>(args), ...));
+        auto& registry = GetRegistry<TEvent>();
+
+        if(!registry.Listeners.empty())
+        {
+            registry.Queue.emplace(std::forward<TArgs>(args)...);
+            m_eventCallback(registry.Queue.front());
+        }
+        else
+        {
+            m_eventCallback(std::forward<TArgs>(args)...);
+        }
+
     }
 
-    template<typename Event, typename Callback>
+    template<typename TEvent, typename Callback>
     void PostCallback(Callback&& callback, EventID id)
     {
-        auto& registry = GetRegistry<Event>();
-        registry.Listeners.emplace_back(id, callback);
+        auto listener = EventListener<TEvent>(id, std::move(callback));
+
+        auto& registry = GetRegistry<TEvent>();
+        registry.Listeners.push_back(std::move(listener));
     }
 
-    template<typename Event>
+    template<typename TEvent>
     void EraseCallback(EventID id)
     {
-        auto& registry = GetRegistry<Event>();
+        auto& registry = GetRegistry<TEvent>();
         registry.Listeners.erase(std::remove_if(
             [id](auto item)
             {
@@ -73,12 +89,12 @@ public:
         ));
     }
 
-    template<typename Event>
+    template<typename TEvent>
     void EraseListner(EventID id)
     {
         for(auto& [_, registry] : m_registry)
         {
-            CastRegistry<Event>(registry)->Listeners.erase(std::remove_if(
+            CastRegistry<TEvent>(registry)->Listeners.erase(std::remove_if(
                 [id](auto item)
                 {
                     return item->ID == id;
@@ -93,32 +109,39 @@ public:
         m_tasks.emplace((std::forward<TArgs>(args), ...));
     }
 
+    template<typename Callback>
+    void SetOnEventCallback(Callback&& callback)
+    {
+        m_eventCallback = std::move(callback);
+    }
+
 private:
     void ProcessTasks();
 
-    template<typename Event>
-    EventRegistry<Event>* CastRegistry(void* ptr)
+    template<typename TEvent>
+    EventRegistry<TEvent>* CastRegistry(void* ptr)
     {
-        return static_cast<EventRegistry<Event>*>(ptr);
+        return static_cast<EventRegistry<TEvent>*>(ptr);
     }
 
-    template<typename Event>
-    EventRegistry<Event>& GetRegistry()
+    template<typename TEvent>
+    EventRegistry<TEvent>& GetRegistry()
     {
-        const auto registry = m_registry.find(GetTypeID<Event>());
+        const auto registry = m_registry.find(GetTypeID<TEvent>());
         if(registry != m_registry.end())
         {
-            return *registry;
+            return *CastRegistry<TEvent>(registry->second);
         }
 
-        auto newRegistry = new EventRegistry<Event>();
-        m_registry[GetTypeID<Event>()] = newRegistry;
-        return newRegistry;
+        const auto newRegistry = new EventRegistry<TEvent>();
+        m_registry[GetTypeID<TEvent>()] = newRegistry;
+        return *newRegistry;
     }
 
 private:
     std::queue<Task> m_tasks;
     std::unordered_map<EventID, void*> m_registry;
+    std::function<void(Event&)> m_eventCallback;
 };
 
 

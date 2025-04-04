@@ -30,7 +30,7 @@ class Logger
 {
 public:
     template<typename ... TArgs>
-    void LoggerLog(const char* prefix, Log::LogLevel level, const char* fmt, TArgs&&... args)
+    void LoggerLog(const char* const prefix, Log::LogLevel level, const char* const fmt, TArgs&&... args)
     {
         PrefixLog(prefix, level);
         LogMessage(level, fmt, args...);
@@ -39,7 +39,7 @@ public:
     }
 
     template<typename ... TArgs>
-    void ContextLoggerLog(const char* prefix, Log::LogLevel level, const char* functionCtx, const char* fileCtx, uint32_t lineCtx, const char* fmt, TArgs&&... args)
+    void ContextLoggerLog(const char* const prefix, Log::LogLevel level, const char* const functionCtx, const char* fileCtx, uint32_t lineCtx, const char* const fmt, TArgs&&... args)
     {
         PrefixLog(prefix, level);
 
@@ -50,7 +50,7 @@ public:
     }
 
     template<typename ... TArgs>
-    void LogMessage(Log::LogLevel level, const char* fmt, TArgs&&... args)
+    void LogMessage(Log::LogLevel level, const char* const fmt, TArgs&&... args)
     {
         switch (level)
         {
@@ -67,7 +67,7 @@ public:
 
 private:
     void LoggerGetTime();
-    void PrefixLog(const char* prefix, Log::LogLevel level);
+    void PrefixLog(const char* const prefix, Log::LogLevel level);
     void SuffixLog();
 
 private:
