@@ -22,10 +22,12 @@ void Application::Start()
     CreateWindow({.name = "WorldBuilder", .w = 800, .h = 640});
     Renderer::Init();
 
-    m_windows.front()->SetOnEventCallback(WB_BIND_FUN(Application::OnEvent));
-    m_windows.front()->PostCallback<WindowCloseEvent>(WB_BIND_FUN(Application::OnApplicationCloseEvent), GetTypeID<Application>());
-    m_windows.front()->PostCallback<WindowResizeEvent>(WB_BIND_FUN(Application::OnApplicationResizeEvent), GetTypeID<Application>());
+    m_windows.front()->SetOnEventCallback(WB_BIND_FUN1(Application::OnEvent));
+    m_windows.front()->PostCallback<WindowCloseEvent>(WB_BIND_FUN1(Application::OnApplicationCloseEvent), GetTypeID<Application>());
+    m_windows.front()->PostCallback<WindowResizeEvent>(WB_BIND_FUN1(Application::OnApplicationResizeEvent), GetTypeID<Application>());
+
     RenderCommand::SetViewport(0, 0, 800, 640);
+    RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f);
 }
 
 void Application::Run()
@@ -33,8 +35,7 @@ void Application::Run()
     std::vector<Layer*>& layers = m_layerStack.GetLayers();
     while(m_isRunning)
     {
-        HandleEvents();
-        RenderCommand::Clear(0.1f, 0.1f, 0.1f);
+        RenderCommand::Clear();
 
         for(auto& layer : layers)
         {
@@ -48,8 +49,8 @@ void Application::Run()
             layer->UpdateGUI();
         }
 
-
         HandleSwapBuffers();
+        HandleEvents();
     }
 }
 
@@ -99,7 +100,7 @@ void Application::OnEvent(Event& event)
 
 void Application::OnApplicationCloseEvent(const WindowCloseEvent& event)
 {
-    Close();
+    PostTask(WB_BIND_FUN0(Application::Close));
 }
 
 void Application::OnApplicationResizeEvent(const WindowResizeEvent& event)

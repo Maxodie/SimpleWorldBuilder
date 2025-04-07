@@ -26,15 +26,15 @@ public:
     void CreateWindow(const Window::WindowCreateData& windowData = Window::WindowCreateData());
 
     template<typename TLayer, typename... TArgs>
-    void AddLayer(TArgs&&... args)
+    WB_INLINE void AddLayer(TArgs&&... args)
     {
         m_layerStack.AddLayer<TLayer>(std::forward<TArgs>(args)...);
     }
 
     template<typename TLayer>
-    void RemoveLayer()
+    WB_INLINE void RemoveLayer()
     {
-        m_layerStack.RemoveLayer<TLayer>();
+        PostTask(WB_BIND_FUN0(m_layerStack.RemoveLayer<TLayer>()));
     }
 
 private:

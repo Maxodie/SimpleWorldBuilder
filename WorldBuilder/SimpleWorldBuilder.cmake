@@ -9,6 +9,8 @@ add_library(WorldBuilder
         WorldBuilder/src/Core/LayerStack.hpp
             WorldBuilder/src/Core/Log/Log.cpp
             WorldBuilder/src/Core/Log/Log.hpp
+            WorldBuilder/src/Core/Utils/FileSystem.cpp
+            WorldBuilder/src/Core/Utils/FileSystem.hpp
             WorldBuilder/src/Core/Event/Event.cpp
             WorldBuilder/src/Core/Event/Event.hpp
             WorldBuilder/src/Core/Window/Window.cpp
@@ -23,18 +25,26 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Renderer/GraphicsContext.hpp
             WorldBuilder/src/Core/Renderer/RenderCommand.cpp
             WorldBuilder/src/Core/Renderer/RenderCommand.hpp
-            WorldBuilder/src/Core/Renderer/VertexBuffer.cpp
-            WorldBuilder/src/Core/Renderer/VertexBuffer.hpp
+            WorldBuilder/src/Core/Renderer/Buffer.cpp
+            WorldBuilder/src/Core/Renderer/Buffer.hpp
+            WorldBuilder/src/Core/Renderer/Shader.cpp
+            WorldBuilder/src/Core/Renderer/Shader.hpp
+            WorldBuilder/src/Core/Renderer/ShaderProgram.cpp
+            WorldBuilder/src/Core/Renderer/ShaderProgram.hpp
 
         WorldBuilder/src/Platform/Window/GLFW/GLFWWindow.cpp
         WorldBuilder/src/Platform/Window/GLFW/GLFWWindow.hpp
 
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglRendererAPI.cpp
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglRendererAPI.hpp
-        WorldBuilder/src/Platform/Renderer/Opengl/OpenglVertexBuffer.cpp
-        WorldBuilder/src/Platform/Renderer/Opengl/OpenglVertexBuffer.hpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglBuffer.cpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglBuffer.hpp
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglGLFWGraphicsContext.cpp
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglGLFWGraphicsContext.hpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglShader.cpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglShader.hpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglShaderProgram.cpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglShaderProgram.hpp
 )
 
 target_link_libraries(WorldBuilder PRIVATE

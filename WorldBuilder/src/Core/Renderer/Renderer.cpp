@@ -7,6 +7,8 @@ namespace WB
 
 void Renderer::Init()
 {
+
+
     Renderer3D::Init();
 
     CORE_LOG_SUCCESS("Renderer has been initialized");

@@ -24,7 +24,8 @@ void WB_GLFWWindow::Init(const WindowCreateData& windowData)
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    m_graphicsContext = GraphicsContext::CreateContext();//need to create the context before calling glfwCreateWindow
 
     m_window = glfwCreateWindow(windowData.w, windowData.h, windowData.name.c_str(), nullptr, nullptr);
     if(!m_window)
@@ -34,7 +35,6 @@ void WB_GLFWWindow::Init(const WindowCreateData& windowData)
 
     glfwMakeContextCurrent(m_window);
 
-    m_graphicsContext = GraphicsContext::CreateContext();
     m_graphicsContext->InitGraphicsContext();
 
     glfwSetWindowUserPointer(m_window, this);

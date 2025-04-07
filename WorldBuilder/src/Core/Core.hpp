@@ -10,6 +10,8 @@
 #include <time.h>
 #include <array>
 #include <cstdint>
+#include <fstream>
+#include <filesystem>
 #include <vector>
 #include <queue>
 #include <memory>
@@ -18,6 +20,7 @@
 #include <assert.h>
 
 #include "Core/Log/Log.hpp"
+#include "Core/Utils/FileSystem.hpp"
 
 #ifdef WB_ASSERT
 #   define WB_CORE_ASSERT(exp, msg)\
@@ -41,7 +44,9 @@ if(!(exp))\
 #define WB_INLINE inline
 
 #define WB_DELETE(ptr) if(!(ptr)) {} else {delete(ptr);}
-#define WB_BIND_FUN(fun) std::bind(&fun, this, std::placeholders::_1)
+#define WB_BIND_FUN0(fun) std::bind(&fun, this)
+#define WB_BIND_FUN1(fun) std::bind(&fun, this, std::placeholders::_1)
+#define WB_BIND_FUN2(fun) std::bind(&fun, this, std::placeholders::_1, std::placeholders::_2)
 
 using TypeID = uintptr_t;
 

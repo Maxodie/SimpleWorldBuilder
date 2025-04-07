@@ -13,11 +13,6 @@ enum class EventType
     WINDOW,
 };
 
-struct Task
-{
-    std::function<void()> Fun;
-};
-
 struct Event
 {
 };
@@ -103,10 +98,10 @@ public:
         }
     }
 
-    template<typename ... TArgs>
-    void PostTask(TArgs&&... args)
+    template<typename TTask>
+    void PostTask(TTask&& task)
     {
-        m_tasks.emplace((std::forward<TArgs>(args), ...));
+        m_tasks.push(std::move(task));
     }
 
     template<typename Callback>
@@ -139,7 +134,7 @@ private:
     }
 
 private:
-    std::queue<Task> m_tasks;
+    std::queue<std::function<void()>> m_tasks;
     std::unordered_map<EventID, void*> m_registry;
     std::function<void(Event&)> m_eventCallback;
 };

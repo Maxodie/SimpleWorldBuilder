@@ -35,7 +35,7 @@ void EventDispatcher::ProcessTasks()
 {
     while(!m_tasks.empty())
     {
-        m_tasks.front().Fun();
+        m_tasks.front()();
         m_tasks.pop();
     }
 }

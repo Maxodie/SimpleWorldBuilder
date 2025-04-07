@@ -1,6 +1,8 @@
 #include "Core/Core.hpp"
 #include "Core/Log/Log.hpp"
 
+#include "Core/Utils/FileSystem.hpp"
+
 #include "Core/Application.hpp"
 #include "Core/LayerStack.hpp"
 

@@ -8,6 +8,9 @@ struct Vertex3D;
 template<typename TVertex>
 class VertexBuffer;
 
+template<typename TIndex>
+class IndexBuffer;
+
 class RendererAPI
 {
 public:
@@ -24,8 +27,9 @@ public:
     virtual ~RendererAPI() = default;
 
     virtual void SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) = 0;
-    virtual void Draw(SharedPtr<VertexBuffer<Vertex3D>>& vertexBuffer) = 0;
-    virtual void Clear(float r, float g, float b) = 0;
+    virtual void Draw(SharedPtr<VertexBuffer<Vertex3D>>& vertexBuffer, SharedPtr<IndexBuffer<uint32_t>>& indexBuffer) = 0;
+    virtual void SetClearColor(float r, float g, float b) = 0;
+    virtual void Clear() = 0;
 
     static UniquePtr<RendererAPI> CreateRendererAPI(API api);
 
