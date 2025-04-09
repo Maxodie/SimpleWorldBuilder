@@ -19,9 +19,9 @@ bool Shader::LoadShader(ShaderType shaderType, const char* shaderPath)
         CORE_LOG_ERROR("failed to load shader data with path : %s", shaderPath);
     }
 
-    CreateShaderData();
+    CORE_LOG_SUCCESS("Shader %s has been loaded", shaderPath);
 
-    return true;
+    return CreateShaderData();
 }
 
 bool Shader::UnLoadShader()

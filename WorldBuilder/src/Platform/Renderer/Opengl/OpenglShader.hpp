@@ -16,7 +16,7 @@ public:
     }
 
 private:
-    virtual void CreateShaderData();
+    virtual bool CreateShaderData();
     virtual void DestroyShaderData();
 
 private:

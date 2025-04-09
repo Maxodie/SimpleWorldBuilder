@@ -1,5 +1,6 @@
 #include "Core/Renderer/Renderer3D.hpp"
 #include "Core/Renderer/RenderCommand.hpp"
+#include "Core/Renderer/Shader.hpp"
 #include "Core/Renderer/ShaderProgram.hpp"
 
 namespace WB
@@ -9,8 +10,20 @@ Renderer3D::RenderData Renderer3D::m_renderData {};
 
 void Renderer3D::Init()
 {
+    m_renderData.VertexArray = VertexArrayBuffer<Vertex3D>::Create();
+
     m_renderData.VertexBuffer = VertexBuffer<Vertex3D>::Create(m_renderData.MaxQuad);
     m_renderData.IndexBuffer = IndexBuffer<uint32_t>::Create(m_renderData.MaxIndex);
+
+    m_renderData.VertexBuffer->SetLayout(
+        {
+            {"aColor", ShaderElementType::Float4},
+            {"aPos", ShaderElementType::Float3},
+            {"aScale", ShaderElementType::Float3}
+        }
+    );
+
+    m_renderData.VertexArray->AddVertexBuffer(m_renderData.VertexBuffer);
 
     //SHADERS
     m_renderData.VertexShader = Shader::Create();
@@ -46,7 +59,7 @@ void Renderer3D::EndScene()
     Flush();
 }
 
-void Renderer3D::DrawModel(Model& model)
+void Renderer3D::DrawModel(const Model& model, const TransformComponent& transform)
 {
     if(m_renderData.MaxQuad - m_renderData.VertexBuffer->GetCount() < model.m_verticies.size())
     {
@@ -54,12 +67,12 @@ void Renderer3D::DrawModel(Model& model)
     }
 
 
-    for(auto& vertex : model.m_verticies)
+    for(const auto& vertex : model.m_verticies)
     {
         m_renderData.VertexBuffer->AddValue(vertex);
     }
 
-    for(auto& index : model.m_indices)
+    for(const auto& index : model.m_indices)
     {
         m_renderData.IndexBuffer->AddValue(index);
     }
@@ -69,7 +82,7 @@ void Renderer3D::Flush()
 {
     m_renderData.ShaderProgram->BindProgram();
 
-    RenderCommand::Draw(m_renderData.VertexBuffer, m_renderData.IndexBuffer);
+    RenderCommand::Draw(m_renderData.VertexArray, m_renderData.IndexBuffer);
     m_renderData.VertexBuffer->ResetBuffer();
     m_renderData.IndexBuffer->ResetBuffer();
 }

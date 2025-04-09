@@ -6,7 +6,7 @@ namespace WB
 
 struct Vertex3D;
 template<typename TVertex>
-class VertexBuffer;
+class VertexArrayBuffer;
 
 template<typename TIndex>
 class IndexBuffer;
@@ -27,7 +27,7 @@ public:
     virtual ~RendererAPI() = default;
 
     virtual void SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) = 0;
-    virtual void Draw(SharedPtr<VertexBuffer<Vertex3D>>& vertexBuffer, SharedPtr<IndexBuffer<uint32_t>>& indexBuffer) = 0;
+    virtual void Draw(SharedPtr<VertexArrayBuffer<Vertex3D>>& vertexArray, SharedPtr<IndexBuffer<uint32_t>>& indexBuffer) = 0;
     virtual void SetClearColor(float r, float g, float b) = 0;
     virtual void Clear() = 0;
 

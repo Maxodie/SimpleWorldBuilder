@@ -11,19 +11,15 @@ template<typename TVertex>
 OpenglVertexBuffer<TVertex>::OpenglVertexBuffer(size_t startBufferCount)
     : VertexBuffer<TVertex>(startBufferCount)
 {
-    glGenVertexArrays(1, &m_vertexArrayID);
-    glBindVertexArray(m_vertexArrayID);
-
     glGenBuffers(1, &m_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, startBufferCount * sizeof(TVertex), Buffer<TVertex>::GetValues(), GL_STATIC_DRAW);
 }
 
 template<typename TVertex>
-void OpenglVertexBuffer<TVertex>::BindBuffer()
+OpenglVertexBuffer<TVertex>::~OpenglVertexBuffer()
 {
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, Buffer<TVertex>::GetCount() * sizeof(TVertex), Buffer<TVertex>::GetValues());
+    glDeleteBuffers(1, &m_vertexBuffer);
 }
 
 template class OpenglVertexBuffer<Vertex3D>;
@@ -38,11 +34,10 @@ OpenglIndexBuffer<TIndex>::OpenglIndexBuffer(size_t startBufferCount)
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, startBufferCount * sizeof(TIndex), Buffer<TIndex>::GetValues(), GL_STATIC_DRAW);
 }
 
-template<typename TIndex>
-void OpenglIndexBuffer<TIndex>::BindBuffer()
+template<typename TVertex>
+OpenglIndexBuffer<TVertex>::~OpenglIndexBuffer()
 {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, Buffer<TIndex>::GetCount() * sizeof(TIndex), Buffer<TIndex>::GetValues());
+    glDeleteBuffers(1, &m_indexBuffer);
 }
 
 template class OpenglIndexBuffer<uint32_t>;

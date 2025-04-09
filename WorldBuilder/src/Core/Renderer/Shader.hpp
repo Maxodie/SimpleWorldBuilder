@@ -25,7 +25,7 @@ public:
     static SharedPtr<Shader> Create();
 
 private:
-    virtual void CreateShaderData() = 0;
+    virtual bool CreateShaderData() = 0;
     virtual void DestroyShaderData() = 0;
 
 protected:

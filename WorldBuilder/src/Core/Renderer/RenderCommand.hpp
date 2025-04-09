@@ -25,7 +25,7 @@ public:
         s_api->SetViewport(x, y, w, h);
     }
 
-    WB_INLINE static void Draw(SharedPtr<VertexBuffer<Vertex3D>>& vertexBuffer, SharedPtr<IndexBuffer<uint32_t>>& indexBuffer)
+    WB_INLINE static void Draw(SharedPtr<VertexArrayBuffer<Vertex3D>>& vertexBuffer, SharedPtr<IndexBuffer<uint32_t>>& indexBuffer)
     {
         s_api->Draw(vertexBuffer, indexBuffer);
     }

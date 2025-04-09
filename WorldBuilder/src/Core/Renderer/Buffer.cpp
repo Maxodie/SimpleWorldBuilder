@@ -20,7 +20,7 @@ Buffer<TVertex>::~Buffer()
 }
 
 template<typename TVertex>
-void Buffer<TVertex>::AddValue(TVertex& value)
+void Buffer<TVertex>::AddValue(const TVertex& value)
 {
     m_values[m_valuesCount] = value;
     m_valuesCount++;

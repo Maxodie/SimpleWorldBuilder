@@ -30,12 +30,13 @@ bool OpenglShader::CompileShader()
     return true;
 }
 
-void OpenglShader::CreateShaderData()
+bool OpenglShader::CreateShaderData()
 {
     switch (m_shaderType)
     {
         case ShaderType::NONE:
             CORE_LOG_ERROR("failed to create shader. Please load it before compiling it");
+            return false;
         break;
         case ShaderType::VERTEX:
             m_openglShaderType = GL_VERTEX_SHADER;
@@ -45,12 +46,15 @@ void OpenglShader::CreateShaderData()
         break;
         default:
             CORE_LOG_ERROR("failed to create shader %d. Please load it before compiling it", m_shaderID);
+            return false;
         break;
     }
 
     m_shaderID = glCreateShader(m_openglShaderType);
 
     CORE_LOG_SUCCESS("Shader has been created");
+
+    return true;
 }
 
 void OpenglShader::DestroyShaderData()

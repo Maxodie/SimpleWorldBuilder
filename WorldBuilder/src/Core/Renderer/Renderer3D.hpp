@@ -2,6 +2,8 @@
 #include "Core/Renderer/Buffer.hpp"
 #include "Core/Renderer/Model.hpp"
 #include "Core/Renderer/ShaderProgram.hpp"
+#include "Core/ECS/EcsComponent.hpp"
+#include "Core/Renderer/Vertex.hpp"
 
 namespace WB
 {
@@ -17,6 +19,7 @@ public:
         SharedPtr<IndexBuffer<uint32_t>> IndexBuffer;
 
         SharedPtr<ShaderProgram> ShaderProgram;
+        SharedPtr<VertexArrayBuffer<Vertex3D>> VertexArray;
         SharedPtr<Shader> VertexShader;
         SharedPtr<Shader> FragmentShader;
     };
@@ -28,7 +31,7 @@ public:
     static void BeginScene();
     static void EndScene();
 
-    static void DrawModel(Model& model);
+    static void DrawModel(const Model& model,const TransformComponent& transform);
     static void Flush();
 
 private:

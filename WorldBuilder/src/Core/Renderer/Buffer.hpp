@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Core.hpp"
+#include "Core/Renderer/Vertex.hpp"
 
 namespace WB
 {
@@ -13,8 +14,9 @@ public:
 
     virtual ~Buffer();
 
-    void AddValue(TValue& vertex);
-    virtual void BindBuffer() = 0;
+    void AddValue(const TValue& vertex);
+    WB_INLINE virtual void BindBuffer() = 0;
+    WB_INLINE virtual void UpdateData() = 0;
 
     [[nodiscard]] WB_INLINE constexpr size_t GetCount() const noexcept
     {
@@ -40,9 +42,20 @@ public:
     VertexBuffer() = delete;
     VertexBuffer(size_t startBufferCount);
 
-    virtual void BindBuffer() = 0;
+    WB_INLINE virtual void BindBuffer() = 0;
+    WB_INLINE virtual void UpdateData() = 0;
+
+    WB_INLINE void SetLayout(const BufferLayout&& bufferLayout)
+    {
+        m_layout = std::move(bufferLayout);
+    }
+
+    WB_INLINE BufferLayout& GetLayout() { return m_layout; }
 
     static SharedPtr<VertexBuffer<TVertex>> Create(size_t bufferSize);
+
+private:
+    BufferLayout m_layout;
 };
 
 template <typename TIndex>
@@ -52,7 +65,8 @@ public:
     IndexBuffer() = delete;
     IndexBuffer(size_t startBufferCount);
 
-    virtual void BindBuffer() = 0;
+    WB_INLINE virtual void BindBuffer() = 0;
+    WB_INLINE virtual void UpdateData() = 0;
 
     static SharedPtr<IndexBuffer<TIndex>> Create(size_t bufferSize);
 };

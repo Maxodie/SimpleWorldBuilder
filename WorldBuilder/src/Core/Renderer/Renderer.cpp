@@ -1,5 +1,4 @@
 #include "Core/Renderer/Renderer.hpp"
-#include "Core/Renderer/RenderCommand.hpp"
 #include "Core/Renderer/Renderer3D.hpp"
 
 namespace WB
@@ -7,8 +6,6 @@ namespace WB
 
 void Renderer::Init()
 {
-
-
     Renderer3D::Init();
 
     CORE_LOG_SUCCESS("Renderer has been initialized");
