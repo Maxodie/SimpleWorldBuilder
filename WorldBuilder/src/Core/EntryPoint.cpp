@@ -4,7 +4,7 @@ extern void OnAppStarted(WB::Application& app);
 
 int main()
 {
-    WB::Application app;
+    WB::Application& app = WB::Application::Create();
 
     app.Start();
     OnAppStarted(app);

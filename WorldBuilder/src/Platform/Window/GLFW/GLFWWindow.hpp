@@ -1,5 +1,4 @@
 #pragma once
-#include "Core/Event/Event.hpp"
 #include "Core/Window/Window.hpp"
 #include "Core/Renderer/GraphicsContext.hpp"
 

@@ -28,6 +28,7 @@ void WB_GLFWWindow::Init(const WindowCreateData& windowData)
     m_graphicsContext = GraphicsContext::CreateContext();//need to create the context before calling glfwCreateWindow
 
     m_window = glfwCreateWindow(windowData.w, windowData.h, windowData.name.c_str(), nullptr, nullptr);
+    m_native = m_window;
     if(!m_window)
     {
         WB_CORE_ASSERT(false, "cannot create window");

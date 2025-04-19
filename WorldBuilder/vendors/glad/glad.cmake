@@ -7,7 +7,7 @@ add_library(glad
 
 target_compile_options(glad PRIVATE
     -std=c17
-    -o2
+    -o3
 )
 
 set_target_properties(glad PROPERTIES

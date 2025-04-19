@@ -1,4 +1,5 @@
 #include "Platform/Renderer/Opengl/OpenglShaderProgram.hpp"
+#include "Core/Log/Log.hpp"
 #include <glad/glad.h>
 
 namespace WB

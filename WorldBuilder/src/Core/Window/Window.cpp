@@ -12,13 +12,13 @@ Window::Window(WindowData&& windowData)
 {
 }
 
-UniquePtr<Window> Window::CreateWindow(const WindowCreateData& windowData)
+SharedPtr<Window> Window::CreateWindow(const WindowCreateData& windowData)
 {
     switch (GetAPI())
     {
         case Window::API::GLFW:
             CORE_LOG_SUCCESS("Window API creation...");
-            return MakeUnique<WB_GLFWWindow>(windowData);
+            return MakeShared<WB_GLFWWindow>(windowData);
         break;
 
         case Window::API::None:

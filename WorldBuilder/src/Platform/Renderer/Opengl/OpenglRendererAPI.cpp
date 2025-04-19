@@ -27,6 +27,7 @@ void OpenglRendererAPI::Draw(SharedPtr<VertexArrayBuffer<Vertex3D>>& vertexArray
     indexBuffer->UpdateData();
 
     glDrawElements(GL_TRIANGLES, indexBuffer->GetCount(), GL_UNSIGNED_INT, (void*)0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void OpenglRendererAPI::SetClearColor(float r, float g, float b)

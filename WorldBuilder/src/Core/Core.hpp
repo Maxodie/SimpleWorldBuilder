@@ -16,6 +16,7 @@
 #include <queue>
 #include <memory>
 #include <unordered_map>
+#include <map>
 #include <functional>
 #include <assert.h>
 
@@ -47,6 +48,9 @@ if(!(exp))\
 #define WB_BIND_FUN0(fun) std::bind(&fun, this)
 #define WB_BIND_FUN1(fun) std::bind(&fun, this, std::placeholders::_1)
 #define WB_BIND_FUN2(fun) std::bind(&fun, this, std::placeholders::_1, std::placeholders::_2)
+#define WB_BIND_FUN3(fun) std::bind(&fun, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
+#define WB_BIND_FUN4(fun) std::bind(&fun, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)
+#define WB_BIND_FUN5(fun) std::bind(&fun, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5)
 
 using TypeID = uintptr_t;
 

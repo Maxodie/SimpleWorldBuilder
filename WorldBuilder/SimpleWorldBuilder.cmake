@@ -15,6 +15,9 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Event/Event.hpp
             WorldBuilder/src/Core/Window/Window.cpp
             WorldBuilder/src/Core/Window/Window.hpp
+            WorldBuilder/src/Core/Input/Input.cpp
+            WorldBuilder/src/Core/Input/Input.hpp
+            WorldBuilder/src/Core/Input/Keycode.hpp
             WorldBuilder/src/Core/ECS/EcsComponent.hpp
             WorldBuilder/src/Core/Commons/Camera.cpp
             WorldBuilder/src/Core/Commons/Camera.hpp
@@ -34,11 +37,17 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Renderer/Shader.hpp
             WorldBuilder/src/Core/Renderer/Vertex.cpp
             WorldBuilder/src/Core/Renderer/Vertex.hpp
+            WorldBuilder/src/Core/Renderer/Model.cpp
+            WorldBuilder/src/Core/Renderer/Model.hpp
             WorldBuilder/src/Core/Renderer/ShaderProgram.cpp
             WorldBuilder/src/Core/Renderer/ShaderProgram.hpp
+            WorldBuilder/src/Core/Renderer/FrameBuffer.cpp
+            WorldBuilder/src/Core/Renderer/FrameBuffer.hpp
 
         WorldBuilder/src/Platform/Window/GLFW/GLFWWindow.cpp
         WorldBuilder/src/Platform/Window/GLFW/GLFWWindow.hpp
+        WorldBuilder/src/Platform/Window/GLFW/GLFWInput.cpp
+        WorldBuilder/src/Platform/Window/GLFW/GLFWInput.hpp
 
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglRendererAPI.cpp
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglRendererAPI.hpp
@@ -52,6 +61,8 @@ add_library(WorldBuilder
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglShaderProgram.hpp
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglVertexArrayBuffer.cpp
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglVertexArrayBuffer.hpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglFrameBuffer.cpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglFrameBuffer.hpp
 )
 
 target_link_libraries(WorldBuilder PRIVATE
@@ -78,9 +89,4 @@ set_target_properties(WorldBuilder PROPERTIES
 target_compile_definitions(WorldBuilder PRIVATE
     WB_LOGGER
     WB_ASSERT
-)
-
-target_compile_options(WorldBuilder PRIVATE
-    -std=c++23
-    -g
 )

@@ -1,3 +1,4 @@
+#include "Core/Log/Log.hpp"
 #include "WorldBuilder.hpp"
 
 class EditorLayer : public WB::Layer
@@ -6,9 +7,23 @@ public:
 
     virtual void Update() override
     {
-        WB::Renderer3D::BeginScene();
+        /*frameBuffer->Bind();*/
+
+        WB::RenderCommand::Clear();
+
+        WB::Renderer3D::BeginScene(cam);
+
+        tr.Rotate({0.001f, 0.001f, 0.0f});
+        tr.UpdateModelMatrix();
+        if (tr.GetRotation().y > 360.0f)
+        {
+            tr.SetRotation(glm::vec3(0.0f));
+        }
+
         WB::Renderer3D::DrawModel(*model, tr);
         WB::Renderer3D::EndScene();
+
+        /*frameBuffer->Unbind();*/
     }
 
     virtual void UpdateGUI() override
@@ -19,34 +34,42 @@ public:
     virtual void OnAttach() override
     {
         CLIENT_LOG_DEBUG("Editor attached");
-        WB::Model newMod{
-                .m_indices = {
-                    0, 2, 3, 0, 3, 1,
-                    2, 6, 7, 2, 7, 3,
-                    6, 4, 5, 6, 5, 7,
-                    4, 0, 1, 4, 1, 5,
-                    0, 4, 6, 0, 6, 2,
-                    1, 5, 7, 1, 7, 3,
-                }
-            };
-        newMod.m_verticies.emplace_back(glm::vec4(0.2f, 0.5f, 0.8f, 1.0f), glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f) );
-        newMod.m_verticies.emplace_back(glm::vec4(0.3f, 0.5f, 0.7f, 1.0f), glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f) );
-        newMod.m_verticies.emplace_back(glm::vec4(0.4f, 0.5f, 0.6f, 1.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f) );
-        newMod.m_verticies.emplace_back(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f), glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f) );
+        WB::Model newMod;
+        newMod.Load("WorldBuilderEditor/assets/monkey.fbx");
 
-        newMod.m_verticies.emplace_back(glm::vec4(0.4f, 0.5f, 0.5f, 1.0f), glm::vec3(-0.5f, 0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f) );
-        newMod.m_verticies.emplace_back(glm::vec4(0.3f, 0.5f, 0.6f, 1.0f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f) );
-        newMod.m_verticies.emplace_back(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f), glm::vec3(0.5f, 0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f) );
-        newMod.m_verticies.emplace_back(glm::vec4(0.1f, 0.5f, 0.8f, 1.0f), glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(1.0f, 1.0f, 1.0f) );
+        tr.SetScale({0.2f, 0.2f, 0.2f});
+        tr.SetPosition({0.0f, 0.0f, 0.8f});
 
         model = WB::MakeShared<WB::Model>(newMod);
+
+        cam.UpdateViewProjectionMatrix(80.f, 800.0f/640.0f, 0.1f, 100.f);
+        /*frameBuffer = WB::FrameBuffer::Create();*/
+        /*frameBuffer->Resize(800.0f, 640.0f);*/
+
+        inputTable.BindInput(Keycode::WB_KEY_S, InputState::REPEATED, WB_BIND_FUN0(EditorLayer::OnCamForwardPressed));
+        inputTable.BindInput(Keycode::WB_KEY_S, InputState::RELEASED, WB_BIND_FUN0(EditorLayer::OnCamForwardReleased));
+        WB::Input::SetInputTable(inputTable);
     }
 
     virtual void OnDettach() override {CLIENT_LOG_DEBUG("Editor Detached");}
 
 private:
+    void OnCamForwardPressed()
+    {
+        CLIENT_LOG_DEBUG("Forward presssed");
+    }
+
+    void OnCamForwardReleased()
+    {
+        CLIENT_LOG_DEBUG("Forward released");
+    }
+
+private:
     WB::SharedPtr<WB::Model> model;
     WB::TransformComponent tr;
+    WB::Camera cam;
+    /*WB::SharedPtr<WB::FrameBuffer> frameBuffer;*/
+    WB::InputTable inputTable;
 };
 
 extern void OnAppStarted(WB::Application &app)

@@ -1,2 +1,2 @@
-cmake -G "MinGW Makefiles" -S ./ -B ./build
+cmake -G "MinGW Makefiles" --preset=debug
 mingw32-make -C ./build

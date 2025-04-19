@@ -1,4 +1,5 @@
 #include "Core/Renderer/Renderer3D.hpp"
+#include "Core/Log/Log.hpp"
 #include "Core/Renderer/RenderCommand.hpp"
 #include "Core/Renderer/Shader.hpp"
 #include "Core/Renderer/ShaderProgram.hpp"
@@ -19,7 +20,7 @@ void Renderer3D::Init()
         {
             {"aColor", ShaderElementType::Float4},
             {"aPos", ShaderElementType::Float3},
-            {"aScale", ShaderElementType::Float3}
+            {"aTexCoords", ShaderElementType::Float2},
         }
     );
 
@@ -49,9 +50,11 @@ void Renderer3D::Shutdown()
     CORE_LOG_SUCCESS("Renderer3D has been shutted down");
 }
 
-void Renderer3D::BeginScene()
+void Renderer3D::BeginScene(const Camera& camera)
 {
-
+    //post cam uniform in shader
+    m_renderData.ShaderProgram->SetMat4("uViewMatrix", camera.GetViewMatrix());
+    m_renderData.ShaderProgram->SetMat4("uProjectionMatrix", camera.GetProjectionMatrix());
 }
 
 void Renderer3D::EndScene()
@@ -61,20 +64,25 @@ void Renderer3D::EndScene()
 
 void Renderer3D::DrawModel(const Model& model, const TransformComponent& transform)
 {
-    if(m_renderData.MaxQuad - m_renderData.VertexBuffer->GetCount() < model.m_verticies.size())
-    {
-        Flush();
-    }
+    m_renderData.ShaderProgram->SetMat4("uModelMat", transform.GetModelMatrix());
 
-
-    for(const auto& vertex : model.m_verticies)
+    for(const auto& mesh : model.Meshes)
     {
-        m_renderData.VertexBuffer->AddValue(vertex);
-    }
+        if(m_renderData.MaxQuad - m_renderData.VertexBuffer->GetCount() < mesh.m_vertices.size() ||
+        m_renderData.MaxIndex - m_renderData.IndexBuffer->GetCount() < mesh.m_indices.size())
+        {
+            Flush();
+        }
 
-    for(const auto& index : model.m_indices)
-    {
-        m_renderData.IndexBuffer->AddValue(index);
+        for(const auto& vertex : mesh.m_vertices)
+        {
+            m_renderData.VertexBuffer->AddValue(vertex);
+        }
+
+        for(const auto& index : mesh.m_indices)
+        {
+            m_renderData.IndexBuffer->AddValue(index);
+        }
     }
 }
 

@@ -23,8 +23,3 @@ target_compile_definitions(WorldBuilderEditor PRIVATE
     WB_LOGGER
     WB_ASSERT
 )
-
-target_compile_options(WorldBuilderEditor PRIVATE
-    -std=c++23
-    -g
-)

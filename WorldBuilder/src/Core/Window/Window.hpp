@@ -36,9 +36,14 @@ public:
     virtual void PollWindowEvents();
     virtual void SwapBuffers() = 0;
 
-    static UniquePtr<Window> CreateWindow(const WindowCreateData& windowData);
+    static SharedPtr<Window> CreateWindow(const WindowCreateData& windowData);
+
+    WB_INLINE void* GetNative() { return m_native; }
 
     inline static API GetAPI() { return s_api; }
+
+protected:
+    void* m_native;
 
 private:
     static API s_api;

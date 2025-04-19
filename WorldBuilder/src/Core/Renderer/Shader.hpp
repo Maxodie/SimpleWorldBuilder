@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Core.hpp"
+#include <glm/glm.hpp>
 
 namespace WB
 {
