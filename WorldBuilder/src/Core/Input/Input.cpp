@@ -8,7 +8,7 @@ namespace WB
 
 SharedPtr<Input> Input::s_instance = nullptr;
 const InputTable* Input::m_currentInputTable = nullptr;
-std::vector<InputCallback> Input::s_anyInputCallbacks;
+std::vector<InputCallback> Input::s_anyPressedInputCallbacks;
 
 void InputTable::BindInput(Keycode keycode, InputState state, const InputCallback&& callback)
 {
@@ -17,12 +17,15 @@ void InputTable::BindInput(Keycode keycode, InputState state, const InputCallbac
         case InputState::PRESSED:
             BindedPressedInputs[keycode].emplace_back(std::move(callback));
         break;
+
         case InputState::REPEATED:
             BindedRepeatedInputs[keycode].emplace_back(std::move(callback));
-            break;
+        break;
+
         case InputState::RELEASED:
             BindedReleasedInputs[keycode].emplace_back(std::move(callback));
         break;
+
         default:
             CORE_LOG_ERROR("Unknown input state %d", state);
         break;
@@ -36,9 +39,11 @@ SharedPtr<Input> Input::Create()
         case Window::API::GLFW:
             return s_instance = MakeShared<GLFWInput>();
         break;
+
         case Window::API::None:
             CORE_LOG_ERROR("window api %d is None", Window::GetAPI());
         break;
+
         default:
             CORE_LOG_ERROR("Unknown window api %d", Window::GetAPI());
         break;

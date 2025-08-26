@@ -62,6 +62,8 @@ if(!(exp))\
 #define WB_BIND_OTHER_FUN4(fun, instance) std::bind(&fun, instance, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)
 #define WB_BIND_OTHER_FUN5(fun, instance) std::bind(&fun, instance, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5)
 
+#define BIT(x) 1 << x
+
 using TypeID = uintptr_t;
 
 template<typename T>

@@ -21,16 +21,18 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Commons/Scene.hpp
             WorldBuilder/src/Core/Commons/Timestep.cpp
             WorldBuilder/src/Core/Commons/Timestep.hpp
+            WorldBuilder/src/Core/Editor/CommandLineBarLayer.cpp
+            WorldBuilder/src/Core/Editor/CommandLineBarLayer.hpp
             WorldBuilder/src/Core/Editor/ImGuiAdditionals.cpp
             WorldBuilder/src/Core/Editor/ImGuiAdditionals.hpp
             WorldBuilder/src/Core/Editor/ImGuiLayer.cpp
             WorldBuilder/src/Core/Editor/ImGuiLayer.hpp
             WorldBuilder/src/Core/Editor/MainMenuBarLayer.cpp
             WorldBuilder/src/Core/Editor/MainMenuBarLayer.hpp
+            WorldBuilder/src/Core/Editor/EditorShortcutInputManager.hpp
+            WorldBuilder/src/Core/Editor/EditorShortcutInputManager.cpp
             WorldBuilder/src/Core/Editor/ViewportLayer.cpp
             WorldBuilder/src/Core/Editor/ViewportLayer.hpp
-            WorldBuilder/src/Core/Editor/CommandLineBarLayer.cpp
-            WorldBuilder/src/Core/Editor/CommandLineBarLayer.hpp
             WorldBuilder/src/Core/ECS/EcsComponent.hpp
             WorldBuilder/src/Core/Event/Event.cpp
             WorldBuilder/src/Core/Event/Event.hpp

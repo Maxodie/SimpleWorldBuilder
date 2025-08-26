@@ -1,9 +1,10 @@
 #include "Platform/Window/GLFW/GLFWInput.hpp"
 #include <GLFW/glfw3.h>
+#include "Core/Core.hpp"
+#include "Core/Log/Log.hpp"
 
 namespace WB
 {
-
 
 void GLFWInput::BindWindow(const SharedPtr<Window> window)
 {
@@ -13,9 +14,12 @@ void GLFWInput::BindWindow(const SharedPtr<Window> window)
 void GLFWInput::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     Keycode wbKey = static_cast<Keycode>(key);
-    for(const auto& callback : s_anyInputCallbacks)
+    CORE_LOG_DEBUG("%d", mods);
+    for(const auto& callback : s_anyPressedInputCallbacks)
     {
-        callback(wbKey);
+        if (action == GLFW_PRESS) {
+            callback(wbKey);
+        }
     }
 
     if(!m_currentInputTable)
@@ -33,16 +37,8 @@ void GLFWInput::KeyCallback(GLFWwindow* window, int key, int scancode, int actio
                     callback(wbKey);
                 }
             }
-
-            if(m_currentInputTable->BindedRepeatedInputs.find(wbKey) != m_currentInputTable->BindedRepeatedInputs.end())
-            {
-                for(const InputCallback& callback : m_currentInputTable->BindedRepeatedInputs.at(static_cast<Keycode>(key)))
-                {
-                    callback(static_cast<Keycode>(key));
-
-                }
-            }
         break;
+
         case GLFW_REPEAT:
             if(m_currentInputTable->BindedRepeatedInputs.find(wbKey) != m_currentInputTable->BindedRepeatedInputs.end())
             {
@@ -52,6 +48,7 @@ void GLFWInput::KeyCallback(GLFWwindow* window, int key, int scancode, int actio
                 }
             }
         break;
+
         case GLFW_RELEASE:
             if(m_currentInputTable->BindedReleasedInputs.find(wbKey) != m_currentInputTable->BindedReleasedInputs.end())
             {

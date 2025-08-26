@@ -38,14 +38,14 @@ public:
 
     static WB_INLINE void AddAnyInputCallback(const InputCallback&& callback)
     {
-        s_anyInputCallbacks.emplace_back(std::move(callback));
+        s_anyPressedInputCallbacks.emplace_back(std::move(callback));
     }
 
     static SharedPtr<Input> Create();
 
 protected:
     static const InputTable* m_currentInputTable;
-    static std::vector<InputCallback> s_anyInputCallbacks;
+    static std::vector<InputCallback> s_anyPressedInputCallbacks;
 
 private:
     static SharedPtr<Input> s_instance;

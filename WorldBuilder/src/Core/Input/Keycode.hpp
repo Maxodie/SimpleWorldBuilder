@@ -1,6 +1,8 @@
 #pragma once
 
-enum class Keycode
+#include "Core/Core.hpp"
+
+enum class Keycode : int
 {
     WB_KEY_SPACE = 32,
     WB_KEY_APOSTROPH = 39,  /* ' */
@@ -127,3 +129,11 @@ enum class Keycode
 
 };
 
+enum class Modifier : int {
+    WB_MOD_SHIFT = BIT(0),
+    WB_MOD_CONTROL = BIT(1),
+    WB_MOD_ALT = BIT(2),
+    WB_MOD_SUPER = BIT(3),
+    WB_MOD_CAPS_LOCK = BIT(4),
+    WB_MOD_NUM_LOCK = BIT(5)
+};

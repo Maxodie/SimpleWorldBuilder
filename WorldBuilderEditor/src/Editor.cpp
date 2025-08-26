@@ -1,3 +1,4 @@
+#include "Core/Log/Log.hpp"
 #include "WorldBuilder.hpp"
 #include "WorldBuilderEditor.hpp"
 
@@ -76,6 +77,9 @@ public:
         m_sceneData.transforms.push_back(&camTr);
         m_sceneData.transforms.push_back(&tr);
         scene.SetData(m_sceneData);
+
+        //Shortcuts, duh
+        m_shortcutManger.BindShortcut(WB_BIND_FUN0(EditorLayer::CommandLineShortcut), WB::Shortcut::Semicolon);
     }
 
     virtual void OnDetach() override
@@ -104,6 +108,9 @@ private:
             result = min;
         }
         return result;
+    }
+    void CommandLineShortcut() {
+        CLIENT_LOG_DEBUG("caca");
     }
 
     void InitImGUI()
@@ -162,6 +169,8 @@ private:
     WB::SceneData m_sceneData;
 
     SharedPtr<WB::Project> project;
+
+    WB::EditorShortcutInputManager m_shortcutManger;
 };
 
 extern void OnAppStarted(WB::Application &app)
