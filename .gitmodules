@@ -7,3 +7,13 @@
 [submodule "WorldBuilder/vendors/assimp/assimp"]
 	path = WorldBuilder/vendors/assimp/assimp
 	url = https://github.com/assimp/assimp/
+[submodule "WorldBuilder/vendors/entt/entt"]
+	path = WorldBuilder/vendors/entt/entt
+	url = https://github.com/skypjack/entt
+[submodule "WorldBuilder/vendors/imgui/imgui"]
+	path = WorldBuilder/vendors/imgui/imgui
+	url = https://github.com/ocornut/imgui
+	branch = docking
+[submodule "WorldBuilder/vendors/yamlcpp/yamlcpp"]
+	path = WorldBuilder/vendors/yamlcpp/yamlcpp
+	url = https://github.com/jbeder/yaml-cpp

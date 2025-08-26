@@ -2,12 +2,14 @@
 #include "Core/Log/Log.hpp"
 
 #include "Core/Utils/FileSystem.hpp"
+#include "Core/Project.hpp"
 
 #include "Core/Application.hpp"
 #include "Core/Input/Input.hpp"
 #include "Core/LayerStack.hpp"
 
 #include "Core/Commons/Camera.hpp"
+#include "Core/Commons/Scene.hpp"
 
 #include "Core/ECS/EcsComponent.hpp"
 

@@ -10,7 +10,12 @@ namespace WB
 class Camera
 {
 public:
-    void UpdateViewProjectionMatrix(float fov, float aspectRation, float near, float far);
+    void SetupProjectionMatrix(float fov, float aspectRation, float near, float far);
+    void UpdateProjectionMatrix();
+    void UpdateViewMatrix(TransformComponent& transformComp);
+    void ResizeBound(float width, float height);
+    void SetFov(float fov);
+
     [[nodiscard]] WB_INLINE const glm::mat4& GetViewMatrix() const { return m_view; }
     [[nodiscard]] WB_INLINE const glm::mat4& GetProjectionMatrix() const { return m_perspective; }
 
@@ -23,8 +28,6 @@ private:
     glm::vec3 m_forward;
     glm::mat4 m_view;
     glm::mat4 m_perspective;
-
-    TransformComponent m_transformComp;
 };
 
 }

@@ -10,7 +10,7 @@ enum class InputState
 
 namespace WB
 {
-using InputCallback = std::function<void()>;
+using InputCallback = std::function<void(Keycode)>;
 
 struct InputTable
 {
@@ -36,10 +36,16 @@ public:
         m_currentInputTable = &inputTable;
     }
 
+    static WB_INLINE void AddAnyInputCallback(const InputCallback&& callback)
+    {
+        s_anyInputCallbacks.emplace_back(std::move(callback));
+    }
+
     static SharedPtr<Input> Create();
 
 protected:
     static const InputTable* m_currentInputTable;
+    static std::vector<InputCallback> s_anyInputCallbacks;
 
 private:
     static SharedPtr<Input> s_instance;

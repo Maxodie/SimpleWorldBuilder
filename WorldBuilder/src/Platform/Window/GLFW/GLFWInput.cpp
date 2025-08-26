@@ -12,6 +12,12 @@ void GLFWInput::BindWindow(const SharedPtr<Window> window)
 
 void GLFWInput::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+    Keycode wbKey = static_cast<Keycode>(key);
+    for(const auto& callback : s_anyInputCallbacks)
+    {
+        callback(wbKey);
+    }
+
     if(!m_currentInputTable)
     {
         return;
@@ -20,38 +26,38 @@ void GLFWInput::KeyCallback(GLFWwindow* window, int key, int scancode, int actio
     switch (action)
     {
         case GLFW_PRESS:
-            if(m_currentInputTable->BindedPressedInputs.find(static_cast<Keycode>(key)) != m_currentInputTable->BindedPressedInputs.end())
+            if(m_currentInputTable->BindedPressedInputs.find(wbKey) != m_currentInputTable->BindedPressedInputs.end())
             {
                 for(const InputCallback& callback : m_currentInputTable->BindedPressedInputs.at(static_cast<Keycode>(key)))
                 {
-                    callback();
+                    callback(wbKey);
                 }
             }
 
-            if(m_currentInputTable->BindedRepeatedInputs.find(static_cast<Keycode>(key)) != m_currentInputTable->BindedRepeatedInputs.end())
+            if(m_currentInputTable->BindedRepeatedInputs.find(wbKey) != m_currentInputTable->BindedRepeatedInputs.end())
             {
                 for(const InputCallback& callback : m_currentInputTable->BindedRepeatedInputs.at(static_cast<Keycode>(key)))
                 {
-                    callback();
+                    callback(static_cast<Keycode>(key));
 
                 }
             }
         break;
         case GLFW_REPEAT:
-            if(m_currentInputTable->BindedRepeatedInputs.find(static_cast<Keycode>(key)) != m_currentInputTable->BindedRepeatedInputs.end())
+            if(m_currentInputTable->BindedRepeatedInputs.find(wbKey) != m_currentInputTable->BindedRepeatedInputs.end())
             {
                 for(const InputCallback& callback : m_currentInputTable->BindedRepeatedInputs.at(static_cast<Keycode>(key)))
                 {
-                    callback();
+                    callback(wbKey);
                 }
             }
         break;
         case GLFW_RELEASE:
-            if(m_currentInputTable->BindedReleasedInputs.find(static_cast<Keycode>(key)) != m_currentInputTable->BindedReleasedInputs.end())
+            if(m_currentInputTable->BindedReleasedInputs.find(wbKey) != m_currentInputTable->BindedReleasedInputs.end())
             {
                 for(const InputCallback& callback : m_currentInputTable->BindedReleasedInputs.at(static_cast<Keycode>(key)))
                 {
-                    callback();
+                    callback(wbKey);
                 }
             }
         break;

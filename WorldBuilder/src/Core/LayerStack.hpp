@@ -13,7 +13,7 @@ public:
     virtual void Update() = 0;
     virtual void UpdateGUI() = 0;
     virtual void OnAttach() = 0;
-    virtual void OnDettach() = 0;
+    virtual void OnDetach() = 0;
 
     WB_INLINE void SetID(TypeID id)
     {
@@ -35,7 +35,7 @@ public:
     virtual ~LayerStack() = default;
 
     template<typename TLayer>
-    TLayer* GetLayer()
+    SharedPtr<TLayer> GetLayer()
     {
         const auto layer = std::find_if(m_layers.begin(), m_layers.end(),
             [](const auto layer)
@@ -46,26 +46,27 @@ public:
 
         if(layer != m_layers.end())
         {
-            return static_cast<TLayer*>(*layer);
+            return static_pointer_cast<TLayer>(*layer);
         }
         return nullptr;
     }
 
     template<typename TLayer, typename ... TArgs>
-    void AddLayer(TArgs&&... args)
+    SharedPtr<TLayer> AddLayer(TArgs&&... args)
     {
-        const Layer* layer = GetLayer<TLayer>();
+        const SharedPtr<Layer> layer = GetLayer<TLayer>();
 
         if(layer)
         {
             CORE_LOG_WARNING("Trying to add an existing layer to the app");
-            return;
+            return nullptr;
         }
 
-        TLayer* createdLayer{ new TLayer(std::forward<TArgs>(args)...)};
+        SharedPtr<TLayer> createdLayer{ MakeShared<TLayer>(std::forward<TArgs>(args)...) };
         createdLayer->SetID(GetTypeID<TLayer>());
         createdLayer->OnAttach();
         m_layers.push_back(createdLayer);
+        return createdLayer;
     }
 
     template<typename TLayer>
@@ -86,22 +87,21 @@ public:
 
     void ClearLayers()
     {
-        for(size_t i = 0; i < m_layers.size(); i++)
+        for(auto& layer : m_layers)
         {
-            m_layers.front()->OnDettach();
-            WB_DELETE(m_layers.front());
+            layer->OnDetach();
         }
 
         m_layers.clear();
     }
 
-    std::vector<Layer*>& GetLayers()
+    std::vector<SharedPtr<Layer>>& GetLayers()
     {
         return m_layers;
     }
 
 private:
-    std::vector<Layer*> m_layers;
+    std::vector<SharedPtr<Layer>> m_layers;
 };
 
 }

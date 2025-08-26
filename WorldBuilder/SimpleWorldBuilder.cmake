@@ -1,5 +1,6 @@
 add_library(WorldBuilder
     WorldBuilder/src/WorldBuilder.hpp
+    WorldBuilder/src/WorldBuilderEditor.hpp
 
         WorldBuilder/src/Core/Core.hpp
         WorldBuilder/src/Core/EntryPoint.cpp
@@ -7,20 +8,37 @@ add_library(WorldBuilder
         WorldBuilder/src/Core/Application.hpp
         WorldBuilder/src/Core/LayerStack.cpp
         WorldBuilder/src/Core/LayerStack.hpp
-            WorldBuilder/src/Core/Log/Log.cpp
-            WorldBuilder/src/Core/Log/Log.hpp
-            WorldBuilder/src/Core/Utils/FileSystem.cpp
-            WorldBuilder/src/Core/Utils/FileSystem.hpp
+        WorldBuilder/src/Core/Project.hpp
+            WorldBuilder/src/Core/AssetManager/Asset.hpp
+            WorldBuilder/src/Core/AssetManager/AssetManagerBase.cpp
+            WorldBuilder/src/Core/AssetManager/RuntimeAssetManager.cpp
+            WorldBuilder/src/Core/AssetManager/RuntimeAssetManager.hpp
+            WorldBuilder/src/Core/AssetManager/EditorAssetManager.cpp
+            WorldBuilder/src/Core/AssetManager/EditorAssetManager.hpp
+            WorldBuilder/src/Core/Commons/Camera.cpp
+            WorldBuilder/src/Core/Commons/Camera.hpp
+            WorldBuilder/src/Core/Commons/Scene.cpp
+            WorldBuilder/src/Core/Commons/Scene.hpp
+            WorldBuilder/src/Core/Commons/Timestep.cpp
+            WorldBuilder/src/Core/Commons/Timestep.hpp
+            WorldBuilder/src/Core/Editor/ImGuiAdditionals.cpp
+            WorldBuilder/src/Core/Editor/ImGuiAdditionals.hpp
+            WorldBuilder/src/Core/Editor/ImGuiLayer.cpp
+            WorldBuilder/src/Core/Editor/ImGuiLayer.hpp
+            WorldBuilder/src/Core/Editor/MainMenuBarLayer.cpp
+            WorldBuilder/src/Core/Editor/MainMenuBarLayer.hpp
+            WorldBuilder/src/Core/Editor/ViewportLayer.cpp
+            WorldBuilder/src/Core/Editor/ViewportLayer.hpp
+            WorldBuilder/src/Core/Editor/CommandLineBarLayer.cpp
+            WorldBuilder/src/Core/Editor/CommandLineBarLayer.hpp
+            WorldBuilder/src/Core/ECS/EcsComponent.hpp
             WorldBuilder/src/Core/Event/Event.cpp
             WorldBuilder/src/Core/Event/Event.hpp
-            WorldBuilder/src/Core/Window/Window.cpp
-            WorldBuilder/src/Core/Window/Window.hpp
             WorldBuilder/src/Core/Input/Input.cpp
             WorldBuilder/src/Core/Input/Input.hpp
             WorldBuilder/src/Core/Input/Keycode.hpp
-            WorldBuilder/src/Core/ECS/EcsComponent.hpp
-            WorldBuilder/src/Core/Commons/Camera.cpp
-            WorldBuilder/src/Core/Commons/Camera.hpp
+            WorldBuilder/src/Core/Log/Log.cpp
+            WorldBuilder/src/Core/Log/Log.hpp
             WorldBuilder/src/Core/Renderer/Renderer.cpp
             WorldBuilder/src/Core/Renderer/Renderer.hpp
             WorldBuilder/src/Core/Renderer/RendererAPI.cpp
@@ -43,6 +61,14 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Renderer/ShaderProgram.hpp
             WorldBuilder/src/Core/Renderer/FrameBuffer.cpp
             WorldBuilder/src/Core/Renderer/FrameBuffer.hpp
+            WorldBuilder/src/Core/Serializer/Serializer.cpp
+            WorldBuilder/src/Core/Serializer/Serializer.hpp
+            WorldBuilder/src/Core/Serializer/ProjectSerializer.cpp
+            WorldBuilder/src/Core/Serializer/ProjectSerializer.hpp
+            WorldBuilder/src/Core/Utils/FileSystem.cpp
+            WorldBuilder/src/Core/Utils/FileSystem.hpp
+            WorldBuilder/src/Core/Window/Window.cpp
+            WorldBuilder/src/Core/Window/Window.hpp
 
         WorldBuilder/src/Platform/Window/GLFW/GLFWWindow.cpp
         WorldBuilder/src/Platform/Window/GLFW/GLFWWindow.hpp
@@ -70,6 +96,9 @@ target_link_libraries(WorldBuilder PRIVATE
     glad
     glm_math
     TARGET_MODEL_LOADER
+    EnTT::EnTT
+    imgui
+    yaml-cpp::yaml-cpp
 )
 
 target_include_directories(WorldBuilder PRIVATE
@@ -77,6 +106,9 @@ target_include_directories(WorldBuilder PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/GLFW/glfw/include
     ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/glad/glad/include
     ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/assimp/assimp/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/entt/entt/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/imgui/imgui
+    ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/yamlcpp/yamlcpp/include
 )
 
 set_target_properties(WorldBuilder PROPERTIES

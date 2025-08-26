@@ -8,19 +8,20 @@ namespace WB
 
 SharedPtr<Input> Input::s_instance = nullptr;
 const InputTable* Input::m_currentInputTable = nullptr;
+std::vector<InputCallback> Input::s_anyInputCallbacks;
 
 void InputTable::BindInput(Keycode keycode, InputState state, const InputCallback&& callback)
 {
     switch(state)
     {
         case InputState::PRESSED:
-            BindedPressedInputs[keycode].push_back(std::move(callback));
+            BindedPressedInputs[keycode].emplace_back(std::move(callback));
         break;
         case InputState::REPEATED:
-            BindedRepeatedInputs[keycode].push_back(std::move(callback));
+            BindedRepeatedInputs[keycode].emplace_back(std::move(callback));
             break;
         case InputState::RELEASED:
-            BindedReleasedInputs[keycode].push_back(std::move(callback));
+            BindedReleasedInputs[keycode].emplace_back(std::move(callback));
         break;
         default:
             CORE_LOG_ERROR("Unknown input state %d", state);

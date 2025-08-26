@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <chrono>
-#include <time.h>
 #include <array>
 #include <cstdint>
 #include <fstream>
@@ -21,7 +20,11 @@
 #include <assert.h>
 
 #include "Core/Log/Log.hpp"
+
+#define WB_INLINE inline
+
 #include "Core/Utils/FileSystem.hpp"
+#include "Commons/Timestep.hpp"
 
 #ifdef WB_ASSERT
 #   define WB_CORE_ASSERT(exp, msg)\
@@ -42,9 +45,9 @@ if(!(exp))\
 #   define WB_CLIENT_ASSERT(exp, msg)
 #endif
 
-#define WB_INLINE inline
 
 #define WB_DELETE(ptr) if(!(ptr)) {} else {delete(ptr);}
+
 #define WB_BIND_FUN0(fun) std::bind(&fun, this)
 #define WB_BIND_FUN1(fun) std::bind(&fun, this, std::placeholders::_1)
 #define WB_BIND_FUN2(fun) std::bind(&fun, this, std::placeholders::_1, std::placeholders::_2)
@@ -52,10 +55,15 @@ if(!(exp))\
 #define WB_BIND_FUN4(fun) std::bind(&fun, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)
 #define WB_BIND_FUN5(fun) std::bind(&fun, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5)
 
+#define WB_BIND_OTHER_FUN0(fun, instance) std::bind(&fun, instance)
+#define WB_BIND_OTHER_FUN1(fun, instance) std::bind(&fun, instance, std::placeholders::_1)
+#define WB_BIND_OTHER_FUN2(fun, instance) std::bind(&fun, instance, std::placeholders::_1, std::placeholders::_2)
+#define WB_BIND_OTHER_FUN3(fun, instance) std::bind(&fun, instance, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
+#define WB_BIND_OTHER_FUN4(fun, instance) std::bind(&fun, instance, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)
+#define WB_BIND_OTHER_FUN5(fun, instance) std::bind(&fun, instance, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5)
+
 using TypeID = uintptr_t;
 
-namespace WB
-{
 template<typename T>
 using UniquePtr = std::unique_ptr<T>;
 template<typename T, typename... TArgs>
@@ -70,8 +78,6 @@ template<typename T, typename... TArgs>
 constexpr SharedPtr<T> MakeShared(TArgs&&... args)
 {
     return std::make_shared<T>(std::forward<TArgs>(args)...);
-}
-
 }
 
 template<typename T>

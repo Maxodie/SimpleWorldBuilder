@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Commons/Camera.hpp"
+#include "Core/Commons/Scene.hpp"
 #include "Core/Renderer/Buffer.hpp"
 #include "Core/Renderer/Model.hpp"
 #include "Core/Renderer/ShaderProgram.hpp"
@@ -29,7 +29,7 @@ public:
     static void Init();
     static void Shutdown();
 
-    static void BeginScene(const Camera& camera);
+    static void BeginScene(const SceneData& scene);
     static void EndScene();
 
     static void DrawModel(const Model& model,const TransformComponent& transform);

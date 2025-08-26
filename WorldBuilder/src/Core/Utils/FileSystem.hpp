@@ -4,13 +4,38 @@
 namespace WB
 {
 
+using Path = std::filesystem::path;
+
+enum class FileMode
+{
+	FILE_MODE_READ,
+	FILE_MODE_READ_BINARY,
+	FILE_MODE_WRITE,
+	FILE_MODE_WRITE_BINARY,
+};
+
+
+struct File
+{
+    Path path;
+    std::fstream handle;
+};
+
 class FileSystem
 {
 public:
-    [[nodiscard]] static bool GetFileAsChar(const char* path, std::string& outData);
+    static bool SyncReadAtPathAsString(const Path& path, std::string& outData);
+    static bool SyncWriteAtPathAsString(const Path& path, const std::string& data);
+
+    static bool CreateFolder(const Path& path, const std::string& name);
+
+    static bool SyncReadFileAsByte(File& file, char* outBuffer, size_t bufferSize, size_t& outrBytesRead);
+    static bool SyncWriteFileAsByte(File& file, const char* buffer);
 
 private:
-    [[nodiscard]] static bool OpenFile(const std::filesystem::path& path, std::ifstream& outStream);
+    static bool OpenFile(const Path& path, File& outFile, FileMode mode);
+    static void CloseFile(File& file);
+    [[nodiscard]] static size_t GetFileSize(File& file);
 };
 
 }

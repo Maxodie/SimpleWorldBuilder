@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Core.hpp"
+#include "Core/AssetManager/Asset.hpp"
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/glm.hpp>
 
@@ -24,7 +25,7 @@ public:
         m_modelMat = glm::scale(m_modelMat, m_scale);
     }
 
-    constexpr glm::vec3& GetForward()
+    const glm::vec3& GetForward()
     {
         glm::mat4 transform = glm::mat4(1.0f);
         transform = glm::rotate(transform, m_rotation.x, glm::vec3(1,0,0));
@@ -32,10 +33,11 @@ public:
         transform = glm::rotate(transform, m_rotation.z, glm::vec3(0,0,1));
 
         m_forward = glm::normalize(glm::vec3(glm::inverse(transform)[2]));
+
         return m_forward;
     }
 
-    constexpr glm::vec3& GetUp()
+    const glm::vec3& GetUp()
     {
         glm::mat4 transform = glm::mat4(1.0f);
         transform = glm::rotate(transform, m_rotation.x, glm::vec3(1,0,0));
@@ -70,6 +72,26 @@ private:
 
     glm::vec3 m_forward;
     glm::vec3 m_up;
+};
+
+struct ModelComponent
+{
+    ModelComponent() = default;
+    ModelComponent(ModelComponent&) = default;
+    ~ModelComponent() = default;
+
+    AssetID modelId;
+};
+
+struct ObjectComponent
+{
+    ObjectComponent() = default;
+    ObjectComponent(ObjectComponent&) = default;
+    ~ObjectComponent() = default;
+
+    AssetID parent = EMPTY_ASSET;
+    std::string name = "Entity";
+    AssetID uid = EMPTY_ASSET;
 };
 
 }

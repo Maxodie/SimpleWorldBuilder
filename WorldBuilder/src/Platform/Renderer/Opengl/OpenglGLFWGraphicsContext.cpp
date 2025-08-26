@@ -35,7 +35,7 @@ static void GLAPIENTRY OpenglMessageCallback(
             CORE_LOG_DEBUG("OpenGL : type = 0x%x, severity = 0x%x, message = %s", type, severity, message);
         break;
         case GL_DEBUG_TYPE_OTHER:
-            CORE_LOG_DEBUG("OpenGL : type = 0x%x, severity = 0x%x, message = %s", type, severity, message);
+            /*CORE_LOG_DEBUG("OpenGL : type = 0x%x, severity = 0x%x, message = %s", type, severity, message);*/
         break;
     }
 }

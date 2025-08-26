@@ -3,6 +3,7 @@
 #include "Core/Renderer/RenderCommand.hpp"
 #include "Core/Renderer/Shader.hpp"
 #include "Core/Renderer/ShaderProgram.hpp"
+#include "Core/Commons/Camera.hpp"
 
 namespace WB
 {
@@ -50,11 +51,14 @@ void Renderer3D::Shutdown()
     CORE_LOG_SUCCESS("Renderer3D has been shutted down");
 }
 
-void Renderer3D::BeginScene(const Camera& camera)
+void Renderer3D::BeginScene(const SceneData& scene)
 {
     //post cam uniform in shader
-    m_renderData.ShaderProgram->SetMat4("uViewMatrix", camera.GetViewMatrix());
-    m_renderData.ShaderProgram->SetMat4("uProjectionMatrix", camera.GetProjectionMatrix());
+    if(scene.cam)
+    {
+        m_renderData.ShaderProgram->SetMat4("uViewMatrix", scene.cam->GetViewMatrix());
+        m_renderData.ShaderProgram->SetMat4("uProjectionMatrix", scene.cam->GetProjectionMatrix());
+    }
 }
 
 void Renderer3D::EndScene()

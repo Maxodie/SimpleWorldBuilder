@@ -5,7 +5,7 @@
 namespace WB
 {
 
-bool Shader::LoadShader(ShaderType shaderType, const char* shaderPath)
+bool Shader::LoadShader(ShaderType shaderType, const Path& shaderPath)
 {
     if(!m_shaderData.empty())
     {
@@ -14,12 +14,12 @@ bool Shader::LoadShader(ShaderType shaderType, const char* shaderPath)
 
     m_shaderType = shaderType;
 
-    if(!FileSystem::GetFileAsChar(shaderPath, m_shaderData))
+    if(!FileSystem::SyncReadAtPathAsString(shaderPath, m_shaderData))
     {
-        CORE_LOG_ERROR("failed to load shader data with path : %s", shaderPath);
+        CORE_LOG_ERROR("failed to load shader data with path : %s", shaderPath.string().c_str());
     }
 
-    CORE_LOG_SUCCESS("Shader %s has been loaded", shaderPath);
+    CORE_LOG_SUCCESS("Shader %s has been loaded", shaderPath.string().c_str());
 
     return CreateShaderData();
 }

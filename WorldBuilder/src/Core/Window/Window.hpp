@@ -39,6 +39,7 @@ public:
     static SharedPtr<Window> CreateWindow(const WindowCreateData& windowData);
 
     WB_INLINE void* GetNative() { return m_native; }
+    WB_INLINE const WindowData& GetData() { return m_windowData; }
 
     inline static API GetAPI() { return s_api; }
 

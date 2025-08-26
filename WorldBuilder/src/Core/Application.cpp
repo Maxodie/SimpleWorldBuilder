@@ -1,16 +1,19 @@
 #include "Core/Application.hpp"
 #include "Core/Core.hpp"
+#include "Core/Editor/ImGuiLayer.hpp"
 #include "Core/Input/Input.hpp"
 #include "Core/Event/WindowEvent.hpp"
 #include "Core/LayerStack.hpp"
 #include "Core/Log/Log.hpp"
 #include "Core/Renderer/Renderer.hpp"
 #include "Core/Renderer/RenderCommand.hpp"
+#include "Core/Editor/ImGuiLayer.hpp"
 
 namespace WB
 {
 
 Application* Application::s_instance = nullptr;
+float Application::m_dt = 1.0f / 60.0f;
 
 Application::Application()
     : m_isRunning(true), m_layerStack(), m_isMinimized(false)
@@ -36,11 +39,16 @@ void Application::Start()
 
     RenderCommand::SetViewport(0, 0, 800, 640);
     RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f);
+
+    ImGuiLayerBase::BaseInit();
 }
 
 void Application::Run()
 {
-    std::vector<Layer*>& layers = m_layerStack.GetLayers();
+    std::vector<SharedPtr<Layer>>& layers = m_layerStack.GetLayers();
+
+    m_beginTick.ReadTime();
+
     while(m_isRunning)
     {
         for(auto& layer : layers)
@@ -50,13 +58,23 @@ void Application::Run()
 
         if(m_isMinimized) return;
 
+        ImGuiLayerBase::Begin();
         for(auto& layer : layers)
         {
             layer->UpdateGUI();
         }
+        ImGuiLayerBase::End();
 
         HandleSwapBuffers();
         HandleEvents();
+
+        m_endTick.ReadTime();
+        m_dt = static_cast<float>((m_endTick - m_beginTick).GetSeconds());
+        m_beginTick = m_endTick;
+        if(m_dt > 1.0f)
+        {
+            m_dt = 60.0f;
+        }
     }
 }
 
@@ -87,6 +105,8 @@ void Application::Close()
 void Application::Shutdown()
 {
     m_layerStack.ClearLayers();
+
+    ImGuiLayerBase::BaseShutdown();
 
     for(auto& window : m_windows)
     {

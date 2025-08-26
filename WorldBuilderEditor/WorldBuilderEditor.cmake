@@ -5,6 +5,7 @@ add_executable(WorldBuilderEditor
 target_link_libraries(WorldBuilderEditor
     WorldBuilder
     glm_math
+    imgui
 )
 
 target_include_directories(WorldBuilderEditor PRIVATE

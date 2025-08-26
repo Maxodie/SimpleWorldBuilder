@@ -22,12 +22,13 @@ public:
     virtual void Bind() override;
     virtual void Unbind() override;
 
+    WB_INLINE virtual uint32_t GetColorAttachmentRendererID() override { return m_frameBufferTextureColor; }
+
 private:
     void TryDestroyFrameBuffer();
 
 private:
     uint32_t m_frameBuffer;
-    uint32_t m_renderBuffer;
     uint32_t m_frameBufferTextureColor;
     uint32_t m_frameBufferTextureDepth;
     Info m_info;
