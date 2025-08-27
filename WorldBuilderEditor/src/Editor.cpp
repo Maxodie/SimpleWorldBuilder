@@ -1,5 +1,3 @@
-#include "Core/Editor/MainMenuBarLayer.hpp"
-#include "Core/Log/Log.hpp"
 #include "WorldBuilder.hpp"
 #include "WorldBuilderEditor.hpp"
 
@@ -114,6 +112,8 @@ private:
 
         GetContext()->AddLayer<WB::ViewportLayer>(m_cam, m_frameBuffer);
         m_viewportLayer = GetContext()->GetLayer<WB::ViewportLayer>();
+
+        GetContext()->AddLayer<WB::OpenProjectEditorLayer>();
     }
 
     void OnCamForwardPressed(Keycode key)
