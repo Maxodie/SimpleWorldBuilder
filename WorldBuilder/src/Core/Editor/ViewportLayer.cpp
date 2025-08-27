@@ -57,7 +57,7 @@ void ViewportLayer::OnAttach()
 
 void ViewportLayer::OnDetach()
 {
-    CORE_LOG_SUCCESS("ImGUI Main menu bar Layer detached");
+    CORE_LOG_SUCCESS("ImGUI viewport Layer detached");
 }
 
 }

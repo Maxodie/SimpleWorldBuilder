@@ -1,3 +1,4 @@
+#include "Core/Editor/MainMenuBarLayer.hpp"
 #include "Core/Log/Log.hpp"
 #include "WorldBuilder.hpp"
 #include "WorldBuilderEditor.hpp"
@@ -5,8 +6,7 @@
 class EditorLayer : public WB::Layer
 {
 public:
-    EditorLayer(WB::Application& app)
-        : m_context(app)
+    EditorLayer()
     {
 
     }
@@ -38,20 +38,11 @@ public:
 
     virtual void OnAttach() override
     {
+        CLIENT_LOG_SUCCESS("appdata path : %s", WB::FileSystem::GetPersistentDataPath().string().c_str());
         CLIENT_LOG_SUCCESS("Editor attached");
         m_frameBuffer = WB::FrameBuffer::Create();
 
         InitImGUI();
-
-        //setup project
-        project = MakeShared<WB::Project>();
-        WB::ProjectSettings projectSettings{
-            .projectName = "test",
-            .projectPath = std::filesystem::current_path(),
-            .projectAssetPath = std::filesystem::current_path() / "WorldBuilderEditor/assets"
-        };
-        project->SetSettings(projectSettings);
-
 
         WB::Model newMod;
         newMod.Load("WorldBuilderEditor/assets/monkey.fbx");
@@ -115,9 +106,14 @@ private:
 
     void InitImGUI()
     {
-        m_mainMenuBarLayer = m_context.AddLayer<WB::MainMenuBarLayer>();
-        m_commandBarLayer = m_context.AddLayer<WB::CommandLineBarLayer>();
-        m_viewportLayer = m_context.AddLayer<WB::ViewportLayer>(m_cam, m_frameBuffer);
+        GetContext()->AddLayer<WB::MainMenuBarLayer>();
+        m_mainMenuBarLayer = GetContext()->GetLayer<WB::MainMenuBarLayer>();
+
+        GetContext()->AddLayer<WB::CommandLineBarLayer>();
+        m_commandBarLayer = GetContext()->GetLayer<WB::CommandLineBarLayer>();
+
+        GetContext()->AddLayer<WB::ViewportLayer>(m_cam, m_frameBuffer);
+        m_viewportLayer = GetContext()->GetLayer<WB::ViewportLayer>();
     }
 
     void OnCamForwardPressed(Keycode key)
@@ -151,7 +147,6 @@ private:
     }
 
 private:
-    WB::Application& m_context;
     SharedPtr<WB::MainMenuBarLayer> m_mainMenuBarLayer;
     SharedPtr<WB::ViewportLayer> m_viewportLayer;
     SharedPtr<WB::CommandLineBarLayer> m_commandBarLayer;
@@ -168,12 +163,10 @@ private:
     WB::Scene3D scene;
     WB::SceneData m_sceneData;
 
-    SharedPtr<WB::Project> project;
-
     WB::EditorShortcutInputManager m_shortcutManger;
 };
 
 extern void OnAppStarted(WB::Application &app)
 {
-    app.AddLayer<EditorLayer>(app);
+    app.AddLayer<EditorLayer>();
 }

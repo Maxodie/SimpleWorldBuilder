@@ -9,17 +9,12 @@ class MainMenuBarLayer : public Layer
 {
 public:
     MainMenuBarLayer();
-    ~MainMenuBarLayer();
+    virtual ~MainMenuBarLayer();
 
     virtual void Update() override;
     virtual void UpdateGUI() override;
     virtual void OnAttach() override;
     virtual void OnDetach() override;
-
-private:
-    bool m_isNewFolderDialogOpen = false;
-    std::string pathBuffer{"C:/"};
-    std::string nameBuffer{"New Project"};
 };
 
 }

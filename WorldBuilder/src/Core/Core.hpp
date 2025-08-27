@@ -1,6 +1,7 @@
 #pragma once
 
 #include <utility>
+#include <regex>
 #include <ostream>
 #include <iostream>
 #include <string>

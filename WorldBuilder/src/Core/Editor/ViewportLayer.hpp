@@ -11,7 +11,7 @@ class ViewportLayer : public Layer
 {
 public:
     ViewportLayer(Camera& cam, SharedPtr<FrameBuffer> frameBuffer);
-    ~ViewportLayer();
+    virtual ~ViewportLayer();
 
     virtual void Update() override;
     virtual void UpdateGUI() override;

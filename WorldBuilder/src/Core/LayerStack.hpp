@@ -3,6 +3,7 @@
 
 namespace WB
 {
+class Application;
 
 class Layer
 {
@@ -20,25 +21,36 @@ public:
         m_id = id;
     }
 
+    void SetContext(Application* app);
+
     [[nodiscard]] WB_INLINE constexpr TypeID GetID()
     {
         return m_id;
     }
 
+    [[nodiscard]] WB_INLINE constexpr Application* GetContext()
+    {
+        return m_context;
+    }
+
+
 private:
     TypeID m_id;
+    Application* m_context;
 };
 
 class LayerStack
 {
 public:
+    LayerStack(Application& app) : m_context(app) {}
+    LayerStack() = delete;
     virtual ~LayerStack() = default;
 
     template<typename TLayer>
     SharedPtr<TLayer> GetLayer()
     {
         const auto layer = std::find_if(m_layers.begin(), m_layers.end(),
-            [](const auto layer)
+            [](const auto& layer)
             {
                 return layer->GetID() == GetTypeID<TLayer>();
             }
@@ -64,6 +76,7 @@ public:
 
         SharedPtr<TLayer> createdLayer{ MakeShared<TLayer>(std::forward<TArgs>(args)...) };
         createdLayer->SetID(GetTypeID<TLayer>());
+        createdLayer->SetContext(&m_context);
         createdLayer->OnAttach();
         m_layers.push_back(createdLayer);
         return createdLayer;
@@ -73,12 +86,12 @@ public:
     void RemoveLayer()
     {
         m_layers.erase(std::remove_if(m_layers.begin(), m_layers.end(),
-            [](const auto layer)
+            [](const auto& layer)
             {
                 bool isRemove = layer->GetID() == GetTypeID<TLayer>();
                 if(isRemove)
                 {
-                    layer->OnDettach();
+                    layer->OnDetach();
                 }
                 return isRemove;
             }
@@ -87,9 +100,9 @@ public:
 
     void ClearLayers()
     {
-        for(auto& layer : m_layers)
+        for(auto layer = m_layers.rbegin(); layer != m_layers.rend(); layer++)
         {
-            layer->OnDetach();
+            layer->get()->OnDetach();
         }
 
         m_layers.clear();
@@ -102,6 +115,7 @@ public:
 
 private:
     std::vector<SharedPtr<Layer>> m_layers;
+    Application& m_context;
 };
 
 }

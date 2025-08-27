@@ -32,15 +32,21 @@ public:
     void CreateWindow(const Window::WindowCreateData& windowData = Window::WindowCreateData(), bool isMainWindow = false);
 
     template<typename TLayer, typename... TArgs>
-    WB_INLINE SharedPtr<TLayer> AddLayer(TArgs&&... args)
+    WB_INLINE void AddLayer(TArgs&&... args)
     {
-        return m_layerStack.AddLayer<TLayer>(std::forward<TArgs>(args)...);
+        PostTask([&](){ m_layerStack.AddLayer<TLayer>(std::forward<TArgs>(args)...); });
     }
 
     template<typename TLayer>
     WB_INLINE void RemoveLayer()
     {
-        PostTask(WB_BIND_FUN0(m_layerStack.RemoveLayer<TLayer>()));
+        PostTask(WB_BIND_OTHER_FUN0(LayerStack::RemoveLayer<TLayer>, &m_layerStack));
+    }
+
+    template<typename TLayer>
+    WB_INLINE SharedPtr<TLayer> GetLayer()
+    {
+        return m_layerStack.GetLayer<TLayer>();
     }
 
     static WB_INLINE const constexpr Application& Get()

@@ -1,21 +1,19 @@
 #pragma once
-#include "Core/Serializer/Serializer.hpp"
-#include "Core/Project.hpp"
+#include "Core/Core.hpp"
 
 namespace WB
 {
 
-class ProjectSerializer : Serializer
+class ProjectSerializer
 {
 public:
     ProjectSerializer() = delete;
 
-    static void Serialize(const Project& project, Path path);
-    static void Deserialize(const Project& project, Path path);
-};
+    static bool Serialize(const struct ProjectSettings& settings, Path path);
+    static bool Deserialize(ProjectSettings& settings, Path path);
 
-WB_INLINE void operator>>(const YAML::Node& node, ProjectSettings& settings)
-{
-}
+    static bool Serialize(const struct ProjectList& list, Path path);
+    static bool Deserialize(ProjectList& list, Path path);
+};
 
 }

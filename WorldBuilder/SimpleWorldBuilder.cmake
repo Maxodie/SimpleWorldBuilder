@@ -11,6 +11,7 @@ add_library(WorldBuilder
         WorldBuilder/src/Core/Project.hpp
             WorldBuilder/src/Core/AssetManager/Asset.hpp
             WorldBuilder/src/Core/AssetManager/AssetManagerBase.cpp
+            WorldBuilder/src/Core/AssetManager/AssetManagerBase.hpp
             WorldBuilder/src/Core/AssetManager/RuntimeAssetManager.cpp
             WorldBuilder/src/Core/AssetManager/RuntimeAssetManager.hpp
             WorldBuilder/src/Core/AssetManager/EditorAssetManager.cpp
@@ -31,8 +32,12 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Editor/MainMenuBarLayer.hpp
             WorldBuilder/src/Core/Editor/EditorShortcutInputManager.hpp
             WorldBuilder/src/Core/Editor/EditorShortcutInputManager.cpp
-            WorldBuilder/src/Core/Editor/ViewportLayer.cpp
             WorldBuilder/src/Core/Editor/ViewportLayer.hpp
+            WorldBuilder/src/Core/Editor/ViewportLayer.cpp
+                WorldBuilder/src/Core/Editor/ProjectEditor/CreateProjectEditorLayer.hpp
+                WorldBuilder/src/Core/Editor/ProjectEditor/CreateProjectEditorLayer.cpp
+                WorldBuilder/src/Core/Editor/ProjectEditor/OpenProjectEditorLayer.hpp
+                WorldBuilder/src/Core/Editor/ProjectEditor/OpenProjectEditorLayer.cpp
             WorldBuilder/src/Core/ECS/EcsComponent.hpp
             WorldBuilder/src/Core/Event/Event.cpp
             WorldBuilder/src/Core/Event/Event.hpp

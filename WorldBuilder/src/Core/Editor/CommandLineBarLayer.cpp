@@ -39,7 +39,7 @@ void CommandLineBarLayer::OnAttach()
 
 void CommandLineBarLayer::OnDetach()
 {
-    CORE_LOG_SUCCESS("ImGUI Main menu bar Layer detached");
+    CORE_LOG_SUCCESS("ImGUI Command line bar Layer detached");
 }
 
 void CommandLineBarLayer::OnInputCallback(Keycode key)

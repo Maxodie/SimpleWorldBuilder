@@ -1,27 +1,27 @@
 #pragma once
-
-#include "Core/Input/Keycode.hpp"
 #include "Core/LayerStack.hpp"
 
 namespace WB
 {
 
-class CommandLineBarLayer : public Layer
+class ProjectList;
+
+class OpenProjectEditorLayer : public Layer
 {
 public:
-    CommandLineBarLayer();
-    virtual ~CommandLineBarLayer();
+    OpenProjectEditorLayer();
+    ~OpenProjectEditorLayer();
 
     virtual void Update() override;
     virtual void UpdateGUI() override;
     virtual void OnAttach() override;
     virtual void OnDetach() override;
 
-    void OnInputCallback(Keycode key);
+protected:
+    void Close();
 
 private:
-    std::string inputs;
+    const ProjectList& m_projectList;
 };
 
 }
-

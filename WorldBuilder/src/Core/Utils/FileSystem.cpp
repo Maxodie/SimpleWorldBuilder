@@ -2,7 +2,10 @@
 #include "Core/Core.hpp"
 #include "Core/Log/Log.hpp"
 #include <filesystem>
-#include <ios>
+
+#ifdef _WIN32
+#include "ShlObj_core.h"
+#endif
 
 namespace WB
 {
@@ -55,9 +58,14 @@ bool FileSystem::SyncWriteAtPathAsString(const Path& path, const std::string& da
     return false;
 }
 
-bool FileSystem::CreateFolder(const Path& path, const std::string& name)
+bool FileSystem::CreateFolder(const Path& path)
 {
-    return std::filesystem::create_directory(path / name);
+    return std::filesystem::create_directory(path);
+}
+
+bool FileSystem::CreateFolder(const Path& path, const std::string& folderName)
+{
+    return std::filesystem::create_directory(path / folderName);
 }
 
 bool FileSystem::SyncReadFileAsByte(File& file, char* outBuffer, size_t bufferSize, size_t& outrBytesRead)
@@ -88,6 +96,50 @@ bool FileSystem::SyncWriteFileAsByte(File& file, const char* buffer)
     }
 
     return false;
+}
+
+Path FileSystem::GetPersistentDataPath()
+{
+#ifdef _WIN32
+    TCHAR   achDevice[MAX_PATH];
+    HRESULT  hr;
+    // include file ShlObj.h contains list of CSIDL defines however only a subset
+    // are supported with Windows 7 and later.
+    // for the 3rd argument, hToken, can be a specified Access Token or SSID for
+    // a user other than the current user. Using NULL gives us the current user.
+    if (SUCCEEDED(hr = SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, achDevice))) {
+        // append a folder name to the user's Documents directory.
+        // the Path Handling functions are pretty handy.
+        /*PathAppend(achDevice, L"xxx");*/
+        return achDevice;
+    }
+#else
+#endif
+    return "C:\\";
+}
+
+Path FileSystem::GetPersistentProjectListPath()
+{
+    static const char* folderName = "WorldBuilder";
+    Path persistentPath = FileSystem::GetPersistentDataPath();
+    Path persistentFolder = persistentPath / folderName;
+    if(!FileSystem::Exists(persistentFolder))
+    {
+        WB_CORE_ASSERT(FileSystem::CreateFolder(persistentPath, folderName), "failed to create persistent roaming folder");
+    }
+
+    return persistentFolder;
+}
+
+void FileSystem::TransformNameIntoPathString(std::string& str)
+{
+    std::regex const filter("[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-""]");
+    str = std::regex_replace(str, filter, "");
+}
+
+bool FileSystem::Exists(const Path& path)
+{
+    return std::filesystem::exists(path);
 }
 
 bool FileSystem::OpenFile(const Path& path, File& outFile, FileMode mode)

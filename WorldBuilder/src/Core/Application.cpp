@@ -16,7 +16,7 @@ Application* Application::s_instance = nullptr;
 float Application::m_dt = 1.0f / 60.0f;
 
 Application::Application()
-    : m_isRunning(true), m_layerStack(), m_isMinimized(false)
+    : m_isRunning(true), m_layerStack(*this), m_isMinimized(false)
 {
 
 }
@@ -26,7 +26,7 @@ void Application::Start()
     CORE_LOG_SUCCESS("App is starting...");
     RenderCommand::Init();
 
-    CreateWindow({.name = "WorldBuilder", .w = 800, .h = 640}, true);
+    CreateWindow({.name = "WorldBuilder", .w = 1680, .h = 1050}, true);
 
     m_input = Input::Create();
     m_input->BindWindow(GetMainWindow());

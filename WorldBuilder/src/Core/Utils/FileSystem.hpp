@@ -28,9 +28,16 @@ public:
     static bool SyncWriteAtPathAsString(const Path& path, const std::string& data);
 
     static bool CreateFolder(const Path& path, const std::string& name);
+    static bool CreateFolder(const Path& path);
 
     static bool SyncReadFileAsByte(File& file, char* outBuffer, size_t bufferSize, size_t& outrBytesRead);
     static bool SyncWriteFileAsByte(File& file, const char* buffer);
+
+    static Path GetPersistentDataPath();
+    static Path GetPersistentProjectListPath();
+
+    static void TransformNameIntoPathString(std::string& str);
+    static bool Exists(const Path& path);
 
 private:
     static bool OpenFile(const Path& path, File& outFile, FileMode mode);
