@@ -1,7 +1,7 @@
 #pragma once
 #include "Core/Core.hpp"
-#include "Core/Input/Keycode.hpp"
 #include "Core/Window/Window.hpp"
+#include "Core/Input/InputData.hpp"
 
 enum class InputState
 {
@@ -10,7 +10,7 @@ enum class InputState
 
 namespace WB
 {
-using InputCallback = std::function<void(Keycode)>;
+using InputCallback = std::function<void(InputData)>;
 
 struct InputTable
 {
@@ -18,7 +18,7 @@ struct InputTable
     std::unordered_map<Keycode, std::vector<InputCallback>> BindedRepeatedInputs;
     std::unordered_map<Keycode, std::vector<InputCallback>> BindedReleasedInputs;
 
-    void BindInput(Keycode keycode, InputState state, const InputCallback&& callback);
+    void BindInput(Keycode keyCode, InputState state, const InputCallback&& callback);
 };
 
 class Input

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Input/Keycode.hpp"
+#include "Core/Input/InputData.hpp"
 #include "Core/LayerStack.hpp"
 
 namespace WB
@@ -17,7 +17,7 @@ public:
     virtual void OnAttach() override;
     virtual void OnDetach() override;
 
-    void OnInputCallback(Keycode key);
+    void OnInputCallback(InputData inputData);
 
 private:
     std::string inputs;

@@ -42,9 +42,9 @@ void CommandLineBarLayer::OnDetach()
     CORE_LOG_SUCCESS("ImGUI Command line bar Layer detached");
 }
 
-void CommandLineBarLayer::OnInputCallback(Keycode key)
+void CommandLineBarLayer::OnInputCallback(InputData inputData)
 {
-    inputs += static_cast<char>(key);
+    inputs += static_cast<char>(inputData.keycode);
 }
 
 }

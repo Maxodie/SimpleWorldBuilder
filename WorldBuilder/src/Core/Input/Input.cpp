@@ -10,20 +10,20 @@ SharedPtr<Input> Input::s_instance = nullptr;
 const InputTable* Input::m_currentInputTable = nullptr;
 std::vector<InputCallback> Input::s_anyPressedInputCallbacks;
 
-void InputTable::BindInput(Keycode keycode, InputState state, const InputCallback&& callback)
+void InputTable::BindInput(Keycode keyCode, InputState state, const InputCallback&& callback)
 {
     switch(state)
     {
         case InputState::PRESSED:
-            BindedPressedInputs[keycode].emplace_back(std::move(callback));
+            BindedPressedInputs[keyCode].emplace_back(std::move(callback));
         break;
 
         case InputState::REPEATED:
-            BindedRepeatedInputs[keycode].emplace_back(std::move(callback));
+            BindedRepeatedInputs[keyCode].emplace_back(std::move(callback));
         break;
 
         case InputState::RELEASED:
-            BindedReleasedInputs[keycode].emplace_back(std::move(callback));
+            BindedReleasedInputs[keyCode].emplace_back(std::move(callback));
         break;
 
         default:

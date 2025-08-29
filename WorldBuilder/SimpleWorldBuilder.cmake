@@ -47,6 +47,7 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Event/Event.hpp
             WorldBuilder/src/Core/Input/Input.cpp
             WorldBuilder/src/Core/Input/Input.hpp
+            WorldBuilder/src/Core/Input/InputData.hpp
             WorldBuilder/src/Core/Input/Keycode.hpp
             WorldBuilder/src/Core/Log/Log.cpp
             WorldBuilder/src/Core/Log/Log.hpp

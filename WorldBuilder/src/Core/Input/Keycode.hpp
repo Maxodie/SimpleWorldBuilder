@@ -4,6 +4,7 @@
 
 enum class Keycode : int
 {
+    DEFAULT = 0,
     WB_KEY_SPACE = 32,
     WB_KEY_APOSTROPH = 39,  /* ' */
     WB_KEY_COMMA = 44,  /* , */
@@ -125,11 +126,11 @@ enum class Keycode : int
     WB_KEY_RIGHT_CONTROL = 345,
     WB_KEY_RIGHT_ALT = 346,
     WB_KEY_RIGHT_SUPER = 347,
-    WB_KEY_MENU = 348,
-
+    WB_KEY_MENU = 348
 };
 
 enum class Modifier : int {
+    DEFAULT = 0,
     WB_MOD_SHIFT = BIT(0),
     WB_MOD_CONTROL = BIT(1),
     WB_MOD_ALT = BIT(2),

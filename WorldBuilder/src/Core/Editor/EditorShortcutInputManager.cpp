@@ -1,6 +1,7 @@
 #include "Core/Editor/EditorShortCutInputManager.hpp"
 #include "Core/Core.hpp"
 #include "Core/Input/Input.hpp"
+#include "Core/Input/Keycode.hpp"
 
 namespace WB {
 
@@ -11,10 +12,6 @@ EditorShortcutInputManager::EditorShortcutInputManager() {
 EditorShortcutInputManager::~EditorShortcutInputManager() {
 }
 
-void Caca() {
-    std::cout << "caca" << std::endl;
-}
-
 void EditorShortcutInputManager::BindShortcut(const ShortcutCallback&& callback, Shortcut shortcut) {
     m_callbackMap[shortcut] = callback;
 }
@@ -23,10 +20,12 @@ void EditorShortcutInputManager::CallShortcut(Shortcut shortcut) {
     m_callbackMap[shortcut]();
 }
 
-void EditorShortcutInputManager::InterpreteShortcut(Keycode keycode) {
-    switch (keycode) {
+void EditorShortcutInputManager::InterpreteShortcut(InputData inputData) {
+    switch (inputData.keycode) {
         case Keycode::WB_KEY_SEMICOL:
-            CallShortcut(Shortcut::Semicolon);
+            if  (inputData.modifier == Modifier::WB_MOD_SHIFT) {
+                CallShortcut(Shortcut::Semicolon);
+            }
         break;
 
         default:

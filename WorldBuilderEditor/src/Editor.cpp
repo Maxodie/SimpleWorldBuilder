@@ -136,7 +136,7 @@ private:
     }
 
 
-    void OnCamForwardPressed(Keycode key)
+    void OnCamForwardPressed(WB::InputData inputData)
     {
         glm::vec3 base = camTr.GetPosition();
         glm::vec3 forwa = camTr.GetForward();
@@ -146,7 +146,7 @@ private:
         m_cam.UpdateViewMatrix(camTr);
     }
 
-    void OnCamBackwardPressed(Keycode key)
+    void OnCamBackwardPressed(WB::InputData inputData)
     {
         glm::vec3 base = camTr.GetPosition();
         glm::vec3 forwa = camTr.GetForward();
@@ -156,12 +156,12 @@ private:
         m_cam.UpdateViewMatrix(camTr);
     }
 
-    void OnStartPlayInEditor(Keycode key)
+    void OnStartPlayInEditor(WB::InputData inputData)
     {
         scene.PrepareScene();
     }
 
-    void OnEndPlayInEditor(Keycode key)
+    void OnEndPlayInEditor(WB::InputData inputData)
     {
         scene.RestoreScene();
     }
