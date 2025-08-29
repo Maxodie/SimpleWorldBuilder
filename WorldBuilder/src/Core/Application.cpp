@@ -51,17 +51,17 @@ void Application::Run()
 
     while(m_isRunning)
     {
-        for(auto& layer : layers)
+        for(int i = 0; i < layers.size(); i++)
         {
-            layer->Update();
+            layers[i]->Update();
         }
 
         if(m_isMinimized) return;
 
         ImGuiLayerBase::Begin();
-        for(auto& layer : layers)
+        for(int i = 0; i < layers.size(); i++)
         {
-            layer->UpdateGUI();
+            layers[i]->UpdateGUI();
         }
         ImGuiLayerBase::End();
 

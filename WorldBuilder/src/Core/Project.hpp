@@ -36,18 +36,27 @@ public:
     WB_INLINE const ProjectSettings& GetSettings() const { return m_settings; }
     WB_INLINE static SharedPtr<Project> GetActive() { return s_active; }
 
-    static bool OpenProject(const Path& path)
+    static SharedPtr<Project> GetProject(const Path& path)
     {
         ProjectSettings settings;
         if(!ProjectSerializer::Deserialize(settings, path))
         {
             CORE_LOG_ERROR("failed to open project at path %s", path.string().c_str());
+            return nullptr;
+        }
+
+        return MakeShared<Project>(settings);
+    }
+
+    static bool OpenProject(const Path& path)
+    {
+        SharedPtr<Project> project = GetProject(path);
+        if(!project)
+        {
             return false;
         }
 
-        SharedPtr<Project> project = MakeShared<Project>(settings);
         SetActiveProject(project);
-        CORE_LOG_DEBUG("Project opened : %s, assets path : %s", settings.projectName.c_str(), settings.projectAssetPath.string().c_str());
         return true;
     }
 
@@ -113,6 +122,7 @@ public:
     WB_INLINE static void SetActiveProject(SharedPtr<Project>& project)
     {
         s_active = project;
+        CORE_LOG_DEBUG("active project changed : %s, assets path : %s", project->GetSettings().projectName.c_str(), project->GetSettings().projectAssetPath.string().c_str());
     }
 
     WB_INLINE const Path& GetAssetPath() const

@@ -5,6 +5,7 @@ namespace WB
 {
 
 using Path = std::filesystem::path;
+using DirectoryIterator = std::filesystem::directory_iterator;
 
 enum class FileMode
 {
@@ -34,10 +35,14 @@ public:
     static bool SyncWriteFileAsByte(File& file, const char* buffer);
 
     static Path GetPersistentDataPath();
+    static Path GetEnginePath();
+    static Path GetEngineDefaultRessourcesPath();
     static Path GetPersistentProjectListPath();
 
     static void TransformNameIntoPathString(std::string& str);
     static bool Exists(const Path& path);
+    static bool IsFolder(const Path& path);
+    static bool HasExtension(const Path& path, const Path& extension);
 
 private:
     static bool OpenFile(const Path& path, File& outFile, FileMode mode);

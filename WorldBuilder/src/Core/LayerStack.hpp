@@ -47,7 +47,7 @@ public:
     virtual ~LayerStack() = default;
 
     template<typename TLayer>
-    SharedPtr<TLayer> GetLayer()
+    WeakPtr<TLayer> GetLayer()
     {
         const auto layer = std::find_if(m_layers.begin(), m_layers.end(),
             [](const auto& layer)
@@ -60,15 +60,15 @@ public:
         {
             return static_pointer_cast<TLayer>(*layer);
         }
-        return nullptr;
+        return {};
     }
 
     template<typename TLayer, typename ... TArgs>
     SharedPtr<TLayer> AddLayer(TArgs&&... args)
     {
-        const SharedPtr<Layer> layer = GetLayer<TLayer>();
+        const WeakPtr<Layer> layer = GetLayer<TLayer>();
 
-        if(layer)
+        if(layer.lock())
         {
             CORE_LOG_WARNING("Trying to add an existing layer to the app");
             return nullptr;

@@ -47,6 +47,11 @@ void CreateProjectEditorLayer::UpdateGUI()
                 Project::SetActiveProject(project);
             }
 
+            for(const auto& callback : m_projectCreatedCallbacks)
+            {
+                callback();
+            }
+
             Close();
         }
 
@@ -70,9 +75,25 @@ void CreateProjectEditorLayer::OnDetach()
     CORE_LOG_SUCCESS("Create project editor detached");
 }
 
+void CreateProjectEditorLayer::AddOnProjectCreatedCallback(const ProjectCreatedCallback&& fun)
+{
+    m_projectCreatedCallbacks.emplace_back(std::move(fun));
+}
+
+void CreateProjectEditorLayer::AddOnCancelCallback(const ProjectCreatedCallback&& fun)
+{
+    m_projectCancelCallbacks.emplace_back(std::move(fun));
+}
+
 void CreateProjectEditorLayer::Close()
 {
     ImGui::CloseCurrentPopup();
+
+    for(const auto& callback : m_projectCancelCallbacks)
+    {
+        callback();
+    }
+
     GetContext()->RemoveLayer<CreateProjectEditorLayer>();
 }
 

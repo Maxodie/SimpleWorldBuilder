@@ -1,7 +1,7 @@
 #include "Core/Utils/FileSystem.hpp"
 #include "Core/Core.hpp"
 #include "Core/Log/Log.hpp"
-#include <filesystem>
+#include "Core/Project.hpp"
 
 #ifdef _WIN32
 #include "ShlObj_core.h"
@@ -118,6 +118,16 @@ Path FileSystem::GetPersistentDataPath()
     return "C:\\";
 }
 
+Path FileSystem::GetEnginePath()
+{
+    return std::filesystem::current_path();
+}
+
+Path FileSystem::GetEngineDefaultRessourcesPath()
+{
+    return GetEnginePath() / "DefaultRessources";
+}
+
 Path FileSystem::GetPersistentProjectListPath()
 {
     static const char* folderName = "WorldBuilder";
@@ -140,6 +150,16 @@ void FileSystem::TransformNameIntoPathString(std::string& str)
 bool FileSystem::Exists(const Path& path)
 {
     return std::filesystem::exists(path);
+}
+
+bool FileSystem::IsFolder(const Path& path)
+{
+    return std::filesystem::is_directory(path);
+}
+
+bool FileSystem::HasExtension(const Path& path, const Path& extension)
+{
+    return path.extension() == extension;
 }
 
 bool FileSystem::OpenFile(const Path& path, File& outFile, FileMode mode)

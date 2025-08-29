@@ -36,11 +36,10 @@ public:
 
     virtual void OnAttach() override
     {
-        CLIENT_LOG_SUCCESS("appdata path : %s", WB::FileSystem::GetPersistentDataPath().string().c_str());
         CLIENT_LOG_SUCCESS("Editor attached");
         m_frameBuffer = WB::FrameBuffer::Create();
 
-        InitImGUI();
+        StartProject();
 
         WB::Model newMod;
         newMod.Load("WorldBuilderEditor/assets/monkey.fbx");
@@ -102,7 +101,26 @@ private:
         CLIENT_LOG_DEBUG("caca");
     }
 
-    void InitImGUI()
+    void StartProject()
+    {
+        GetContext()->AddLayer<WB::CreateProjectEditorLayer>();
+        WeakPtr<WB::CreateProjectEditorLayer> createProject = GetContext()->GetLayer<WB::CreateProjectEditorLayer>();
+
+        WB_CLIENT_ASSERT(createProject.lock(), "could get open project layer");
+        createProject.lock()->AddOnProjectCreatedCallback(WB_BIND_FUN0(EditorLayer::SetupProjectInterface));//by default it open the project
+        createProject.lock()->AddOnCancelCallback(WB_BIND_FUN0(EditorLayer::OnProjectCreationCanceled));//by default it open the project
+    }
+
+    void OnProjectCreationCanceled()
+    {
+            GetContext()->AddLayer<WB::OpenProjectEditorLayer>(false);
+            WeakPtr<WB::OpenProjectEditorLayer> openLayer = GetContext()->GetLayer<WB::OpenProjectEditorLayer>();
+
+            WB_CLIENT_ASSERT(openLayer.lock(), "could get open project layer");
+            openLayer.lock()->AddOnProjectOpenedCallback(WB_BIND_FUN0(EditorLayer::SetupProjectInterface));
+    }
+
+    void SetupProjectInterface()
     {
         GetContext()->AddLayer<WB::MainMenuBarLayer>();
         m_mainMenuBarLayer = GetContext()->GetLayer<WB::MainMenuBarLayer>();
@@ -113,8 +131,10 @@ private:
         GetContext()->AddLayer<WB::ViewportLayer>(m_cam, m_frameBuffer);
         m_viewportLayer = GetContext()->GetLayer<WB::ViewportLayer>();
 
-        GetContext()->AddLayer<WB::OpenProjectEditorLayer>();
+        GetContext()->AddLayer<WB::RessourcesLayer>();
+        m_ressourcesLayer = GetContext()->GetLayer<WB::RessourcesLayer>();
     }
+
 
     void OnCamForwardPressed(Keycode key)
     {
@@ -147,9 +167,10 @@ private:
     }
 
 private:
-    SharedPtr<WB::MainMenuBarLayer> m_mainMenuBarLayer;
-    SharedPtr<WB::ViewportLayer> m_viewportLayer;
-    SharedPtr<WB::CommandLineBarLayer> m_commandBarLayer;
+    WeakPtr<WB::MainMenuBarLayer> m_mainMenuBarLayer;
+    WeakPtr<WB::ViewportLayer> m_viewportLayer;
+    WeakPtr<WB::CommandLineBarLayer> m_commandBarLayer;
+    WeakPtr<WB::RessourcesLayer> m_ressourcesLayer;
 
     SharedPtr<WB::Model> model;
     WB::TransformComponent tr;

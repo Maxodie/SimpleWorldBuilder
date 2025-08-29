@@ -8,7 +8,6 @@ namespace WB
 struct AssetMetaData
 {
     Path path;
-    std::string name;
 };
 
 class EditorAssetManager : public AssetManagerBase
@@ -20,6 +19,9 @@ public:
     }
 
     virtual SharedPtr<Asset> GetAsset(AssetID id) override;
+
+public:
+    WB_INLINE static const std::string metaExtention = ".meta";
 
 private:
     std::unordered_map<AssetID, AssetMetaData> m_metaDataRegistry;

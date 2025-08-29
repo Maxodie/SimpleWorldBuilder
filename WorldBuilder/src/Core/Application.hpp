@@ -34,7 +34,8 @@ public:
     template<typename TLayer, typename... TArgs>
     WB_INLINE void AddLayer(TArgs&&... args)
     {
-        PostTask([&](){ m_layerStack.AddLayer<TLayer>(std::forward<TArgs>(args)...); });
+        /*PostTask([&](){ m_layerStack.AddLayer<TLayer>(std::forward<TArgs>(args)...); });*/
+        m_layerStack.AddLayer<TLayer>(std::forward<TArgs>(args)...);
     }
 
     template<typename TLayer>
@@ -44,7 +45,7 @@ public:
     }
 
     template<typename TLayer>
-    WB_INLINE SharedPtr<TLayer> GetLayer()
+    WB_INLINE WeakPtr<TLayer> GetLayer()
     {
         return m_layerStack.GetLayer<TLayer>();
     }

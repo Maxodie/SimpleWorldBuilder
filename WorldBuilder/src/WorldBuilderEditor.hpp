@@ -3,4 +3,5 @@
 #include "Core/Editor/CommandLineBarLayer.hpp"
 #include "Core/Editor/EditorShortCutInputManager.hpp"
 #include "Core/Editor/ProjectEditor/OpenProjectEditorLayer.hpp"
-
+#include "Core/Editor/ProjectEditor/CreateProjectEditorLayer.hpp"
+#include "Core/Editor/RessourcesLayer/RessourcesLayer.hpp"

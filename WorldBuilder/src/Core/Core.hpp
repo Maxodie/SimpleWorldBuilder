@@ -84,6 +84,9 @@ constexpr SharedPtr<T> MakeShared(TArgs&&... args)
 }
 
 template<typename T>
+using WeakPtr = std::weak_ptr<T>;
+
+template<typename T>
 uintptr_t GetTypeID()
 {
     return reinterpret_cast<uintptr_t>(&typeid(T));

@@ -38,6 +38,10 @@ add_library(WorldBuilder
                 WorldBuilder/src/Core/Editor/ProjectEditor/CreateProjectEditorLayer.cpp
                 WorldBuilder/src/Core/Editor/ProjectEditor/OpenProjectEditorLayer.hpp
                 WorldBuilder/src/Core/Editor/ProjectEditor/OpenProjectEditorLayer.cpp
+                WorldBuilder/src/Core/Editor/RessourcesLayer/RessourcesLayer.hpp
+                WorldBuilder/src/Core/Editor/RessourcesLayer/RessourcesLayer.cpp
+                WorldBuilder/src/Core/Editor/RessourcesLayer/RessourceEditorItem.hpp
+                WorldBuilder/src/Core/Editor/RessourcesLayer/RessourceEditorItem.cpp
             WorldBuilder/src/Core/ECS/EcsComponent.hpp
             WorldBuilder/src/Core/Event/Event.cpp
             WorldBuilder/src/Core/Event/Event.hpp

@@ -1,6 +1,7 @@
 #include "Core/Serializer/ProjectSerializer.hpp"
 #include "Core/Utils/FileSystem.hpp"
 #include "Core/Project.hpp"
+#include "Core/AssetManager/EditorAssetManager.hpp"
 
 #include "yaml-cpp/yaml.h"
 #include "yaml-cpp/node/convert.h"
@@ -90,6 +91,47 @@ bool ProjectSerializer::Deserialize(ProjectList& list, Path path)
             list.paths[i] = stringPaths[i];
         }
         list.names = root["names"].as<std::vector<std::string>>();
+
+        return true;
+    }
+    catch(const YAML::ParserException& ex)
+    {
+        CORE_LOG_ERROR("failed to parse %s || %s", path.string().c_str(), ex.what());
+        return false;
+    }
+}
+
+bool ProjectSerializer::Serialize(const struct AssetMetaData& metaData, Path path)
+{
+    YAML::Emitter emitter;
+
+    std::string stringPath{metaData.path.string()};
+
+    emitter << YAML::BeginMap;
+    emitter << YAML::Key << "path" << YAML::Value << stringPath;
+    emitter << YAML::EndSeq;
+
+    return FileSystem::SyncWriteAtPathAsString(path, emitter.c_str());
+}
+
+bool ProjectSerializer::Deserialize(AssetMetaData& metaData, Path path)
+{
+    if(!FileSystem::Exists(path))
+    {
+        return false;
+    }
+
+    try
+    {
+        YAML::Node root = YAML::LoadFile(path.string());
+        if(root.IsNull())
+        {
+            CORE_LOG_ERROR("failed to parse %s", path.string().c_str());
+            return false;
+        }
+
+        std::string stringPath = root["path"].as<std::string>();
+        metaData.path = stringPath;
 
         return true;
     }

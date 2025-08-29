@@ -3,14 +3,15 @@
 #include "Core/Log/Log.hpp"
 #include "Core/Project.hpp"
 
+#include "Core/Serializer/ProjectSerializer.hpp"
 #include "imgui.h"
 #include "misc/cpp/imgui_stdlib.h"
 
 namespace WB
 {
 
-OpenProjectEditorLayer::OpenProjectEditorLayer()
-    : Layer(), m_projectList(Project::GetProjectList())
+OpenProjectEditorLayer::OpenProjectEditorLayer(bool canCancel)
+    : Layer(), m_projectList(Project::GetProjectList()), m_canCancel(canCancel)
 {
 }
 
@@ -44,15 +45,42 @@ void OpenProjectEditorLayer::UpdateGUI()
                     CORE_LOG_ERROR("failed to open project path : %s", m_projectList.paths[i].string().c_str());
                 }
 
+                for(const auto& callback : m_projectOpenedCallbacks)
+                {
+                    callback();
+                }
+
                 Close();
             }
 
         }
         ImGui::EndChild();
 
-        if (ImGui::Button("Cancel"))
+        ImGui::Text("Path");
+        ImGui::SameLine();
+        ImGui::InputText("##Path", &pathBuffer);
+
+        if (ImGui::Button("Open existing project"))
         {
-            Close();
+            Path fullpath = pathBuffer;
+            ProjectSettings settings;
+            if(ProjectSerializer::Deserialize(settings, fullpath))
+            {
+                SharedPtr<Project> project = MakeShared<Project>(settings);
+                Project::AddProjectToProjectList(project);
+            }
+            else
+            {
+                CORE_LOG_ERROR("failed to open project path : %s", fullpath.string().c_str());
+            }
+        }
+
+        if(m_canCancel)
+        {
+            if (ImGui::Button("Cancel"))
+            {
+                Close();
+            }
         }
 
         ImGui::EndPopup();
@@ -67,6 +95,11 @@ void OpenProjectEditorLayer::OnAttach()
 void OpenProjectEditorLayer::OnDetach()
 {
     CORE_LOG_SUCCESS("Open project editor detached");
+}
+
+void OpenProjectEditorLayer::AddOnProjectOpenedCallback(const ProjectOpenedCallback&& fun)
+{
+    m_projectOpenedCallbacks.emplace_back(std::move(fun));
 }
 
 void OpenProjectEditorLayer::Close()
