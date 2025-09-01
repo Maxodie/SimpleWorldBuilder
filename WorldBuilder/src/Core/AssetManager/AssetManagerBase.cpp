@@ -4,7 +4,7 @@
 namespace WB
 {
 
-SharedPtr<Asset> AssetManagerBase::GetAsset(AssetID id)
+WeakPtr<Asset> AssetManagerBase::GetAsset(AssetID id)
 {
     return Project::GetActive()->GetAssetManager()->GetAsset(id);
 }

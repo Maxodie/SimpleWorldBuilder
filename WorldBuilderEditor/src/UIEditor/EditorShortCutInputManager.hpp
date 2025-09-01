@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Core/Core.hpp"
-#include "Core/Input/Input.hpp"
+#include "WorldBuilder.hpp"
 
 namespace WB {
 

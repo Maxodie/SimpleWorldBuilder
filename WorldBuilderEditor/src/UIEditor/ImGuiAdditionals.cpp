@@ -1,4 +1,4 @@
-#include "Core/Editor/ImGuiAdditionals.hpp"
+#include "UIEditor/ImGuiAdditionals.hpp"
 
 #include "imgui.cpp"
 #include "imgui.h"

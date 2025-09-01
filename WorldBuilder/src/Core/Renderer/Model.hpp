@@ -19,8 +19,6 @@ struct Mesh
 struct Model
 {
     std::vector<Mesh> Meshes;
-
-    void Load(const std::string& path);
 };
 
 }

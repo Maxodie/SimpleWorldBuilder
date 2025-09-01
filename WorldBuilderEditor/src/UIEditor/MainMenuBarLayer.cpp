@@ -1,9 +1,8 @@
-#include "Core/Editor/MainMenuBarLayer.hpp"
-#include "Core/Log/Log.hpp"
-#include "Core/Application.hpp"
+#include "UIEditor/MainMenuBarLayer.hpp"
+#include "UIEditor/ProjectEditor/CreateProjectEditorLayer.hpp"
+#include "UIEditor/ProjectEditor/OpenProjectEditorLayer.hpp"
 
-#include "Core/Editor/ProjectEditor/CreateProjectEditorLayer.hpp"
-#include "Core/Editor/ProjectEditor/OpenProjectEditorLayer.hpp"
+#include "WorldBuilder.hpp"
 
 #include "imgui.h"
 

@@ -1,5 +1,12 @@
 #include "WorldBuilder.hpp"
-#include "WorldBuilderEditor.hpp"
+#include "UIEditor/ViewportLayer.hpp"
+#include "UIEditor/RessourcesLayer/RessourcesLayer.hpp"
+#include "UIEditor/CommandLineBarLayer.hpp"
+#include "UIEditor/EditorShortCutInputManager.hpp"
+#include "UIEditor/Hierarchy/HierarchyLayer.hpp"
+#include "UIEditor/ProjectEditor/OpenProjectEditorLayer.hpp"
+#include "UIEditor/ProjectEditor/CreateProjectEditorLayer.hpp"
+#include "UIEditor/MainMenuBarLayer.hpp"
 
 class EditorLayer : public WB::Layer
 {
@@ -16,14 +23,14 @@ public:
 
         scene.BeginScene();
 
-        tr.Rotate({WB::Application::GetDeltaTime(), WB::Application::GetDeltaTime(), 0.0f});
-        tr.UpdateModelMatrix();
-        if (tr.GetRotation().y > 360.0f)
-        {
-            tr.SetRotation(glm::vec3(0.0f));
-        }
-
-        WB::Renderer3D::DrawModel(*model, tr);
+        /*tr.Rotate({WB::Application::GetDeltaTime(), WB::Application::GetDeltaTime(), 0.0f});*/
+        /*tr.UpdateModelMatrix();*/
+        /*if (tr.GetRotation().y > 360.0f)*/
+        /*{*/
+        /*    tr.SetRotation(glm::vec3(0.0f));*/
+        /*}*/
+        /**/
+        /*WB::Renderer3D::DrawModel(*model, tr);*/
         scene.UpdateScene();
         scene.EndScene();
 
@@ -41,13 +48,13 @@ public:
 
         StartProject();
 
-        WB::Model newMod;
-        newMod.Load("WorldBuilderEditor/assets/monkey.fbx");
+        /*WB::Model newMod;*/
+        /*newMod.Load("WorldBuilderEditor/assets/monkey.fbx");*/
 
-        tr.SetScale({0.2f, 0.2f, 0.2f});
-        tr.SetPosition({0.0f, 0.0f, 0.8f});
+        /*tr.SetScale({0.2f, 0.2f, 0.2f});*/
+        /*tr.SetPosition({0.0f, 0.0f, 0.8f});*/
 
-        model = MakeShared<WB::Model>(newMod);
+        /*model = MakeShared<WB::Model>(newMod);*/
 
         m_cam.SetupProjectionMatrix(80.f, 800.0f/640.0f, 0.1f, 100.f);
         camTr.SetScale({1.0f, 1.0f, 1.0f});
@@ -63,8 +70,7 @@ public:
         //Scene data
         m_sceneData.cam = &m_cam;
         m_sceneData.transforms.push_back(&camTr);
-        m_sceneData.transforms.push_back(&tr);
-        scene.SetData(m_sceneData);
+        /*m_sceneData.transforms.push_back(&tr);*/
 
         //Shortcuts, duh
         m_shortcutManger.BindShortcut(WB_BIND_FUN0(EditorLayer::CommandLineShortcut), WB::Shortcut::Semicolon);
@@ -97,7 +103,9 @@ private:
         }
         return result;
     }
-    void CommandLineShortcut() {
+
+    void CommandLineShortcut()
+    {
         CLIENT_LOG_DEBUG("caca");
     }
 
@@ -133,6 +141,9 @@ private:
 
         GetContext()->AddLayer<WB::RessourcesLayer>();
         m_ressourcesLayer = GetContext()->GetLayer<WB::RessourcesLayer>();
+
+        GetContext()->AddLayer<WB::HierarchyLayer>(m_sceneData);
+        m_hierarchyLayer = GetContext()->GetLayer<WB::HierarchyLayer>();
     }
 
 
@@ -171,9 +182,10 @@ private:
     WeakPtr<WB::ViewportLayer> m_viewportLayer;
     WeakPtr<WB::CommandLineBarLayer> m_commandBarLayer;
     WeakPtr<WB::RessourcesLayer> m_ressourcesLayer;
+    WeakPtr<WB::HierarchyLayer> m_hierarchyLayer;
 
-    SharedPtr<WB::Model> model;
-    WB::TransformComponent tr;
+    /*SharedPtr<WB::Model> model;*/
+    /*WB::TransformComponent tr;*/
     WB::TransformComponent camTr;
     WB::Camera m_cam;
 
@@ -181,8 +193,8 @@ private:
 
     WB::InputTable inputTable;
 
-    WB::Scene3D scene;
     WB::SceneData m_sceneData;
+    WB::Scene3D scene{m_sceneData};
 
     WB::EditorShortcutInputManager m_shortcutManger;
 };

@@ -1,6 +1,5 @@
 add_library(WorldBuilder
     WorldBuilder/src/WorldBuilder.hpp
-    WorldBuilder/src/WorldBuilderEditor.hpp
 
         WorldBuilder/src/Core/Core.hpp
         WorldBuilder/src/Core/EntryPoint.cpp
@@ -16,33 +15,18 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/AssetManager/RuntimeAssetManager.hpp
             WorldBuilder/src/Core/AssetManager/EditorAssetManager.cpp
             WorldBuilder/src/Core/AssetManager/EditorAssetManager.hpp
+                WorldBuilder/src/Core/AssetManager/Importer/ModelImporter.cpp
+                WorldBuilder/src/Core/AssetManager/Importer/ModelImporter.hpp
             WorldBuilder/src/Core/Commons/Camera.cpp
             WorldBuilder/src/Core/Commons/Camera.hpp
             WorldBuilder/src/Core/Commons/Scene.cpp
             WorldBuilder/src/Core/Commons/Scene.hpp
             WorldBuilder/src/Core/Commons/Timestep.cpp
             WorldBuilder/src/Core/Commons/Timestep.hpp
-            WorldBuilder/src/Core/Editor/CommandLineBarLayer.cpp
-            WorldBuilder/src/Core/Editor/CommandLineBarLayer.hpp
-            WorldBuilder/src/Core/Editor/ImGuiAdditionals.cpp
-            WorldBuilder/src/Core/Editor/ImGuiAdditionals.hpp
             WorldBuilder/src/Core/Editor/ImGuiLayer.cpp
             WorldBuilder/src/Core/Editor/ImGuiLayer.hpp
-            WorldBuilder/src/Core/Editor/MainMenuBarLayer.cpp
-            WorldBuilder/src/Core/Editor/MainMenuBarLayer.hpp
-            WorldBuilder/src/Core/Editor/EditorShortcutInputManager.hpp
-            WorldBuilder/src/Core/Editor/EditorShortcutInputManager.cpp
-            WorldBuilder/src/Core/Editor/ViewportLayer.hpp
-            WorldBuilder/src/Core/Editor/ViewportLayer.cpp
-                WorldBuilder/src/Core/Editor/ProjectEditor/CreateProjectEditorLayer.hpp
-                WorldBuilder/src/Core/Editor/ProjectEditor/CreateProjectEditorLayer.cpp
-                WorldBuilder/src/Core/Editor/ProjectEditor/OpenProjectEditorLayer.hpp
-                WorldBuilder/src/Core/Editor/ProjectEditor/OpenProjectEditorLayer.cpp
-                WorldBuilder/src/Core/Editor/RessourcesLayer/RessourcesLayer.hpp
-                WorldBuilder/src/Core/Editor/RessourcesLayer/RessourcesLayer.cpp
-                WorldBuilder/src/Core/Editor/RessourcesLayer/RessourceEditorItem.hpp
-                WorldBuilder/src/Core/Editor/RessourcesLayer/RessourceEditorItem.cpp
             WorldBuilder/src/Core/ECS/EcsComponent.hpp
+            WorldBuilder/src/Core/ECS/Entity.hpp
             WorldBuilder/src/Core/Event/Event.cpp
             WorldBuilder/src/Core/Event/Event.hpp
             WorldBuilder/src/Core/Input/Input.cpp

@@ -1,7 +1,6 @@
 #include "Core/Utils/FileSystem.hpp"
 #include "Core/Core.hpp"
 #include "Core/Log/Log.hpp"
-#include "Core/Project.hpp"
 
 #ifdef _WIN32
 #include "ShlObj_core.h"
@@ -118,29 +117,6 @@ Path FileSystem::GetPersistentDataPath()
     return "C:\\";
 }
 
-Path FileSystem::GetEnginePath()
-{
-    return std::filesystem::current_path();
-}
-
-Path FileSystem::GetEngineDefaultRessourcesPath()
-{
-    return GetEnginePath() / "DefaultRessources";
-}
-
-Path FileSystem::GetPersistentProjectListPath()
-{
-    static const char* folderName = "WorldBuilder";
-    Path persistentPath = FileSystem::GetPersistentDataPath();
-    Path persistentFolder = persistentPath / folderName;
-    if(!FileSystem::Exists(persistentFolder))
-    {
-        WB_CORE_ASSERT(FileSystem::CreateFolder(persistentPath, folderName), "failed to create persistent roaming folder");
-    }
-
-    return persistentFolder;
-}
-
 void FileSystem::TransformNameIntoPathString(std::string& str)
 {
     std::regex const filter("[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-""]");
@@ -160,6 +136,30 @@ bool FileSystem::IsFolder(const Path& path)
 bool FileSystem::HasExtension(const Path& path, const Path& extension)
 {
     return path.extension() == extension;
+}
+
+bool FileSystem::HasAnyExtension(const Path& path, std::vector<Path>& extensions)
+{
+    for(const auto& extension : extensions)
+    {
+        if(HasExtension(path, extension))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void FileSystem::ReplaceExtension(Path& path, const std::string& extension)
+{
+    WB_CORE_ASSERT(Exists(path), "path does not exists");
+    path.replace_extension(extension);
+}
+
+void FileSystem::Delete(const Path& path)
+{
+    std::filesystem::remove(path);
 }
 
 bool FileSystem::OpenFile(const Path& path, File& outFile, FileMode mode)

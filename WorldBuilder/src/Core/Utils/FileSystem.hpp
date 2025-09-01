@@ -35,14 +35,15 @@ public:
     static bool SyncWriteFileAsByte(File& file, const char* buffer);
 
     static Path GetPersistentDataPath();
-    static Path GetEnginePath();
-    static Path GetEngineDefaultRessourcesPath();
-    static Path GetPersistentProjectListPath();
 
     static void TransformNameIntoPathString(std::string& str);
     static bool Exists(const Path& path);
     static bool IsFolder(const Path& path);
     static bool HasExtension(const Path& path, const Path& extension);
+    static bool HasAnyExtension(const Path& path, std::vector<Path>& extensions);
+    static void ReplaceExtension(Path& path, const std::string& extension);
+
+    static void Delete(const Path& path);
 
 private:
     static bool OpenFile(const Path& path, File& outFile, FileMode mode);

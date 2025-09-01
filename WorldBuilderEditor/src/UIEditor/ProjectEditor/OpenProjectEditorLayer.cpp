@@ -1,9 +1,6 @@
-#include "Core/Editor/ProjectEditor/OpenProjectEditorLayer.hpp"
-#include "Core/Application.hpp"
-#include "Core/Log/Log.hpp"
-#include "Core/Project.hpp"
+#include "UIEditor/ProjectEditor/OpenProjectEditorLayer.hpp"
+#include "WorldBuilder.hpp"
 
-#include "Core/Serializer/ProjectSerializer.hpp"
 #include "imgui.h"
 #include "misc/cpp/imgui_stdlib.h"
 
@@ -32,29 +29,30 @@ void OpenProjectEditorLayer::UpdateGUI()
     {
         ImGui::Text("Open a project");
 
-        ImVec2 windowPos = ImGui::GetContentRegionAvail();
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
-        ImGui::BeginChild("ChildL", ImVec2(550, 200), ImGuiChildFlags_None, window_flags);
-
-        for(int i = 0; i < m_projectList.paths.size(); i++)
+        if(ImGui::BeginChild("ChildL", ImVec2(550, 200), ImGuiChildFlags_None, window_flags))
         {
-            if (ImGui::Button(("Open " + m_projectList.names[i]).c_str()))
+            for(int i = 0; i < m_projectList.paths.size(); i++)
             {
-                if(!Project::OpenProject(m_projectList.paths[i]))
+                if (ImGui::Button(("Open " + m_projectList.names[i]).c_str()))
                 {
-                    CORE_LOG_ERROR("failed to open project path : %s", m_projectList.paths[i].string().c_str());
+                    if(!Project::OpenProject(m_projectList.paths[i]))
+                    {
+                        CORE_LOG_ERROR("failed to open project path : %s", m_projectList.paths[i].string().c_str());
+                    }
+
+                    for(const auto& callback : m_projectOpenedCallbacks)
+                    {
+                        callback();
+                    }
+
+                    Close();
                 }
 
-                for(const auto& callback : m_projectOpenedCallbacks)
-                {
-                    callback();
-                }
-
-                Close();
             }
-
+            ImGui::EndChild();
         }
-        ImGui::EndChild();
+
 
         ImGui::Text("Path");
         ImGui::SameLine();

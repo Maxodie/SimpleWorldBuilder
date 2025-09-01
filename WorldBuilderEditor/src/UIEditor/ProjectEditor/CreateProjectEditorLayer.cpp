@@ -1,6 +1,5 @@
-#include "Core/Editor/ProjectEditor/CreateProjectEditorLayer.hpp"
-#include "Core/Application.hpp"
-#include "Core/Project.hpp"
+#include "UIEditor/ProjectEditor/CreateProjectEditorLayer.hpp"
+#include "WorldBuilder.hpp"
 
 #include "imgui.h"
 #include "misc/cpp/imgui_stdlib.h"

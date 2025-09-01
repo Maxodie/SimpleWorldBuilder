@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/LayerStack.hpp"
+#include "WorldBuilder.hpp"
 
 namespace WB
 {
