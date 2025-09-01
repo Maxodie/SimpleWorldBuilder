@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Core/Commons/Camera.hpp"
-#include "Core/LayerStack.hpp"
-#include "Core/Renderer/FrameBuffer.hpp"
+#include "WorldBuilder.hpp"
 
 namespace WB
 {

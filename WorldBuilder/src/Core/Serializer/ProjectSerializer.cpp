@@ -2,6 +2,7 @@
 #include "Core/Utils/FileSystem.hpp"
 #include "Core/Project.hpp"
 #include "Core/AssetManager/EditorAssetManager.hpp"
+#include "Core/Serializer/Serializer.hpp"
 
 #include "yaml-cpp/yaml.h"
 #include "yaml-cpp/node/convert.h"
@@ -9,7 +10,7 @@
 namespace WB
 {
 
-bool ProjectSerializer::Serialize(const ProjectSettings& settings, Path path)
+bool ProjectSerializer::Serialize(const ProjectSettings& settings, const Path& path)
 {
     YAML::Emitter emitter;
     emitter << YAML::BeginMap;
@@ -21,7 +22,7 @@ bool ProjectSerializer::Serialize(const ProjectSettings& settings, Path path)
     return FileSystem::SyncWriteAtPathAsString(path, emitter.c_str());
 }
 
-bool ProjectSerializer::Deserialize(ProjectSettings& settings, Path path)
+bool ProjectSerializer::Deserialize(ProjectSettings& settings, const Path& path)
 {
     if(!FileSystem::Exists(path))
     {
@@ -49,7 +50,7 @@ bool ProjectSerializer::Deserialize(ProjectSettings& settings, Path path)
     }
 }
 
-bool ProjectSerializer::Serialize(const struct ProjectList& list, Path path)
+bool ProjectSerializer::Serialize(const struct ProjectList& list, const Path& path)
 {
     YAML::Emitter emitter;
 
@@ -67,7 +68,7 @@ bool ProjectSerializer::Serialize(const struct ProjectList& list, Path path)
     return FileSystem::SyncWriteAtPathAsString(path, emitter.c_str());
 }
 
-bool ProjectSerializer::Deserialize(ProjectList& list, Path path)
+bool ProjectSerializer::Deserialize(ProjectList& list, const Path& path)
 {
     if(!FileSystem::Exists(path))
     {
@@ -101,7 +102,7 @@ bool ProjectSerializer::Deserialize(ProjectList& list, Path path)
     }
 }
 
-bool ProjectSerializer::Serialize(const struct AssetMetaData& metaData, Path path)
+bool ProjectSerializer::Serialize(const struct AssetMetaData& metaData, const Path& path)
 {
     YAML::Emitter emitter;
 
@@ -109,12 +110,14 @@ bool ProjectSerializer::Serialize(const struct AssetMetaData& metaData, Path pat
 
     emitter << YAML::BeginMap;
     emitter << YAML::Key << "path" << YAML::Value << stringPath;
+    emitter << YAML::Key << "type" << YAML::Value << Serializer::AssetTypeAsString(metaData.type);
+    emitter << YAML::Key << "id" << YAML::Value << metaData.id;
     emitter << YAML::EndSeq;
 
     return FileSystem::SyncWriteAtPathAsString(path, emitter.c_str());
 }
 
-bool ProjectSerializer::Deserialize(AssetMetaData& metaData, Path path)
+bool ProjectSerializer::Deserialize(AssetMetaData& metaData, const Path& path)
 {
     if(!FileSystem::Exists(path))
     {
@@ -130,8 +133,9 @@ bool ProjectSerializer::Deserialize(AssetMetaData& metaData, Path path)
             return false;
         }
 
-        std::string stringPath = root["path"].as<std::string>();
-        metaData.path = stringPath;
+        metaData.path = root["path"].as<std::string>();
+        metaData.type = Serializer::AssetStringAsType(root["type"].as<std::string>());
+        metaData.id = root["id"].as<AssetID>();
 
         return true;
     }

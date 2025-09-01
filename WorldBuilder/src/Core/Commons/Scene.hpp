@@ -3,20 +3,22 @@
 #include "Core/Commons/Camera.hpp"
 #include "Core/ECS/EcsComponent.hpp"
 
+#include "entt/entt.hpp"
+
 namespace WB
 {
 
 struct SceneData
 {
     Camera* cam;
-    std::vector<TransformComponent*> transforms; //replace with ecs id or smt eventually
+    std::vector<TransformComponent*> transforms;
 };
 
 class Scene3D
 {
 public:
-    WB_INLINE const SceneData* GetData() const { return m_sceneData; }
-    WB_INLINE void SetData(SceneData& sceneData) { m_sceneData = &sceneData; }
+    Scene3D(SceneData&  sceneData) : m_sceneData(sceneData){}
+    WB_INLINE const SceneData& GetData() const { return m_sceneData; }
 
     void BeginScene();
     void UpdateScene();
@@ -25,8 +27,15 @@ public:
     void PrepareScene();
     void RestoreScene();
 
+    void CreateEntity();
+    void DestroyEntity(class Entity& entity);
+
+    WB_INLINE entt::registry& GetRegistry() { return m_registry; }
+
 private:
-    SceneData* m_sceneData;
+    entt::registry m_registry;
+
+    SceneData& m_sceneData;
     SceneData m_saveSceneData;
 };
 

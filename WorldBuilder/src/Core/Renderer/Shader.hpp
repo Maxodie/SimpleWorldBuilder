@@ -17,7 +17,7 @@ class Shader
 public:
     virtual ~Shader() = default;
 
-    bool LoadShader(ShaderType shaderType, const Path& shaderPath);
+    bool LoadShader(const Path& shaderPath);
     bool UnLoadShader();
     virtual bool CompileShader() = 0;
 

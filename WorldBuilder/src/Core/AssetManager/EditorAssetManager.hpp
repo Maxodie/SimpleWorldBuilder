@@ -7,7 +7,9 @@ namespace WB
 
 struct AssetMetaData
 {
-    Path path;
+    Path path = "";
+    AssetType type = AssetType::UNKNOWN;
+    AssetID id = EMPTY_ASSET;
 };
 
 class EditorAssetManager : public AssetManagerBase
@@ -18,13 +20,19 @@ public:
         return m_metaDataRegistry.find(id) != m_metaDataRegistry.end();
     }
 
-    virtual SharedPtr<Asset> GetAsset(AssetID id) override;
+    virtual WeakPtr<Asset> GetAsset(AssetID id) override;
+    WeakPtr<Asset> CreateAsset(const AssetMetaData& metaData);
+
+    WeakPtr<AssetMetaData> GetMetaData(AssetID id);
+    WeakPtr<AssetMetaData> CreateMetaData(const Path& path);
+    WeakPtr<AssetMetaData> LoadMetaData(const Path& path);
 
 public:
-    WB_INLINE static const std::string metaExtention = ".meta";
+    WB_INLINE static const std::string s_metaExtention = ".meta";
 
 private:
-    std::unordered_map<AssetID, AssetMetaData> m_metaDataRegistry;
+    std::unordered_map<AssetID, SharedPtr<AssetMetaData>> m_metaDataRegistry;
+    static AssetID assetID;
 };
 
 }

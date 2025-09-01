@@ -1,7 +1,8 @@
-#include "Core/Editor/CommandLineBarLayer.hpp"
-#include "Core/Editor/ImGuiAdditionals.hpp"
+#include "UIEditor/CommandLineBarLayer.hpp"
+#include "UIEditor/ImGuiAdditionals.hpp"
+
+#include "WorldBuilder.hpp"
 #include "Core/Editor/ImGuiLayer.hpp"
-#include "Core/Input/Input.hpp"
 
 #include <imgui.h>
 

@@ -29,11 +29,11 @@ void Renderer3D::Init()
 
     //SHADERS
     m_renderData.VertexShader = Shader::Create();
-    m_renderData.VertexShader->LoadShader(ShaderType::VERTEX, "WorldBuilderEditor/assets/VertexShader.glsl");
+    m_renderData.VertexShader->LoadShader("WorldBuilderEditor/assets/VertexShader.glsl");
     m_renderData.VertexShader->CompileShader();
 
     m_renderData.FragmentShader = Shader::Create();
-    m_renderData.FragmentShader->LoadShader(ShaderType::FRAGMENT, "WorldBuilderEditor/assets/FragmentShader.glsl");
+    m_renderData.FragmentShader->LoadShader("WorldBuilderEditor/assets/FragmentShader.glsl");
     m_renderData.FragmentShader->CompileShader();
 
     m_renderData.ShaderProgram = ShaderProgram::Create();

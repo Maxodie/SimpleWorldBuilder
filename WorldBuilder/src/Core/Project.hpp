@@ -27,9 +27,8 @@ class Project
 public:
     Project() = delete;
     Project(const ProjectSettings& settings)
-        : m_settings(std::move(settings))
+        : m_settings(std::move(settings)), m_assetManager(MakeShared<EditorAssetManager>())
     {
-
     }
 
     WB_INLINE void SetSettings(const ProjectSettings& data) { m_settings = data; }
@@ -105,7 +104,7 @@ public:
         m_projectList.names.emplace_back(project->GetSettings().projectName);
 
         const char* fileName = "WorldBuilder.data";
-        Path persistentPath = FileSystem::GetPersistentProjectListPath() / fileName;
+        Path persistentPath = GetPersistentProjectListPath() / fileName;
 
         ProjectSerializer::Serialize(m_projectList, persistentPath);
     }
@@ -113,7 +112,7 @@ public:
     static const ProjectList& GetProjectList()
     {
         const char* fileName = "WorldBuilder.data";
-        Path persistentPath = FileSystem::GetPersistentProjectListPath() / fileName;
+        Path persistentPath = GetPersistentProjectListPath() / fileName;
 
         ProjectSerializer::Deserialize(m_projectList, persistentPath);
         return m_projectList;
@@ -149,6 +148,29 @@ public:
         SharedPtr<RuntimeAssetManager> manager = static_pointer_cast<RuntimeAssetManager>(m_assetManager);
         WB_CORE_ASSERT(manager, "Build asset manager used in editor");
         return manager;
+    }
+
+    WB_INLINE static Path GetEnginePath()
+    {
+        return std::filesystem::current_path();
+    }
+
+    WB_INLINE static Path GetEngineDefaultRessourcesPath()
+    {
+        return GetEnginePath() / "DefaultRessources";
+    }
+
+    WB_INLINE static Path GetPersistentProjectListPath()
+    {
+        static const char* folderName = "WorldBuilder";
+        Path persistentPath = FileSystem::GetPersistentDataPath();
+        Path persistentFolder = persistentPath / folderName;
+        if(!FileSystem::Exists(persistentFolder))
+        {
+            WB_CORE_ASSERT(FileSystem::CreateFolder(persistentPath, folderName), "failed to create persistent roaming folder");
+        }
+
+        return persistentFolder;
     }
 
 private:

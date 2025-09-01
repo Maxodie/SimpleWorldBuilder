@@ -1,5 +1,7 @@
 #pragma once
 #include "Core/Core.hpp"
+#include "Core/AssetManager/Asset.hpp"
+
 #include "glm/ext/vector_float3.hpp"
 #include "yaml-cpp/yaml.h"
 
@@ -13,6 +15,9 @@ public:
 
     static YAML::Node encode(const glm::vec3& rhs);
     static bool decode(const YAML::Node& node, glm::vec3& rhs);
+
+    static std::string AssetTypeAsString(AssetType type);
+    static AssetType AssetStringAsType(std::string type);
 };
 
 

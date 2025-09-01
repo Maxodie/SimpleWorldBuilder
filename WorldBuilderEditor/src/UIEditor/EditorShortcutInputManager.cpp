@@ -1,6 +1,5 @@
-#include "Core/Editor/EditorShortCutInputManager.hpp"
-#include "Core/Core.hpp"
-#include "Core/Input/Input.hpp"
+#include "UIEditor/EditorShortCutInputManager.hpp"
+#include "WorldBuilder.hpp"
 
 namespace WB {
 

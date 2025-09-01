@@ -1,13 +1,13 @@
 #pragma once
-#include "Core/LayerStack.hpp"
 
+#include "WorldBuilder.hpp"
 namespace WB
 {
 
-class RessourcesLayer : public Layer
+class HierarchyLayer : public Layer
 {
 public:
-    RessourcesLayer();
+    HierarchyLayer(SceneData& sceneData) : Layer(), m_sceneData(sceneData) {}
 
     virtual void Update() override;
     virtual void UpdateGUI() override;
@@ -15,7 +15,7 @@ public:
     virtual void OnDetach() override;
 
 private:
-    Path m_currentViewPath;
+    SceneData& m_sceneData;
 };
 
 }
