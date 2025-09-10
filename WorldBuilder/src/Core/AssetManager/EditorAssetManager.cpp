@@ -1,14 +1,16 @@
 #include "Core/AssetManager/EditorAssetManager.hpp"
 #include "Core/AssetManager/Asset.hpp"
 #include "Core/AssetManager/Importer/ModelImporter.hpp"
-#include "Core/Project.hpp"
+#include "Core/Commons/Scene.hpp"
 #include "Core/Core.hpp"
+#include "Core/Log/Log.hpp"
+#include "Core/Serializer/AssetManagerSerializer.hpp"
+#include "Core/Project.hpp"
+#include "Core/Serializer/SceneSerializer.hpp"
 #include "Core/Utils/FileSystem.hpp"
 
 namespace WB
 {
-
-AssetID EditorAssetManager::assetID = EMPTY_ASSET;
 
 WeakPtr<Asset> EditorAssetManager::GetAsset(AssetID id)
 {
@@ -21,7 +23,12 @@ WeakPtr<Asset> EditorAssetManager::GetAsset(AssetID id)
         WeakPtr<AssetMetaData> metaData = GetMetaData(id);
         if(metaData.lock())
         {
-            return CreateAsset(*metaData.lock());
+            WeakPtr<Asset> asset = CreateAsset(*metaData.lock());
+            if(asset.lock())
+            {
+                return asset;
+            }
+
         }
     }
 
@@ -29,28 +36,37 @@ WeakPtr<Asset> EditorAssetManager::GetAsset(AssetID id)
     return {};
 }
 
+void EditorAssetManager::UnloadAsset(AssetID id)
+{
+    if(IsAssetValid(id))
+    {
+        m_registry.erase(id);
+    }
+}
+
 WeakPtr<Asset> EditorAssetManager::CreateAsset(const AssetMetaData& metaData)
 {
     SharedPtr<Asset> asset;
-    bool result = false;
     switch(metaData.type)
     {
         case AssetType::MODEL:
         {
             SharedPtr<ModelAsset> model = MakeShared<ModelAsset>();
-            result = ModelImporter::Importe(metaData.path, *model);
+            ModelImporter::Importe(metaData.path, *model);
             asset = model;
             break;
         }
         case AssetType::SHADER:
         {
-            SharedPtr<ModelAsset> model = MakeShared<ModelAsset>();
-            result = ModelImporter::Importe(metaData.path, *model);
-            asset = model;
             break;
         }
         case AssetType::SCENE:
+        {
+            SharedPtr<Scene3D> scene = MakeShared<Scene3D>();
+            SceneSerializer::Deserialize(*scene, metaData.path);
+            asset = scene;
             break;
+        }
         case AssetType::TEXTURE:
             break;
         case AssetType::MATERIAL:
@@ -64,10 +80,12 @@ WeakPtr<Asset> EditorAssetManager::CreateAsset(const AssetMetaData& metaData)
             break;
     }
 
-
-
-    if(result)
+    if(asset)
     {
+        asset->id = metaData.id;
+        asset->type = metaData.type;
+
+        m_registry[asset->id] = asset;
         return asset;
     }
 
@@ -91,7 +109,7 @@ WeakPtr<AssetMetaData> EditorAssetManager::CreateMetaData(const Path& path)
     SharedPtr<AssetMetaData> metaData = MakeShared<AssetMetaData>();
     metaData->path = path;
 
-    if(FileSystem::HasExtension(path, "fbx"))
+    if(FileSystem::HasExtension(path, ".fbx"))
     {
         metaData->type = AssetType::MODEL;
     }
@@ -99,18 +117,25 @@ WeakPtr<AssetMetaData> EditorAssetManager::CreateMetaData(const Path& path)
     {
         metaData->type = AssetType::FOLDER;
     }
-    else if(FileSystem::HasExtension(path, "glsl"))
+    else if(FileSystem::HasExtension(path, ".glsl"))
     {
         metaData->type = AssetType::SHADER;
     }
+    else if(FileSystem::HasExtension(path, ".scene"))
+    {
+        metaData->type = AssetType::SCENE;
+    }
 
-    metaData->id = ++assetID;
+    metaData->name = path.filename().string();
+
+    metaData->id = ++s_maxAssetID;
 
     Path metaPath = path;
-    FileSystem::ReplaceExtension(metaPath, s_metaExtention);
-    if(ProjectSerializer::Serialize(*metaData, metaPath))
+    ConvertToMetaPath(metaPath);
+    if(AssetManagerSerializer::Serialize(*metaData, metaPath))
     {
         m_metaDataRegistry[metaData->id] = metaData;
+        Project::GetActive()->GetEditorAssetManager()->SaveAllProjectMetaData();
         return metaData;
     }
 
@@ -122,14 +147,41 @@ WeakPtr<AssetMetaData> EditorAssetManager::LoadMetaData(const Path& path)
 {
     SharedPtr<AssetMetaData> metaData = MakeShared<AssetMetaData>();
 
-    if(ProjectSerializer::Deserialize(*metaData, path))
+    if(AssetManagerSerializer::Deserialize(*metaData, path))
     {
         m_metaDataRegistry[metaData->id] = metaData;
         return metaData;
     }
 
-    CORE_LOG_ERROR("could not load asset at path %s", path.string().c_str());
+    CORE_LOG_ERROR("could not load meta data asset at path %s", path.string().c_str());
     return {};
+}
+
+void EditorAssetManager::LoadAllProjectMetaData()
+{
+    if(!AssetManagerSerializer::Deserialize(m_metaDataRegistry, Project::GetActive()->GetSettings().projectMetaListPath))
+    {
+        return;
+    }
+
+    AssetID maxId = EMPTY_ASSET;
+    for(const auto& [key, metaData] : m_metaDataRegistry)
+    {
+        if(maxId < key)
+        {
+            maxId = key;
+        }
+    }
+
+    s_maxAssetID = maxId;
+}
+
+void EditorAssetManager::SaveAllProjectMetaData()
+{
+    if(!AssetManagerSerializer::Serialize(m_metaDataRegistry, Project::GetActive()->GetSettings().projectMetaListPath))
+    {
+        CORE_LOG_ERROR("Fail to serialize project meta data list");
+    }
 }
 
 } // namespace WB

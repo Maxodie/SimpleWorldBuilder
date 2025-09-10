@@ -127,7 +127,7 @@ struct Vertex3D
 
     glm::vec4 Color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
     glm::vec3 Position = glm::vec3(0.0f);
-    glm::vec2 TexCoords = glm::vec3(0.0f);
+    glm::vec2 TexCoords = glm::vec2(0.0f);
 };
 
 template<typename TVertex>

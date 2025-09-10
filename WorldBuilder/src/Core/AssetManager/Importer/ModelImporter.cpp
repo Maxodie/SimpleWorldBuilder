@@ -76,7 +76,7 @@ bool ModelImporter::Importe(const Path& path, ModelAsset& modelAsset)
         return false;
     }
 
-    ProcessNode(modelAsset.data.Meshes, scene->mRootNode, scene);
+    ProcessNode(modelAsset.meshes, scene->mRootNode, scene);
     return true;
 }
 

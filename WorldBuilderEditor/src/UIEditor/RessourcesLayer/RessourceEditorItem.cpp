@@ -1,4 +1,5 @@
 #include "UIEditor/RessourcesLayer/RessourceEditorItem.hpp"
+#include "Editor.hpp"
 #include "UIEditor/RessourcesLayer/RessourcesLayer.hpp"
 
 #include "WorldBuilder.hpp"
@@ -65,6 +66,30 @@ void RessourceEditorFolder::Open()
     }
 
     m_context.ChangeDirectory(m_metaData.lock()->path);
+}
+
+//scene
+RessourceEditorScene::RessourceEditorScene(WeakPtr<class AssetMetaData>& metaData, RessourcesLayer& context)
+    : RessourceEditorItem(metaData), m_context(context)
+{
+
+}
+
+void RessourceEditorScene::Open()
+{
+    if(!m_metaData.lock())
+    {
+        CORE_LOG_ERROR("could not open scene, metaData doe not exist anymore");
+        return;
+    }
+
+    WeakPtr<EditorLayer> editorLayer = m_context.GetContext()->GetLayer<EditorLayer>();
+    if(!editorLayer.lock())
+    {
+        return;
+    }
+
+    editorLayer.lock()->SwitchScene(m_metaData.lock()->id);
 }
 
 }

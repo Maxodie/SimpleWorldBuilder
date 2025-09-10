@@ -1,6 +1,9 @@
 #pragma once
+#include "Core/Commons/Scene.hpp"
 #include "Core/Core.hpp"
 #include "Core/AssetManager/Asset.hpp"
+#include "entt/entity/entity.hpp"
+#include "glm/ext/vector_float3.hpp"
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/glm.hpp>
 
@@ -62,8 +65,6 @@ public:
     WB_INLINE void Rotate(const glm::vec3& rotation) { m_rotation += rotation; }
 
 private:
-
-private:
     glm::vec3 m_position = glm::vec3(0.0f);
     glm::vec3 m_rotation = glm::vec3(0.0f);
     glm::vec3 m_scale = glm::vec3(1.0f);
@@ -74,24 +75,16 @@ private:
     glm::vec3 m_up;
 };
 
-struct ModelComponent
+struct InfoComponent
 {
-    ModelComponent() = default;
-    ModelComponent(ModelComponent&) = default;
-    ~ModelComponent() = default;
+    InfoComponent(EntityHandle entityHandle) : handle(entityHandle) {}
+    InfoComponent(InfoComponent&) = default;
+    InfoComponent() = default;
+    ~InfoComponent() = default;
 
-    AssetID modelId;
-};
-
-struct ObjectComponent
-{
-    ObjectComponent() = default;
-    ObjectComponent(ObjectComponent&) = default;
-    ~ObjectComponent() = default;
-
-    AssetID parent = EMPTY_ASSET;
+    EntityHandle parent = entt::null;
     std::string name = "Entity";
-    AssetID uid = EMPTY_ASSET;
+    EntityHandle handle;
 };
 
 }

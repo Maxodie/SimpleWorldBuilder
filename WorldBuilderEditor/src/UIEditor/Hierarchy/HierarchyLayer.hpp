@@ -4,18 +4,22 @@
 namespace WB
 {
 
+using EntitySelectedCallback = std::function<void(Entity)>;
 class HierarchyLayer : public Layer
 {
 public:
-    HierarchyLayer(SceneData& sceneData) : Layer(), m_sceneData(sceneData) {}
+    HierarchyLayer(WeakPtr<Scene3D> scene) : Layer(), m_scene(scene) {}
 
     virtual void Update() override;
     virtual void UpdateGUI() override;
     virtual void OnAttach() override;
     virtual void OnDetach() override;
 
+    WB_INLINE void SetOnEntitySelectedCallback(EntitySelectedCallback&& callback) { m_onEntitySelectedCallback = std::move(callback); }
+
 private:
-    SceneData& m_sceneData;
+    WeakPtr<Scene3D> m_scene;
+    EntitySelectedCallback m_onEntitySelectedCallback;
 };
 
 }

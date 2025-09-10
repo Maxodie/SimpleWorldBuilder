@@ -153,7 +153,6 @@ bool FileSystem::HasAnyExtension(const Path& path, std::vector<Path>& extensions
 
 void FileSystem::ReplaceExtension(Path& path, const std::string& extension)
 {
-    WB_CORE_ASSERT(Exists(path), "path does not exists");
     path.replace_extension(extension);
 }
 

@@ -1,5 +1,8 @@
 #include "Core/Serializer/Serializer.hpp"
+#include "Core/AssetManager/Asset.hpp"
+#include "Core/ECS/TransformComponent.hpp"
 #include "Core/Log/Log.hpp"
+#include "Core/Renderer/Model.hpp"
 
 namespace WB
 {
@@ -26,6 +29,61 @@ bool Serializer::decode(const YAML::Node& node, glm::vec3& rhs)
 
     return true;
 }
+
+//INFO COMP
+YAML::Node Serializer::EncodeInfo(const InfoComponent& info)
+{
+    YAML::Node node;
+    node.push_back(info.name);
+    node.push_back(static_cast<uint32_t>(info.handle));
+    node.push_back(static_cast<uint32_t>(info.parent));
+    return node;
+}
+
+bool Serializer::DecodeInfo(InfoComponent& info, const YAML::Node& node)
+{
+    if(!node.IsSequence() || node.size() != 3)
+    {
+        return false;
+    }
+
+    info.name = node[0].as<std::string>();
+    info.handle = static_cast<EntityHandle>(node[1].as<uint32_t>());
+    info.parent = static_cast<EntityHandle>(node[2].as<uint32_t>());
+    return true;
+}
+
+// TRANFORM COMP
+YAML::Node Serializer::EncodeTransform(const TransformComponent& transform)
+{
+    YAML::Node node;
+    node.push_back(encode(transform.GetPosition()));
+    node.push_back(encode(transform.GetRotation()));
+    node.push_back(encode(transform.GetScale()));
+    return node;
+}
+
+bool Serializer::DecodeTransform(TransformComponent& transform, const YAML::Node& node)
+{
+    if(!node.IsSequence() || node.size() != 3)
+    {
+        return false;
+    }
+
+    glm::vec3 vec;
+
+    decode(node[0], vec);
+    transform.SetPosition(vec);
+
+    decode(node[1], vec);
+    transform.SetRotation(vec);
+
+    decode(node[2], vec);
+    transform.SetScale(vec);
+
+    return true;
+}
+//
 
 std::string Serializer::AssetTypeAsString(AssetType type)
 {

@@ -35,4 +35,14 @@ private:
     RessourcesLayer& m_context;
 };
 
+class RessourceEditorScene : public RessourceEditorItem
+{
+public:
+    RessourceEditorScene(WeakPtr<class AssetMetaData>& metaData, class RessourcesLayer& context);
+    virtual void Open() override;
+
+private:
+    RessourcesLayer& m_context;
+};
+
 }

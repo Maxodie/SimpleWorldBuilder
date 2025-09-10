@@ -25,7 +25,7 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Commons/Timestep.hpp
             WorldBuilder/src/Core/Editor/ImGuiLayer.cpp
             WorldBuilder/src/Core/Editor/ImGuiLayer.hpp
-            WorldBuilder/src/Core/ECS/EcsComponent.hpp
+            WorldBuilder/src/Core/ECS/TransformComponent.hpp
             WorldBuilder/src/Core/ECS/Entity.hpp
             WorldBuilder/src/Core/Event/Event.cpp
             WorldBuilder/src/Core/Event/Event.hpp
@@ -60,6 +60,10 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Serializer/Serializer.hpp
             WorldBuilder/src/Core/Serializer/ProjectSerializer.cpp
             WorldBuilder/src/Core/Serializer/ProjectSerializer.hpp
+            WorldBuilder/src/Core/Serializer/SceneSerializer.cpp
+            WorldBuilder/src/Core/Serializer/SceneSerializer.hpp
+            WorldBuilder/src/Core/Serializer/AssetManagerSerializer.cpp
+            WorldBuilder/src/Core/Serializer/AssetManagerSerializer.hpp
             WorldBuilder/src/Core/Utils/FileSystem.cpp
             WorldBuilder/src/Core/Utils/FileSystem.hpp
             WorldBuilder/src/Core/Window/Window.cpp

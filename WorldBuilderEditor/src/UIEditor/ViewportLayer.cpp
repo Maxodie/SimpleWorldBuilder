@@ -6,8 +6,8 @@
 namespace WB
 {
 
-ViewportLayer::ViewportLayer(Camera& cam, SharedPtr<FrameBuffer> frameBuffer)
-    : Layer(), m_cam(cam), m_frameBuffer(frameBuffer)
+ViewportLayer::ViewportLayer(Scene3D& scene)
+    : Layer(), m_frameBuffer(FrameBuffer::Create()), m_scene(scene)
 {
 }
 
@@ -40,8 +40,12 @@ void ViewportLayer::UpdateGUI()
         {
             fov = glm::clamp(m_maxFov - m_viewportSize.y, 80.0f, m_maxFov);
         }
-        m_cam.ResizeBound(m_viewportSize.x, m_viewportSize.y);
-        m_cam.SetFov(fov);
+
+        m_scene.EntityView<Camera>([this, fov](auto entity, Camera& cam)
+        {
+            cam.ResizeBound(m_viewportSize.x, m_viewportSize.y);
+            cam.SetFov(fov);
+        });
     }
     uint32_t textureID = m_frameBuffer->GetColorAttachmentRendererID();
     ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_viewportSize.x, m_viewportSize.y }, ImVec2{0, 1}, ImVec2{1, 0});

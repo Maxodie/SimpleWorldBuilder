@@ -16,6 +16,14 @@ public:
     static YAML::Node encode(const glm::vec3& rhs);
     static bool decode(const YAML::Node& node, glm::vec3& rhs);
 
+    //components
+    static YAML::Node EncodeInfo(const class InfoComponent& info);
+    static bool DecodeInfo(InfoComponent& info, const YAML::Node& node);
+
+    static YAML::Node EncodeTransform(const class TransformComponent& transform);
+    static bool DecodeTransform(TransformComponent& transform, const YAML::Node& node);
+    //
+
     static std::string AssetTypeAsString(AssetType type);
     static AssetType AssetStringAsType(std::string type);
 };

@@ -57,6 +57,11 @@ void CreateProjectEditorLayer::UpdateGUI()
         ImGui::SameLine();
         if (ImGui::Button("Cancel"))
         {
+            for(const auto& callback : m_projectCancelCallbacks)
+            {
+                callback();
+            }
+
             Close();
         }
 
@@ -87,11 +92,6 @@ void CreateProjectEditorLayer::AddOnCancelCallback(const ProjectCreatedCallback&
 void CreateProjectEditorLayer::Close()
 {
     ImGui::CloseCurrentPopup();
-
-    for(const auto& callback : m_projectCancelCallbacks)
-    {
-        callback();
-    }
 
     GetContext()->RemoveLayer<CreateProjectEditorLayer>();
 }

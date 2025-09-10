@@ -1,203 +1,193 @@
-#include "WorldBuilder.hpp"
-#include "UIEditor/ViewportLayer.hpp"
-#include "UIEditor/RessourcesLayer/RessourcesLayer.hpp"
-#include "UIEditor/CommandLineBarLayer.hpp"
-#include "UIEditor/EditorShortCutInputManager.hpp"
-#include "UIEditor/Hierarchy/HierarchyLayer.hpp"
+#include "Editor.hpp"
+#include "Core/AssetManager/Importer/ModelImporter.hpp"
+#include "Core/Core.hpp"
+#include "Core/Log/Log.hpp"
+#include "Core/Project.hpp"
+#include "Core/Serializer/AssetManagerSerializer.hpp"
+#include "Core/Serializer/SceneSerializer.hpp"
 #include "UIEditor/ProjectEditor/OpenProjectEditorLayer.hpp"
 #include "UIEditor/ProjectEditor/CreateProjectEditorLayer.hpp"
-#include "UIEditor/MainMenuBarLayer.hpp"
 
-class EditorLayer : public WB::Layer
+EditorLayer::EditorLayer()
 {
-public:
-    EditorLayer()
+
+}
+
+void EditorLayer::Update()
+{
+    if(m_viewportLayer.lock() && m_activeScene)
     {
-
-    }
-
-    float time = 0.0f;
-    virtual void Update() override
-    {
-        m_frameBuffer->Bind();
-
-        scene.BeginScene();
-
-        /*tr.Rotate({WB::Application::GetDeltaTime(), WB::Application::GetDeltaTime(), 0.0f});*/
-        /*tr.UpdateModelMatrix();*/
-        /*if (tr.GetRotation().y > 360.0f)*/
-        /*{*/
-        /*    tr.SetRotation(glm::vec3(0.0f));*/
-        /*}*/
-        /**/
-        /*WB::Renderer3D::DrawModel(*model, tr);*/
-        scene.UpdateScene();
-        scene.EndScene();
-
-        m_frameBuffer->Unbind();
-    }
-
-    virtual void UpdateGUI() override
-    {
-    }
-
-    virtual void OnAttach() override
-    {
-        CLIENT_LOG_SUCCESS("Editor attached");
-        m_frameBuffer = WB::FrameBuffer::Create();
-
-        StartProject();
-
-        /*WB::Model newMod;*/
-        /*newMod.Load("WorldBuilderEditor/assets/monkey.fbx");*/
-
-        /*tr.SetScale({0.2f, 0.2f, 0.2f});*/
-        /*tr.SetPosition({0.0f, 0.0f, 0.8f});*/
-
-        /*model = MakeShared<WB::Model>(newMod);*/
-
-        m_cam.SetupProjectionMatrix(80.f, 800.0f/640.0f, 0.1f, 100.f);
-        camTr.SetScale({1.0f, 1.0f, 1.0f});
-        camTr.SetPosition({0.0f, 0.0f, 0.0f});
-        m_cam.UpdateViewMatrix(camTr);
-
-        inputTable.BindInput(Keycode::WB_KEY_S, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamBackwardPressed));
-        inputTable.BindInput(Keycode::WB_KEY_W, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamForwardPressed));
-        inputTable.BindInput(Keycode::WB_KEY_P, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnStartPlayInEditor));
-        inputTable.BindInput(Keycode::WB_KEY_O, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnEndPlayInEditor));
-        WB::Input::SetInputTable(inputTable);
-
-        //Scene data
-        m_sceneData.cam = &m_cam;
-        m_sceneData.transforms.push_back(&camTr);
-        /*m_sceneData.transforms.push_back(&tr);*/
-
-        //Shortcuts, duh
-        m_shortcutManger.BindShortcut(WB_BIND_FUN0(EditorLayer::CommandLineShortcut), WB::Shortcut::Semicolon);
-    }
-
-    virtual void OnDetach() override
-    {
-        CLIENT_LOG_SUCCESS("Editor Detached");
-    }
-
-private:
-    template<typename T>
-    T Lerp(const T& a, const T& b, float t)
-    {
-        return a + t * (b - a);
-    }
-
-    template<typename T>
-    T Clamp(const T& value, const T& min, const T& max)
-    {
-        T result = value;
-        if(result > max)
+        if(m_playMode)
         {
-            result = max;
+            m_viewportLayer.lock()->Bind(); //need to bind the other scene when run is started
+            m_activeScene->BeginScene();
+            m_activeScene->UpdateScene();
+            m_activeScene->EndScene();
+            m_viewportLayer.lock()->Unbind();
         }
-
-        if(result < min)
+        else
         {
-            result = min;
+            m_viewportLayer.lock()->Bind();
+            m_editorScene.BeginScene();
+            m_activeScene->UpdateScene();
+            m_editorScene.EndScene();
+            m_viewportLayer.lock()->Unbind();
         }
-        return result;
     }
 
-    void CommandLineShortcut()
+}
+
+void EditorLayer::UpdateGUI()
+{
+}
+
+void EditorLayer::OnAttach()
+{
+    CLIENT_LOG_SUCCESS("Editor attached");
+
+    StartProject();
+
+    //CAMERA EDITOR
+    WB::Entity camera = m_editorScene.CreateEntity();
+    camera.AddComponent<WB::Camera>();
+    camera.AddComponent<WB::TransformComponent>();
+    ///////////////
+
+    inputTable.BindInput(Keycode::WB_KEY_S, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamBackwardPressed));
+    inputTable.BindInput(Keycode::WB_KEY_W, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamForwardPressed));
+    inputTable.BindInput(Keycode::WB_KEY_P, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnStartPlayInEditor));
+    inputTable.BindInput(Keycode::WB_KEY_O, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnEndPlayInEditor));
+    WB::Input::SetInputTable(inputTable);
+
+    //Shortcuts, duh
+    m_shortcutManger.BindShortcut(WB_BIND_FUN0(EditorLayer::CommandLineShortcut), WB::Shortcut::Semicolon);
+}
+
+void EditorLayer::OnDetach()
+{
+    CLIENT_LOG_SUCCESS("Editor Detached");
+}
+
+void EditorLayer::SwitchScene(WB::AssetID sceneID)
+{
+    if(m_activeScene && sceneID == m_activeScene->id)
     {
-        CLIENT_LOG_DEBUG("caca");
+        return;
     }
 
-    void StartProject()
+    if(m_activeScene)
     {
-        GetContext()->AddLayer<WB::CreateProjectEditorLayer>();
-        WeakPtr<WB::CreateProjectEditorLayer> createProject = GetContext()->GetLayer<WB::CreateProjectEditorLayer>();
-
-        WB_CLIENT_ASSERT(createProject.lock(), "could get open project layer");
-        createProject.lock()->AddOnProjectCreatedCallback(WB_BIND_FUN0(EditorLayer::SetupProjectInterface));//by default it open the project
-        createProject.lock()->AddOnCancelCallback(WB_BIND_FUN0(EditorLayer::OnProjectCreationCanceled));//by default it open the project
+        m_activeScene->Clear();
     }
 
-    void OnProjectCreationCanceled()
+    m_activeScene = WB::Project::GetActive()->GetAssetManager()->GetAsset<WB::Scene3D>(sceneID).lock();
+}
+
+void EditorLayer::CommandLineShortcut()
+{
+    CLIENT_LOG_DEBUG("caca");
+}
+
+void EditorLayer::StartProject()
+{
+    GetContext()->AddLayer<WB::CreateProjectEditorLayer>();
+    WeakPtr<WB::CreateProjectEditorLayer> createProject = GetContext()->GetLayer<WB::CreateProjectEditorLayer>();
+
+    WB_CLIENT_ASSERT(createProject.lock(), "could get open project layer");
+    createProject.lock()->AddOnProjectCreatedCallback(WB_BIND_FUN0(EditorLayer::SetupProject));//by default it open the project
+    createProject.lock()->AddOnCancelCallback(WB_BIND_FUN0(EditorLayer::OnProjectCreationCanceled));//by default it open the project
+}
+
+void EditorLayer::OnProjectCreationCanceled()
+{
+    GetContext()->AddLayer<WB::OpenProjectEditorLayer>(false);
+    WeakPtr<WB::OpenProjectEditorLayer> openLayer = GetContext()->GetLayer<WB::OpenProjectEditorLayer>();
+
+    WB_CLIENT_ASSERT(openLayer.lock(), "could get open project layer");
+    openLayer.lock()->AddOnProjectOpenedCallback(WB_BIND_FUN0(EditorLayer::SetupProject));
+}
+
+void EditorLayer::SetupProject()
+{
+    SetupProjectScene();
+
+    GetContext()->AddLayer<WB::MainMenuBarLayer>(m_activeScene);
+    m_mainMenuBarLayer = GetContext()->GetLayer<WB::MainMenuBarLayer>();
+
+    GetContext()->AddLayer<WB::CommandLineBarLayer>();
+    m_commandBarLayer = GetContext()->GetLayer<WB::CommandLineBarLayer>();
+
+    GetContext()->AddLayer<WB::RessourcesLayer>();
+    m_ressourcesLayer = GetContext()->GetLayer<WB::RessourcesLayer>();
+
+    // SCENE
+    GetContext()->AddLayer<WB::ViewportLayer>(m_editorScene);
+    m_viewportLayer = GetContext()->GetLayer<WB::ViewportLayer>();
+
+    GetContext()->AddLayer<WB::HierarchyLayer>(m_activeScene);
+    m_hierarchyLayer = GetContext()->GetLayer<WB::HierarchyLayer>();
+    m_hierarchyLayer.lock()->SetOnEntitySelectedCallback(WB_BIND_FUN1(EditorLayer::OnEntitySelectedInHierarchy));
+
+    GetContext()->AddLayer<WB::InspectorLayer>();
+    m_inspectorLayer = GetContext()->GetLayer<WB::InspectorLayer>();
+}
+
+void EditorLayer::SetupProjectScene()
+{
+    const WB::Path scenePath = WB::Project::GetActive()->GetSettings().activeScenePath;
+    WB::Path metaDataPath = WB::EditorAssetManager::ConvertToMetaPath(scenePath);
+    WeakPtr<WB::AssetMetaData> sceneMetaData;
+
+    if(WB::FileSystem::Exists(metaDataPath))
     {
-            GetContext()->AddLayer<WB::OpenProjectEditorLayer>(false);
-            WeakPtr<WB::OpenProjectEditorLayer> openLayer = GetContext()->GetLayer<WB::OpenProjectEditorLayer>();
-
-            WB_CLIENT_ASSERT(openLayer.lock(), "could get open project layer");
-            openLayer.lock()->AddOnProjectOpenedCallback(WB_BIND_FUN0(EditorLayer::SetupProjectInterface));
+        sceneMetaData = WB::Project::GetActive()->GetEditorAssetManager()->LoadMetaData(metaDataPath);
     }
 
-    void SetupProjectInterface()
+    if(sceneMetaData.lock())
     {
-        GetContext()->AddLayer<WB::MainMenuBarLayer>();
-        m_mainMenuBarLayer = GetContext()->GetLayer<WB::MainMenuBarLayer>();
-
-        GetContext()->AddLayer<WB::CommandLineBarLayer>();
-        m_commandBarLayer = GetContext()->GetLayer<WB::CommandLineBarLayer>();
-
-        GetContext()->AddLayer<WB::ViewportLayer>(m_cam, m_frameBuffer);
-        m_viewportLayer = GetContext()->GetLayer<WB::ViewportLayer>();
-
-        GetContext()->AddLayer<WB::RessourcesLayer>();
-        m_ressourcesLayer = GetContext()->GetLayer<WB::RessourcesLayer>();
-
-        GetContext()->AddLayer<WB::HierarchyLayer>(m_sceneData);
-        m_hierarchyLayer = GetContext()->GetLayer<WB::HierarchyLayer>();
+        SwitchScene(sceneMetaData.lock()->id);
     }
-
-
-    void OnCamForwardPressed(Keycode key)
+    else
     {
-        glm::vec3 base = camTr.GetPosition();
-        glm::vec3 forwa = camTr.GetForward();
-
-        camTr.SetPosition(Lerp(base, base + forwa, 10 * WB::Application::GetDeltaTime()));
-
-        m_cam.UpdateViewMatrix(camTr);
+        m_activeScene = MakeShared<WB::Scene3D>();
     }
 
-    void OnCamBackwardPressed(Keycode key)
+}
+
+void EditorLayer::OnEntitySelectedInHierarchy(WB::Entity entity)
+{
+    if(m_inspectorLayer.lock())
     {
-        glm::vec3 base = camTr.GetPosition();
-        glm::vec3 forwa = camTr.GetForward();
-
-        camTr.SetPosition(Lerp(base, base - forwa, 10 * WB::Application::GetDeltaTime()));
-
-        m_cam.UpdateViewMatrix(camTr);
+        m_inspectorLayer.lock()->SetCurrentEntity(entity);
     }
+}
 
-    void OnStartPlayInEditor(Keycode key)
-    {
-        scene.PrepareScene();
-    }
 
-    void OnEndPlayInEditor(Keycode key)
-    {
-        scene.RestoreScene();
-    }
+void EditorLayer::OnCamForwardPressed(Keycode key)
+{
+    /*glm::vec3 base = camTr.GetPosition();*/
+    /*glm::vec3 forwa = camTr.GetForward();*/
+    /**/
+    /*camTr.SetPosition(Lerp(base, base + forwa, 10 * WB::Application::GetDeltaTime()));*/
+}
 
-private:
-    WeakPtr<WB::MainMenuBarLayer> m_mainMenuBarLayer;
-    WeakPtr<WB::ViewportLayer> m_viewportLayer;
-    WeakPtr<WB::CommandLineBarLayer> m_commandBarLayer;
-    WeakPtr<WB::RessourcesLayer> m_ressourcesLayer;
-    WeakPtr<WB::HierarchyLayer> m_hierarchyLayer;
+void EditorLayer::OnCamBackwardPressed(Keycode key)
+{
+    /*glm::vec3 base = camTr.GetPosition();*/
+    /*glm::vec3 forwa = camTr.GetForward();*/
+    /**/
+    /*camTr.SetPosition(Lerp(base, base - forwa, 10 * WB::Application::GetDeltaTime()));*/
+}
 
-    /*SharedPtr<WB::Model> model;*/
-    /*WB::TransformComponent tr;*/
-    WB::TransformComponent camTr;
-    WB::Camera m_cam;
+void EditorLayer::OnStartPlayInEditor(Keycode key)
+{
+    /*m_scene.PrepareScene();*/
+}
 
-    SharedPtr<WB::FrameBuffer> m_frameBuffer;
-
-    WB::InputTable inputTable;
-
-    WB::SceneData m_sceneData;
-    WB::Scene3D scene{m_sceneData};
-
-    WB::EditorShortcutInputManager m_shortcutManger;
-};
+void EditorLayer::OnEndPlayInEditor(Keycode key)
+{
+    /*m_scene.RestoreScene();*/
+}
 
 extern void OnAppStarted(WB::Application &app)
 {

@@ -17,6 +17,8 @@ bool ProjectSerializer::Serialize(const ProjectSettings& settings, const Path& p
     emitter << YAML::Key << "project_name" << YAML::Value << settings.projectName;
     emitter << YAML::Key << "project_path" << YAML::Value << settings.projectPath.string();
     emitter << YAML::Key << "project_assets_path" << YAML::Value << settings.projectAssetPath.string();
+    emitter << YAML::Key << "project_meta_list" << YAML::Value << settings.projectMetaListPath.string();
+    emitter << YAML::Key << "project_default_scene" << YAML::Value << settings.activeScenePath.string();
     emitter << YAML::EndMap;
 
     return FileSystem::SyncWriteAtPathAsString(path, emitter.c_str());
@@ -41,6 +43,8 @@ bool ProjectSerializer::Deserialize(ProjectSettings& settings, const Path& path)
         settings.projectName = root["project_name"].as<std::string>();
         settings.projectPath = root["project_path"].as<std::string>();
         settings.projectAssetPath = root["project_assets_path"].as<std::string>();
+        settings.projectMetaListPath = root["project_meta_list"].as<std::string>();
+        settings.activeScenePath = root["project_default_scene"].as<std::string>();
         return true;
     }
     catch(const YAML::ParserException& ex)
@@ -92,50 +96,6 @@ bool ProjectSerializer::Deserialize(ProjectList& list, const Path& path)
             list.paths[i] = stringPaths[i];
         }
         list.names = root["names"].as<std::vector<std::string>>();
-
-        return true;
-    }
-    catch(const YAML::ParserException& ex)
-    {
-        CORE_LOG_ERROR("failed to parse %s || %s", path.string().c_str(), ex.what());
-        return false;
-    }
-}
-
-bool ProjectSerializer::Serialize(const struct AssetMetaData& metaData, const Path& path)
-{
-    YAML::Emitter emitter;
-
-    std::string stringPath{metaData.path.string()};
-
-    emitter << YAML::BeginMap;
-    emitter << YAML::Key << "path" << YAML::Value << stringPath;
-    emitter << YAML::Key << "type" << YAML::Value << Serializer::AssetTypeAsString(metaData.type);
-    emitter << YAML::Key << "id" << YAML::Value << metaData.id;
-    emitter << YAML::EndSeq;
-
-    return FileSystem::SyncWriteAtPathAsString(path, emitter.c_str());
-}
-
-bool ProjectSerializer::Deserialize(AssetMetaData& metaData, const Path& path)
-{
-    if(!FileSystem::Exists(path))
-    {
-        return false;
-    }
-
-    try
-    {
-        YAML::Node root = YAML::LoadFile(path.string());
-        if(root.IsNull())
-        {
-            CORE_LOG_ERROR("failed to parse %s", path.string().c_str());
-            return false;
-        }
-
-        metaData.path = root["path"].as<std::string>();
-        metaData.type = Serializer::AssetStringAsType(root["type"].as<std::string>());
-        metaData.id = root["id"].as<AssetID>();
 
         return true;
     }

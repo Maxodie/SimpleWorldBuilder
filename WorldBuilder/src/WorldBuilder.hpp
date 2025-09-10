@@ -9,9 +9,10 @@
 #include "Core/LayerStack.hpp"
 
 #include "Core/Commons/Camera.hpp"
+#include "Core/ECS/Entity.hpp"
 #include "Core/Commons/Scene.hpp"
 
-#include "Core/ECS/EcsComponent.hpp"
+#include "Core/ECS/TransformComponent.hpp"
 
 #include "Core/Renderer/RenderCommand.hpp"
 #include "Core/Renderer/FrameBuffer.hpp"

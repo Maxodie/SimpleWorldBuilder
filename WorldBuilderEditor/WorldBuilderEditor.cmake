@@ -1,5 +1,6 @@
 add_executable(WorldBuilderEditor
     WorldBuilderEditor/src/Editor.cpp
+    WorldBuilderEditor/src/Editor.hpp
 
     WorldBuilderEditor/src/UIEditor/CommandLineBarLayer.cpp
     WorldBuilderEditor/src/UIEditor/CommandLineBarLayer.hpp
@@ -19,8 +20,12 @@ add_executable(WorldBuilderEditor
         WorldBuilderEditor/src/UIEditor/RessourcesLayer/RessourcesLayer.cpp
         WorldBuilderEditor/src/UIEditor/RessourcesLayer/RessourceEditorItem.hpp
         WorldBuilderEditor/src/UIEditor/RessourcesLayer/RessourceEditorItem.cpp
+        WorldBuilderEditor/src/UIEditor/RessourcesLayer/AssetSelectorLayer.hpp
+        WorldBuilderEditor/src/UIEditor/RessourcesLayer/AssetSelectorLayer.cpp
         WorldBuilderEditor/src/UIEditor/Hierarchy/HierarchyLayer.hpp
         WorldBuilderEditor/src/UIEditor/Hierarchy/HierarchyLayer.cpp
+        WorldBuilderEditor/src/UIEditor/Inspector/Inspector.hpp
+        WorldBuilderEditor/src/UIEditor/Inspector/Inspector.cpp
 )
 
 target_link_libraries(WorldBuilderEditor

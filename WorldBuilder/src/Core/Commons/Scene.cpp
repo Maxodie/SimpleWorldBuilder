@@ -1,7 +1,11 @@
 #include "Core/Commons/Scene.hpp"
+#include "Core/Commons/Camera.hpp"
+#include "Core/Log/Log.hpp"
+#include "Core/Project.hpp"
 #include "Core/Renderer/Renderer3D.hpp"
 #include "Core/Renderer/RenderCommand.hpp"
 #include "Core/ECS/Entity.hpp"
+#include "Core/Serializer/SceneSerializer.hpp"
 
 namespace WB
 {
@@ -10,12 +14,23 @@ void Scene3D::BeginScene()
 {
     RenderCommand::Clear();
 
-    Renderer3D::BeginScene(GetData());
+    EntityView<Camera, TransformComponent>(
+        [&](auto entity, Camera& cam, TransformComponent& transform)
+        {
+            transform.UpdateModelMatrix();
+            cam.UpdateViewMatrix(transform);
+            Renderer3D::BeginScene(cam, transform);
+        });
 }
 
 void Scene3D::UpdateScene()
 {
-
+    EntityView<ModelComponent, TransformComponent>(
+        [&](auto entity, ModelComponent& model, TransformComponent& transform)
+        {
+            transform.UpdateModelMatrix();
+            Renderer3D::DrawModel(model, transform);
+        });
 }
 
 void Scene3D::EndScene()
@@ -23,47 +38,44 @@ void Scene3D::EndScene()
     Renderer3D::EndScene();
 }
 
+void Scene3D::Clear()
+{
+    EntityView<Asset>(
+        [&](EntityHandle handle, Asset& asset)
+        {
+            CORE_LOG_DEBUG("asset unloaded : %zu", handle);
+            Project::GetActive()->GetAssetManager()->UnloadAsset(asset.id);
+        }
+    );
+
+    m_registry.clear();
+}
+
 void Scene3D::PrepareScene()
 {
-    if(m_saveSceneData.cam)
-    {
-        *m_saveSceneData.cam = *m_sceneData.cam;
-    }
-    else
-    {
-        m_saveSceneData.cam = new Camera(*m_sceneData.cam);
-    }
 
-    //TODO : make smt better for the transforms
-    for(auto* tr : m_saveSceneData.transforms)
-    {
-        delete tr;
-    }
-    if(m_saveSceneData.transforms.size() != m_sceneData.transforms.size())
-    {
-        m_saveSceneData.transforms.resize(m_sceneData.transforms.size());
-    }
-
-    for(int i = 0; i < m_sceneData.transforms.size(); i++)
-    {
-        m_saveSceneData.transforms[i] = new TransformComponent();
-        *m_saveSceneData.transforms[i] = *m_sceneData.transforms[i];
-    }
 }
 
 void Scene3D::RestoreScene()
 {
-    *m_sceneData.cam = *m_saveSceneData.cam;
-    for(int i = 0; i < m_sceneData.transforms.size(); i++)
-    {
-        *m_sceneData.transforms[i] = *m_saveSceneData.transforms[i];
-    }
 }
 
-void Scene3D::CreateEntity()
+Entity Scene3D::CreateEntity()
 {
-    auto handle = m_registry.create();
-    Entity entity{*this, handle};
+    EntityHandle handle = m_registry.create();
+    return {*this, handle};
+}
+
+Entity Scene3D::CreateEntity(EntityHandle handle)
+{
+    EntityHandle finalHandle = m_registry.create(handle);
+
+    if(handle != finalHandle)
+    {
+        CORE_LOG_ERROR("scene entity handle is already used, a new one is created : given %zu, new %zu", handle, finalHandle);
+    }
+
+    return {*this, finalHandle};
 }
 
 void Scene3D::DestroyEntity(Entity& entity)

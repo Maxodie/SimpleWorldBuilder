@@ -1,3 +1,4 @@
 path: E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\DefaultRessources\SandboxGame\assets\Shaders\VertexShader.glsl
-type: Unknown
+type: Shader
 id: 7
+name: VertexShader.glsl

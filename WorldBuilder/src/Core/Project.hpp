@@ -3,6 +3,8 @@
 #include "Core/AssetManager/AssetManagerBase.hpp"
 #include "Core/AssetManager/EditorAssetManager.hpp"
 #include "Core/AssetManager/RuntimeAssetManager.hpp"
+#include "Core/Log/Log.hpp"
+#include "Core/Serializer/AssetManagerSerializer.hpp"
 #include "Core/Serializer/ProjectSerializer.hpp"
 #include "Core/Utils/FileSystem.hpp"
 
@@ -14,6 +16,8 @@ struct ProjectSettings
     std::string projectName = "New Project";
     Path projectPath;
     Path projectAssetPath;
+    Path projectMetaListPath;
+    Path activeScenePath;
 };
 
 struct ProjectList
@@ -73,11 +77,14 @@ public:
         }
 
         std::string assetsFolder = "assets";
+        std::string metaDataAssetsList = "metaList.save";
 
         ProjectSettings settings;
         settings.projectName = name;
         settings.projectPath = folderPath;
         settings.projectAssetPath = folderPath / assetsFolder;
+        settings.projectMetaListPath = folderPath / metaDataAssetsList;
+        settings.activeScenePath = settings.projectAssetPath / "sample.scene";
 
         FileSystem::CreateFolder(path, pathName);
         FileSystem::CreateFolder(settings.projectPath, assetsFolder);
@@ -97,14 +104,16 @@ public:
 
     static void AddProjectToProjectList(const SharedPtr<Project> project)
     {
+        const char* fileName = "WorldBuilder.data";
+        Path persistentPath = GetPersistentProjectListPath() / fileName;
+
+        ProjectSerializer::Deserialize(m_projectList, persistentPath);
+
         std::string pathName = project->GetSettings().projectName;
         FileSystem::TransformNameIntoPathString(pathName);
 
         m_projectList.paths.emplace_back(project->GetSettings().projectPath / (pathName + ".proj"));
         m_projectList.names.emplace_back(project->GetSettings().projectName);
-
-        const char* fileName = "WorldBuilder.data";
-        Path persistentPath = GetPersistentProjectListPath() / fileName;
 
         ProjectSerializer::Serialize(m_projectList, persistentPath);
     }
@@ -121,6 +130,7 @@ public:
     WB_INLINE static void SetActiveProject(SharedPtr<Project>& project)
     {
         s_active = project;
+        GetActive()->GetEditorAssetManager()->LoadAllProjectMetaData();
         CORE_LOG_DEBUG("active project changed : %s, assets path : %s", project->GetSettings().projectName.c_str(), project->GetSettings().projectAssetPath.string().c_str());
     }
 

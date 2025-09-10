@@ -1,4 +1,5 @@
 #include "UIEditor/MainMenuBarLayer.hpp"
+#include "Core/Serializer/SceneSerializer.hpp"
 #include "UIEditor/ProjectEditor/CreateProjectEditorLayer.hpp"
 #include "UIEditor/ProjectEditor/OpenProjectEditorLayer.hpp"
 
@@ -9,8 +10,8 @@
 namespace WB
 {
 
-MainMenuBarLayer::MainMenuBarLayer()
-    : Layer()
+MainMenuBarLayer::MainMenuBarLayer(WeakPtr<Scene3D> activeScene)
+    : Layer(), m_activeScene(activeScene)
 {
 }
 
@@ -38,6 +39,14 @@ void MainMenuBarLayer::UpdateGUI()
             if (ImGui::MenuItem("Open Project"))
             {
                 GetContext()->AddLayer<OpenProjectEditorLayer>();
+            }
+
+            if(ImGui::MenuItem("Save"))
+            {
+                if(m_activeScene.lock())
+                {
+                    SceneSerializer::Serialize(*m_activeScene.lock(), Project::GetActive()->GetSettings().activeScenePath);
+                }
             }
 
           ImGui::EndMenu();

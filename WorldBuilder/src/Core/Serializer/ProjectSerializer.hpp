@@ -14,9 +14,6 @@ public:
 
     static bool Serialize(const struct ProjectList& list, const Path& path);
     static bool Deserialize(ProjectList& list, const Path& path);
-
-    static bool Serialize(const struct AssetMetaData& metaData, const Path& path);
-    static bool Deserialize(AssetMetaData& metaData, const Path& path);
 };
 
 }

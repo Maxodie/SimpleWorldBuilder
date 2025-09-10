@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <utility>
 #include <regex>
 #include <ostream>
@@ -42,7 +43,7 @@ if(!(exp))\
 {assert(0); CLIENT_LOG_ERROR(msg);}\
 }while(0)
 #else
-#   define WB_ASSERT(exp, msg)
+#   define WB_CORE_ASSERT(exp, msg)
 #   define WB_CLIENT_ASSERT(exp, msg)
 #endif
 

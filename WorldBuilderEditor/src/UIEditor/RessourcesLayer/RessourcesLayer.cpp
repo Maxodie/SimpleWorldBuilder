@@ -1,4 +1,5 @@
 #include "UIEditor/RessourcesLayer/RessourcesLayer.hpp"
+#include "Core/AssetManager/Asset.hpp"
 #include "UIEditor/RessourcesLayer/RessourceEditorItem.hpp"
 #include "WorldBuilder.hpp"
 
@@ -117,9 +118,13 @@ void RessourcesLayer::TryAddItem(AssetID assetID)
         return;
     }
 
-    if(FileSystem::IsFolder(metaData.lock()->path))
+    if(metaData.lock()->type == AssetType::FOLDER)
     {
         m_items.emplace_back(MakeShared<RessourceEditorFolder>(metaData, *this));
+    }
+    else if(metaData.lock()->type == AssetType::SCENE)
+    {
+        m_items.emplace_back(MakeShared<RessourceEditorFile>(metaData));
     }
     else
     {
