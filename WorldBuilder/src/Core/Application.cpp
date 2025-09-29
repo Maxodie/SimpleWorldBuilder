@@ -34,8 +34,8 @@ void Application::Start()
     Renderer::Init();
 
     m_windows.front()->SetOnEventCallback(WB_BIND_FUN1(Application::OnEvent));
-    m_windows.front()->PostCallback<WindowCloseEvent>(WB_BIND_FUN1(Application::OnApplicationCloseEvent), GetTypeID<Application>());
-    m_windows.front()->PostCallback<WindowResizeEvent>(WB_BIND_FUN1(Application::OnApplicationResizeEvent), GetTypeID<Application>());
+    m_windows.front()->PostCallback<WindowCloseEvent>(WB_BIND_FUN1(Application::OnApplicationCloseEvent), GetTypeIDptr<Application>());
+    m_windows.front()->PostCallback<WindowResizeEvent>(WB_BIND_FUN1(Application::OnApplicationResizeEvent), GetTypeIDptr<Application>());
 
     RenderCommand::SetViewport(0, 0, 800, 640);
     RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f);

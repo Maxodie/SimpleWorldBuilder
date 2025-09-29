@@ -1,7 +1,9 @@
 #include "UIEditor/RessourcesLayer/RessourcesLayer.hpp"
 #include "Core/AssetManager/Asset.hpp"
+#include "Core/Serializer/SceneSerializer.hpp"
 #include "UIEditor/RessourcesLayer/RessourceEditorItem.hpp"
 #include "WorldBuilder.hpp"
+#include "Editor.hpp"
 
 #include "Core/Utils/FileSystem.hpp"
 #include "imgui.h"
@@ -12,6 +14,22 @@ namespace WB
 RessourcesLayer::RessourcesLayer()
 {
     m_currentViewPath = Project::GetActive()->GetSettings().projectAssetPath;
+
+    //create scene
+    m_contextPopup.AddElement(
+        "Create Scene",
+        [&]()
+        {
+            WeakPtr<Scene3D> scene = Project::GetActive()->GetEditorAssetManager()->CreateAsset<Scene3D>(AssetType::SCENE, m_currentViewPath, "new Scene");
+            if(scene.lock())
+            {
+                WeakPtr<EditorLayer> editorLayer = GetContext()->GetLayer<EditorLayer>();
+                if(!editorLayer.lock())
+                {
+                    return;
+                }
+            }
+        });
 }
 
 void RessourcesLayer::Update()
@@ -71,6 +89,9 @@ void RessourcesLayer::UpdateGUI()
         item->Draw();
     }
 
+    m_contextPopup.Begin();
+    m_contextPopup.End();
+
     ImGui::End();
     ImGui::PopStyleVar();
 }
@@ -124,11 +145,11 @@ void RessourcesLayer::TryAddItem(AssetID assetID)
     }
     else if(metaData.lock()->type == AssetType::SCENE)
     {
-        m_items.emplace_back(MakeShared<RessourceEditorFile>(metaData));
+        m_items.emplace_back(MakeShared<RessourceEditorScene>(metaData, *this));
     }
     else
     {
-        m_items.emplace_back(MakeShared<RessourceEditorFile>(metaData));
+        m_items.emplace_back(MakeShared<RessourceEditorFile>(metaData, *this));
     }
 }
 

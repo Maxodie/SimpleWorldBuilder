@@ -11,6 +11,7 @@ using EntityHandle = entt::entity;
 class Scene3D : public Asset
 {
 public:
+    Scene3D() = default;
 
     void BeginScene();
     void UpdateScene();
@@ -25,6 +26,11 @@ public:
     WB_INLINE bool Has(EntityHandle entityHandle) const
     {
         return m_registry.all_of<TComp>(entityHandle);
+    }
+
+    WB_INLINE bool Has(EntityHandle entityHandle) const
+    {
+        return m_registry.valid(entityHandle);
     }
 
     template<typename TComp>

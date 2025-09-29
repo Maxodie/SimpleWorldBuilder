@@ -4,7 +4,7 @@
 namespace WB
 {
 
-using EventID = TypeID;
+using EventID = TypeIDptr;
 
 enum class EventType
 {
@@ -122,14 +122,14 @@ private:
     template<typename TEvent>
     EventRegistry<TEvent>& GetRegistry()
     {
-        const auto registry = m_registry.find(GetTypeID<TEvent>());
+        const auto registry = m_registry.find(GetTypeIDptr<TEvent>());
         if(registry != m_registry.end())
         {
             return *CastRegistry<TEvent>(registry->second);
         }
 
         const auto newRegistry = new EventRegistry<TEvent>();
-        m_registry[GetTypeID<TEvent>()] = newRegistry;
+        m_registry[GetTypeIDptr<TEvent>()] = newRegistry;
         return *newRegistry;
     }
 

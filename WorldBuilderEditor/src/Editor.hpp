@@ -57,6 +57,7 @@ private:
     void SetupProjectScene();
 
     void OnEntitySelectedInHierarchy(WB::Entity entity);
+    void OnAssetSelectedInHierarchy(SharedPtr<WB::AssetMetaData> metaData);
 
     void OnCamForwardPressed(Keycode key);
     void OnCamBackwardPressed(Keycode key);

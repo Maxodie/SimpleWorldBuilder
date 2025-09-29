@@ -45,7 +45,8 @@ void MainMenuBarLayer::UpdateGUI()
             {
                 if(m_activeScene.lock())
                 {
-                    SceneSerializer::Serialize(*m_activeScene.lock(), Project::GetActive()->GetSettings().activeScenePath);
+                    Path path = Project::GetActive()->GetEditorAssetManager()->GetMetaData(m_activeScene.lock()->id).lock()->path;
+                    SceneSerializer::Serialize(*m_activeScene.lock(), path);
                 }
             }
 

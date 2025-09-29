@@ -12,10 +12,24 @@ public:
     virtual void OnAttach() override;
     virtual void OnDetach() override;
 
-    WB_INLINE void SetCurrentEntity(Entity& handle) { m_currentEntity = handle; }
+    WB_INLINE void SetCurrentEntity(Entity& handle)
+    {
+        RemoveAsset();
+        m_currentEntity = handle;
+    }
+
+    WB_INLINE void SetCurrentAsset(SharedPtr<AssetMetaData> metadata)
+    {
+        RemoveEntity();
+        m_metaData = metadata;
+    }
+
+    WB_INLINE void RemoveEntity() { m_currentEntity = Entity{}; }
+    WB_INLINE void RemoveAsset() { m_metaData = {}; }
 
 private:
     Entity m_currentEntity;
+    SharedPtr<AssetMetaData> m_metaData;
 };
 
 }

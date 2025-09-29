@@ -2,6 +2,9 @@
 
 #include "Core/AssetManager/AssetManagerBase.hpp"
 #include "Core/AssetManager/Importer/ModelImporter.hpp"
+#include "Core/Serializer/SceneSerializer.hpp"
+#include "Core/Commons/Scene.hpp"
+#include "Core/Utils/FileSystem.hpp"
 
 namespace WB
 {
@@ -26,12 +29,60 @@ public:
     }
 
     virtual WeakPtr<Asset> GetAsset(AssetID id) override;
-    virtual void UnloadAsset(AssetID id) override;
 
-    WeakPtr<Asset> CreateAsset(const AssetMetaData& metaData);
+    WeakPtr<Asset> LoadAsset(const AssetMetaData& metaData);
+
+    template<typename TAsset>
+    WeakPtr<TAsset> CreateAsset(AssetType type, const Path& path, const std::string& name)
+    {
+        SharedPtr<TAsset> asset;
+        switch(type)
+        {
+            case AssetType::MODEL:
+            {
+                break;
+            }
+            case AssetType::SHADER:
+            {
+                break;
+            }
+            case AssetType::SCENE:
+            {
+                std::string fullName = name + s_sceneExtension;
+                SharedPtr<Scene3D> scene = MakeShared<Scene3D>();
+                SceneSerializer::Serialize(*scene, path / fullName);
+                asset = scene;
+                break;
+            }
+            case AssetType::TEXTURE:
+                break;
+            case AssetType::MATERIAL:
+                break;
+
+            case AssetType::FOLDER:
+                break;
+            case AssetType::UNKNOWN:
+                break;
+            default:
+                break;
+        }
+
+        if(asset)
+        {
+            asset->id =  ++s_maxAssetID;
+            asset->type = type;
+
+            m_registry[asset->id] = asset;
+            return asset;
+        }
+
+        CORE_LOG_ERROR("could not create asset of type %d", type);
+        return {};
+    }
 
     WeakPtr<AssetMetaData> GetMetaData(AssetID id);
     WeakPtr<AssetMetaData> CreateMetaData(const Path& path);
+    void DeleteMeta(WeakPtr<AssetMetaData> meta);
     WeakPtr<AssetMetaData> LoadMetaData(const Path& path);
     void LoadAllProjectMetaData();
     void SaveAllProjectMetaData();
@@ -54,6 +105,8 @@ public:
 
 private:
     MetaDataRegistry m_metaDataRegistry;
+
+    WB_INLINE const static std::string s_sceneExtension = ".scene";
 };
 
 }

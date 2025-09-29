@@ -40,15 +40,21 @@ void Scene3D::EndScene()
 
 void Scene3D::Clear()
 {
-    EntityView<Asset>(
-        [&](EntityHandle handle, Asset& asset)
+    // Project::GetActive()->GetAssetManager()->ClearRegistry();
+    // searching throw entity view will not work correctly because it will still be referenced
+    EntityView<ModelComponent>(
+        [&](EntityHandle handle, ModelComponent& model)
         {
-            CORE_LOG_DEBUG("asset unloaded : %zu", handle);
-            Project::GetActive()->GetAssetManager()->UnloadAsset(asset.id);
+            if(model.asset.lock())
+            {
+                 Project::GetActive()->GetAssetManager()->UnloadAsset(model.asset.lock()->id);
+            }
         }
     );
 
     m_registry.clear();
+    Project::GetActive()->GetAssetManager()->UnloadAsset(id);
+    CORE_LOG_DEBUG("Scene asset %zu has been cleared", id);
 }
 
 void Scene3D::PrepareScene()

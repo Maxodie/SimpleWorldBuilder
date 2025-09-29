@@ -14,7 +14,7 @@ void GLFWInput::BindWindow(const SharedPtr<Window> window)
 void GLFWInput::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     Keycode wbKey = static_cast<Keycode>(key);
-    CORE_LOG_DEBUG("%d", mods);
+    CORE_LOG_DEBUG("GLFWInput.cpp mods : %d", mods);
     for(const auto& callback : s_anyPressedInputCallbacks)
     {
         if (action == GLFW_PRESS) {

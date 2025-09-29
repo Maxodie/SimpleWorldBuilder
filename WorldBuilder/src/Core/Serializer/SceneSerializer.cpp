@@ -2,6 +2,7 @@
 #include "Core/Commons/Scene.hpp"
 #include "Core/ECS/Entity.hpp"
 #include "Core/ECS/TransformComponent.hpp"
+#include "Core/Log/Log.hpp"
 #include "Core/Project.hpp"
 #include "Core/Renderer/Model.hpp"
 #include "Core/Serializer/Serializer.hpp"
@@ -71,6 +72,8 @@ bool SceneSerializer::Deserialize(Scene3D& scene, const Path& path)
             return false;
         }
 
+        CORE_LOG_DEBUG("Start loading scen package at path %s", path.string().c_str());
+
         for(const auto& entityNode : root)
         {
             InfoComponent infoComponent;
@@ -94,6 +97,7 @@ bool SceneSerializer::Deserialize(Scene3D& scene, const Path& path)
                 ModelComponent model;
                 AssetID modelID = modelNode.as<AssetID>();
                 model.asset = Project::GetActive()->GetAssetManager()->GetAsset<ModelAsset>(modelID);
+                CORE_LOG_DEBUG("scene serializer asset editor id %d", modelID);
                 entity.AddComponent<ModelComponent>(model);
             }
         }

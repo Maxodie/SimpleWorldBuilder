@@ -10,6 +10,11 @@
 namespace WB
 {
 
+class SelectableComponent
+{
+
+};
+
 class TransformComponent
 {
 public:
@@ -83,7 +88,7 @@ struct InfoComponent
     ~InfoComponent() = default;
 
     EntityHandle parent = entt::null;
-    std::string name = "Entity";
+    std::string name = "New Entity";
     EntityHandle handle;
 };
 

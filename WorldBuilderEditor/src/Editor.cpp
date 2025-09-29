@@ -1,6 +1,6 @@
 #include "Editor.hpp"
 #include "Core/AssetManager/Importer/ModelImporter.hpp"
-#include "Core/Core.hpp"
+#include "WorldBuilder.hpp"
 #include "Core/Log/Log.hpp"
 #include "Core/Project.hpp"
 #include "Core/Serializer/AssetManagerSerializer.hpp"
@@ -77,10 +77,26 @@ void EditorLayer::SwitchScene(WB::AssetID sceneID)
 
     if(m_activeScene)
     {
+        //TODO : don't clear asset that are in both scenes
         m_activeScene->Clear();
     }
 
     m_activeScene = WB::Project::GetActive()->GetAssetManager()->GetAsset<WB::Scene3D>(sceneID).lock();
+
+    if(m_mainMenuBarLayer.lock())
+    {
+        m_mainMenuBarLayer.lock()->SetActiveScene(m_activeScene);
+    }
+
+    if(m_hierarchyLayer.lock())
+    {
+        m_hierarchyLayer.lock()->SetActiveScene(m_activeScene);
+    }
+
+    if(m_inspectorLayer.lock())
+    {
+        m_inspectorLayer.lock()->RemoveEntity();
+    }
 }
 
 void EditorLayer::CommandLineShortcut()
@@ -119,6 +135,7 @@ void EditorLayer::SetupProject()
 
     GetContext()->AddLayer<WB::RessourcesLayer>();
     m_ressourcesLayer = GetContext()->GetLayer<WB::RessourcesLayer>();
+    m_ressourcesLayer.lock()->SetOnAssetSelectedCallback(WB_BIND_FUN1(EditorLayer::OnAssetSelectedInHierarchy));
 
     // SCENE
     GetContext()->AddLayer<WB::ViewportLayer>(m_editorScene);
@@ -159,6 +176,14 @@ void EditorLayer::OnEntitySelectedInHierarchy(WB::Entity entity)
     if(m_inspectorLayer.lock())
     {
         m_inspectorLayer.lock()->SetCurrentEntity(entity);
+    }
+}
+
+void EditorLayer::OnAssetSelectedInHierarchy(SharedPtr<WB::AssetMetaData> metaData)
+{
+    if(m_inspectorLayer.lock())
+    {
+        m_inspectorLayer.lock()->SetCurrentAsset(metaData);
     }
 }
 

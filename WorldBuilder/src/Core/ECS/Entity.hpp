@@ -2,6 +2,7 @@
 
 #include "Core/Commons/Scene.hpp"
 #include "Core/Core.hpp"
+#include "entt/entity/entity.hpp"
 #include "entt/entt.hpp"
 namespace WB
 {
@@ -10,7 +11,7 @@ class Entity
 {
 public:
     Entity(Scene3D& scene, EntityHandle handle) : m_scene(&scene), m_handle(handle) {}
-    Entity() {}
+    Entity() : m_scene(nullptr), m_handle(entt::null_t()) {}
 
     template<typename T, typename ... TArgs>
     T& AddComponent(TArgs&&... args)
@@ -26,7 +27,7 @@ public:
 
     WB_INLINE EntityHandle GetHandle() { return m_handle; }
 
-    WB_INLINE bool Exists() { return m_scene; }
+    WB_INLINE bool Exists() { return m_scene && m_scene->Has(m_handle); }
 
     template<typename T>
     WB_INLINE T& Get() { return m_scene->GetRegistry().get<T>(m_handle); }
@@ -34,9 +35,9 @@ public:
     template<typename T>
     WB_INLINE bool Has() { return m_scene && m_scene->GetRegistry().all_of<T>(m_handle); }
 
-    WB_INLINE void Destroy() { m_scene->GetRegistry().destroy(m_handle); }
+    WB_INLINE void Destroy() { if(m_scene) { m_scene->GetRegistry().destroy(m_handle); } }
 
-    WB_INLINE Entity& operator=(Entity& b)
+    WB_INLINE Entity& operator=(const Entity& b)
     {
         m_scene = b.m_scene;
         m_handle = b.m_handle;

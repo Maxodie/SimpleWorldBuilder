@@ -16,14 +16,14 @@ public:
     virtual void OnAttach() = 0;
     virtual void OnDetach() = 0;
 
-    WB_INLINE void SetID(TypeID id)
+    WB_INLINE void SetID(TypeIDptr id)
     {
         m_id = id;
     }
 
     void SetContext(Application* app);
 
-    [[nodiscard]] WB_INLINE constexpr TypeID GetID()
+    [[nodiscard]] WB_INLINE constexpr TypeIDptr GetIDptr()
     {
         return m_id;
     }
@@ -35,7 +35,7 @@ public:
 
 
 private:
-    TypeID m_id;
+    TypeIDptr m_id;
     Application* m_context;
 };
 
@@ -52,7 +52,7 @@ public:
         const auto layer = std::find_if(m_layers.begin(), m_layers.end(),
             [](const auto& layer)
             {
-                return layer->GetID() == GetTypeID<TLayer>();
+                return layer->GetIDptr() == GetTypeIDptr<TLayer>();
             }
         );
 
@@ -75,7 +75,7 @@ public:
         }
 
         SharedPtr<TLayer> createdLayer{ MakeShared<TLayer>(std::forward<TArgs>(args)...) };
-        createdLayer->SetID(GetTypeID<TLayer>());
+        createdLayer->SetID(GetTypeIDptr<TLayer>());
         createdLayer->SetContext(&m_context);
         createdLayer->OnAttach();
         m_layers.push_back(createdLayer);
@@ -88,7 +88,7 @@ public:
         m_layers.erase(std::remove_if(m_layers.begin(), m_layers.end(),
             [](const auto& layer)
             {
-                bool isRemove = layer->GetID() == GetTypeID<TLayer>();
+                bool isRemove = layer->GetIDptr() == GetTypeIDptr<TLayer>();
                 if(isRemove)
                 {
                     layer->OnDetach();

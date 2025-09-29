@@ -26,6 +26,15 @@ add_executable(WorldBuilderEditor
         WorldBuilderEditor/src/UIEditor/Hierarchy/HierarchyLayer.cpp
         WorldBuilderEditor/src/UIEditor/Inspector/Inspector.hpp
         WorldBuilderEditor/src/UIEditor/Inspector/Inspector.cpp
+        WorldBuilderEditor/src/UIEditor/Inspector/ComponentSelectionLayer.hpp
+        WorldBuilderEditor/src/UIEditor/Inspector/ComponentSelectionLayer.cpp
+        WorldBuilderEditor/src/UIEditor/Inspector/ComponentInspector.hpp
+        WorldBuilderEditor/src/UIEditor/Inspector/ComponentInspector.cpp
+        WorldBuilderEditor/src/UIEditor/Inspector/AssetInspector.hpp
+        WorldBuilderEditor/src/UIEditor/Inspector/AssetInspector.cpp
+
+        WorldBuilderEditor/src/UIEditor/Commons/WindowContextPopup.hpp
+        WorldBuilderEditor/src/UIEditor/Commons/WindowContextPopup.cpp
 )
 
 target_link_libraries(WorldBuilderEditor

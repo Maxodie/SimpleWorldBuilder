@@ -8,8 +8,8 @@
 namespace WB
 {
 
-RessourceEditorItem::RessourceEditorItem(WeakPtr<AssetMetaData>& metaData)
-    : m_metaData(metaData)
+RessourceEditorItem::RessourceEditorItem(WeakPtr<AssetMetaData> metaData, RessourcesLayer& context)
+    : m_context(context), m_metaData(metaData)
 {
 
 }
@@ -23,10 +23,17 @@ void RessourceEditorItem::Draw()
 
     static bool selected = false;
 
-    if(ImGui::Selectable(m_metaData.lock()->path.string().c_str(), selected))
+    if(ImGui::Selectable(FileSystem::GetFileName(m_metaData.lock()->path).c_str(), selected))
     {
+        WeakPtr<AssetMetaData> metaData = Project::GetActive()->GetEditorAssetManager()->GetMetaData(m_metaData.lock()->id);
+        if(metaData.lock())
+        {
+            m_context.OnAssetSelectedCallback(metaData.lock());
+        }
+
         if (ImGui::IsKeyDown(ImGuiKey_Enter))
         {
+
             Open();
         }
     }
@@ -40,8 +47,8 @@ void RessourceEditorItem::Draw()
 
 
 //file
-RessourceEditorFile::RessourceEditorFile(WeakPtr<AssetMetaData>& metaData)
-    : RessourceEditorItem(metaData)
+RessourceEditorFile::RessourceEditorFile(WeakPtr<AssetMetaData> metaData, RessourcesLayer& context)
+    : RessourceEditorItem(metaData, context)
 {
 
 }
@@ -51,8 +58,8 @@ void RessourceEditorFile::Open()
 }
 
 //folder
-RessourceEditorFolder::RessourceEditorFolder(WeakPtr<AssetMetaData>& metaData, RessourcesLayer& context)
-    : RessourceEditorItem(metaData), m_context(context)
+RessourceEditorFolder::RessourceEditorFolder(WeakPtr<AssetMetaData> metaData, RessourcesLayer& context)
+    : RessourceEditorItem(metaData, context)
 {
 
 }
@@ -69,8 +76,8 @@ void RessourceEditorFolder::Open()
 }
 
 //scene
-RessourceEditorScene::RessourceEditorScene(WeakPtr<class AssetMetaData>& metaData, RessourcesLayer& context)
-    : RessourceEditorItem(metaData), m_context(context)
+RessourceEditorScene::RessourceEditorScene(WeakPtr<class AssetMetaData> metaData, RessourcesLayer& context)
+    : RessourceEditorItem(metaData, context)
 {
 
 }

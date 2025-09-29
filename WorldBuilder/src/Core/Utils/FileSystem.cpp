@@ -123,6 +123,13 @@ void FileSystem::TransformNameIntoPathString(std::string& str)
     str = std::regex_replace(str, filter, "");
 }
 
+std::string FileSystem::GetFileName(const Path& path)
+{
+    std::string result = path.string();
+    result = result.substr(result.find_last_of("/\\") + 1);
+    return result;
+}
+
 bool FileSystem::Exists(const Path& path)
 {
     return std::filesystem::exists(path);

@@ -23,7 +23,7 @@ WeakPtr<Asset> EditorAssetManager::GetAsset(AssetID id)
         WeakPtr<AssetMetaData> metaData = GetMetaData(id);
         if(metaData.lock())
         {
-            WeakPtr<Asset> asset = CreateAsset(*metaData.lock());
+            WeakPtr<Asset> asset = LoadAsset(*metaData.lock());
             if(asset.lock())
             {
                 return asset;
@@ -36,15 +36,7 @@ WeakPtr<Asset> EditorAssetManager::GetAsset(AssetID id)
     return {};
 }
 
-void EditorAssetManager::UnloadAsset(AssetID id)
-{
-    if(IsAssetValid(id))
-    {
-        m_registry.erase(id);
-    }
-}
-
-WeakPtr<Asset> EditorAssetManager::CreateAsset(const AssetMetaData& metaData)
+WeakPtr<Asset> EditorAssetManager::LoadAsset(const AssetMetaData& metaData)
 {
     SharedPtr<Asset> asset;
     switch(metaData.type)
@@ -73,6 +65,7 @@ WeakPtr<Asset> EditorAssetManager::CreateAsset(const AssetMetaData& metaData)
             break;
 
         case AssetType::FOLDER:
+            return {};
             break;
         case AssetType::UNKNOWN:
             break;
@@ -82,6 +75,7 @@ WeakPtr<Asset> EditorAssetManager::CreateAsset(const AssetMetaData& metaData)
 
     if(asset)
     {
+        CORE_LOG_DEBUG("Asset id %d loaded", metaData.id);
         asset->id = metaData.id;
         asset->type = metaData.type;
 
@@ -89,7 +83,7 @@ WeakPtr<Asset> EditorAssetManager::CreateAsset(const AssetMetaData& metaData)
         return asset;
     }
 
-    CORE_LOG_ERROR("could not create asset with meta data id %s", metaData.id);
+    CORE_LOG_ERROR("could not load asset with meta data id %s", metaData.id);
     return {};
 }
 
@@ -121,7 +115,7 @@ WeakPtr<AssetMetaData> EditorAssetManager::CreateMetaData(const Path& path)
     {
         metaData->type = AssetType::SHADER;
     }
-    else if(FileSystem::HasExtension(path, ".scene"))
+    else if(FileSystem::HasExtension(path, s_sceneExtension))
     {
         metaData->type = AssetType::SCENE;
     }
@@ -141,6 +135,17 @@ WeakPtr<AssetMetaData> EditorAssetManager::CreateMetaData(const Path& path)
 
     CORE_LOG_ERROR("could not create asset at path %s", path.string().c_str());
     return {};
+}
+
+void EditorAssetManager::DeleteMeta(WeakPtr<AssetMetaData> meta)
+{
+    if(meta.lock())
+    {
+        FileSystem::Delete(meta.lock()->path);
+        Path metaPath = meta.lock()->path;
+        ConvertToMetaPath(metaPath);
+        FileSystem::Delete(metaPath);
+    }
 }
 
 WeakPtr<AssetMetaData> EditorAssetManager::LoadMetaData(const Path& path)

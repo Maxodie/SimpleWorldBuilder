@@ -1,8 +1,11 @@
 #pragma once
+#include "UIEditor/Commons/WindowContextPopup.hpp"
 #include "WorldBuilder.hpp"
 
 namespace WB
 {
+
+using AssetSelectedCallback = std::function<void(SharedPtr<AssetMetaData>)>;
 
 class RessourcesLayer : public Layer
 {
@@ -17,12 +20,18 @@ public:
     void ChangeDirectory(const Path& path);
     void UpdateFile(const Path& metaPath, AssetID assetID);
 
+    WB_INLINE void SetOnAssetSelectedCallback(AssetSelectedCallback&& callback) { OnAssetSelectedCallback = std::move(callback); }
+
+    AssetSelectedCallback OnAssetSelectedCallback;
+
 private:
     void TryAddItem(AssetID assetID);
 
 private:
     Path m_currentViewPath;
     std::vector<SharedPtr<class RessourceEditorItem>> m_items;
+
+    WindowContextPopup m_contextPopup;
 };
 
 }

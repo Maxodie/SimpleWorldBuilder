@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <typeindex>
 #include <utility>
 #include <regex>
 #include <ostream>
@@ -66,7 +67,8 @@ if(!(exp))\
 
 #define BIT(x) 1 << x
 
-using TypeID = uintptr_t;
+using TypeID = std::type_index;
+using TypeIDptr = uintptr_t;
 
 template<typename T>
 using UniquePtr = std::unique_ptr<T>;
@@ -88,7 +90,13 @@ template<typename T>
 using WeakPtr = std::weak_ptr<T>;
 
 template<typename T>
-uintptr_t GetTypeID()
+TypeIDptr GetTypeIDptr()
 {
     return reinterpret_cast<uintptr_t>(&typeid(T));
+}
+
+template<typename T>
+TypeID GetTypeID()
+{
+    return typeid(T);
 }

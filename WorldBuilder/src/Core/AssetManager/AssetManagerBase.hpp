@@ -20,16 +20,18 @@ public:
     template<typename TAsset>
     WB_INLINE WeakPtr<TAsset> GetAsset(AssetID id)
     {
-        if(GetAsset(id).lock())
+        WeakPtr<Asset> asset = GetAsset(id).lock();
+        if(asset.lock())
         {
-            return static_pointer_cast<TAsset>(GetAsset(id).lock());
+            return static_pointer_cast<TAsset>(asset.lock());
         }
         CORE_LOG_ERROR("asset does not exist");
         return {};
     }
 
     virtual WeakPtr<Asset> GetAsset(AssetID id) = 0;
-    virtual void UnloadAsset(AssetID id) = 0;
+    virtual void UnloadAsset(AssetID id);
+    virtual void ClearRegistry();
 
 protected:
     std::unordered_map<AssetID, SharedPtr<Asset>> m_registry;

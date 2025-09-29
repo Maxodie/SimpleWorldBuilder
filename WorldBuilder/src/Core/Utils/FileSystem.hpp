@@ -37,6 +37,7 @@ public:
     static Path GetPersistentDataPath();
 
     static void TransformNameIntoPathString(std::string& str);
+    static std::string GetFileName(const Path& path);
     static bool Exists(const Path& path);
     static bool IsFolder(const Path& path);
     static bool HasExtension(const Path& path, const Path& extension);
