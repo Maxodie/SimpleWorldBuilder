@@ -33,6 +33,9 @@ void TransformComponentInspector::Show(TransformComponent& tr)
         ImGui::DragFloat3("rotation", rot, 0.1f, -1000.0f, 1000.0f);
         tr.SetRotation({glm::radians(rot[0]), glm::radians(rot[1]), glm::radians(rot[2])});
 
+        float scale[3] = {tr.GetScale().x, tr.GetScale().y, tr.GetScale().z};
+        ImGui::DragFloat3("scale", scale, 0.01f, -1000.0f, 1000.0f);
+        tr.SetScale({scale[0], scale[1], scale[2]});
 
         ImGui::TreePop();
     }
