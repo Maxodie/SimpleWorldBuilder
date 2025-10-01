@@ -61,6 +61,7 @@ WeakPtr<Scene3D> Scene3D::TransitionToNewPackage(AssetID newSceneID)
 {
     if(newSceneID == id)
     {
+        CORE_LOG_WARNING("Trying to transition to the same scene, it may create error since it doesn't change the asset'");
         return {};
     }
 

@@ -44,7 +44,10 @@ WeakPtr<class Scene3D> SceneManagement::SwitchSceneByAssetID(AssetID sceneAssetI
     }
     else
     {
-        return m_activeScene = m_activeScene.lock()->TransitionToNewPackage(sceneAssetID);
+        if(sceneAssetID != m_activeScene.lock()->id)
+        {
+            m_activeScene = m_activeScene.lock()->TransitionToNewPackage(sceneAssetID);
+        }
     }
 
     return m_activeScene;
