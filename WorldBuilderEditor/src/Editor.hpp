@@ -75,7 +75,7 @@ private:
 
     WB::InputTable inputTable;
 
-    SharedPtr<WB::Scene3D> m_activeScene;
+    WeakPtr<WB::Scene3D> m_activeScene;
     WB::Scene3D m_editorScene;
 
     WB::EditorShortcutInputManager m_shortcutManger;

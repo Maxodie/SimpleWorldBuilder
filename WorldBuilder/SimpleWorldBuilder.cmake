@@ -21,6 +21,8 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Commons/Camera.hpp
             WorldBuilder/src/Core/Commons/Scene.cpp
             WorldBuilder/src/Core/Commons/Scene.hpp
+            WorldBuilder/src/Core/Commons/SceneManagement.cpp
+            WorldBuilder/src/Core/Commons/SceneManagement.hpp
             WorldBuilder/src/Core/Commons/Timestep.cpp
             WorldBuilder/src/Core/Commons/Timestep.hpp
             WorldBuilder/src/Core/Editor/ImGuiLayer.cpp

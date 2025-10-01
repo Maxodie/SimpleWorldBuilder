@@ -1,5 +1,7 @@
 #include "Editor.hpp"
+#include "Core/AssetManager/Asset.hpp"
 #include "Core/AssetManager/Importer/ModelImporter.hpp"
+#include "Core/Commons/SceneManagement.hpp"
 #include "WorldBuilder.hpp"
 #include "Core/Log/Log.hpp"
 #include "Core/Project.hpp"
@@ -15,21 +17,21 @@ EditorLayer::EditorLayer()
 
 void EditorLayer::Update()
 {
-    if(m_viewportLayer.lock() && m_activeScene)
+    if(m_viewportLayer.lock() && m_activeScene.lock())
     {
         if(m_playMode)
         {
             m_viewportLayer.lock()->Bind(); //need to bind the other scene when run is started
-            m_activeScene->BeginScene();
-            m_activeScene->UpdateScene();
-            m_activeScene->EndScene();
+            m_activeScene.lock()->BeginScene();
+            m_activeScene.lock()->UpdateScene();
+            m_activeScene.lock()->EndScene();
             m_viewportLayer.lock()->Unbind();
         }
         else
         {
             m_viewportLayer.lock()->Bind();
             m_editorScene.BeginScene();
-            m_activeScene->UpdateScene();
+            m_activeScene.lock()->UpdateScene();
             m_editorScene.EndScene();
             m_viewportLayer.lock()->Unbind();
         }
@@ -70,18 +72,14 @@ void EditorLayer::OnDetach()
 
 void EditorLayer::SwitchScene(WB::AssetID sceneID)
 {
-    if(m_activeScene && sceneID == m_activeScene->id)
-    {
-        return;
-    }
+    // if(m_activeScene && sceneID == m_activeScene->id)
+    // {
+    //     return;
+    // }
 
-    if(m_activeScene)
-    {
-        //TODO : don't clear asset that are in both scenes
-        m_activeScene->Clear();
-    }
+    m_activeScene = WB::SceneManagement::Get().SwitchSceneByAssetID(sceneID);
 
-    m_activeScene = WB::Project::GetActive()->GetAssetManager()->GetAsset<WB::Scene3D>(sceneID).lock();
+    // m_activeScene = WB::Project::GetActive()->GetAssetManager()->GetAsset<WB::Scene3D>(sceneID).lock();
 
     if(m_mainMenuBarLayer.lock())
     {
@@ -166,7 +164,16 @@ void EditorLayer::SetupProjectScene()
     }
     else
     {
-        m_activeScene = MakeShared<WB::Scene3D>();
+        m_activeScene = WB::Project::GetActive()->GetEditorAssetManager()->CreateAsset<WB::Scene3D>(WB::AssetType::SCENE, scenePath, scenePath.filename().string());
+
+        if(m_activeScene.lock())
+        {
+            SwitchScene(m_activeScene.lock()->id);
+        }
+        else
+        {
+            CORE_LOG_ERROR("Could not create default sample scene");
+        }
     }
 
 }

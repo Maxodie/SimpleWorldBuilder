@@ -57,6 +57,51 @@ void Scene3D::Clear()
     CORE_LOG_DEBUG("Scene asset %zu has been cleared", id);
 }
 
+WeakPtr<Scene3D> Scene3D::TransitionToNewPackage(AssetID newSceneID)
+{
+    if(newSceneID == id)
+    {
+        return {};
+    }
+
+    WeakPtr<Scene3D> sceneAsset = Project::GetActive()->GetAssetManager()->GetAsset<Scene3D>(newSceneID);
+
+    if(!sceneAsset.lock())
+    {
+        CORE_LOG_ERROR("Invalid given scene asset id");
+        return {};
+    }
+
+    CORE_LOG_DEBUG("Scene asset %zu has been loaded", newSceneID);
+
+    EntityView<ModelComponent>(
+        [&](EntityHandle handle, ModelComponent& modelBase)
+        {
+            bool toBeUnload = true;
+            sceneAsset.lock()->EntityView<ModelComponent>(
+                [&](EntityHandle handle, ModelComponent& model)
+                {
+                    if(modelBase.asset.lock()->id == model.asset.lock()->id)
+                    {
+                        toBeUnload = false;
+                        return;
+                    }
+                }
+            );
+
+            if(toBeUnload)
+            {
+                Project::GetActive()->GetAssetManager()->UnloadAsset(modelBase.asset.lock()->id);
+            }
+        }
+    );
+
+    Project::GetActive()->GetAssetManager()->UnloadAsset(id);
+    CORE_LOG_DEBUG("Scene asset %zu has been cleared", id);
+
+    return sceneAsset;
+}
+
 void Scene3D::PrepareScene()
 {
 

@@ -18,6 +18,7 @@ public:
     void EndScene();
 
     void Clear();
+    WeakPtr<Scene3D> TransitionToNewPackage(AssetID newSceneID);
 
     void PrepareScene();
     void RestoreScene();
