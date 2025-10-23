@@ -4,6 +4,15 @@
 namespace WB
 {
 
+class SceneBuildIndexSerializer
+{
+public:
+    SceneBuildIndexSerializer() = delete;
+
+    static bool Serialize(const class SceneBuildRegistry& registry, const Path& path);
+    static bool Deserialize(SceneBuildRegistry& registry, const Path& path);
+};
+
 class ProjectSerializer
 {
 public:

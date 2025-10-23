@@ -32,6 +32,8 @@ add_executable(WorldBuilderEditor
         WorldBuilderEditor/src/UIEditor/Inspector/ComponentInspector.cpp
         WorldBuilderEditor/src/UIEditor/Inspector/AssetInspector.hpp
         WorldBuilderEditor/src/UIEditor/Inspector/AssetInspector.cpp
+        WorldBuilderEditor/src/UIEditor/BuildLayer/BuildMenuLayer.hpp
+        WorldBuilderEditor/src/UIEditor/BuildLayer/BuildMenuLayer.cpp
 
         WorldBuilderEditor/src/UIEditor/Commons/WindowContextPopup.hpp
         WorldBuilderEditor/src/UIEditor/Commons/WindowContextPopup.cpp
@@ -59,4 +61,6 @@ set_target_properties(WorldBuilderEditor PROPERTIES
 target_compile_definitions(WorldBuilderEditor PRIVATE
     WB_LOGGER
     WB_ASSERT
+
+    WB_EDITOR
 )

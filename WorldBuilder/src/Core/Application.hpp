@@ -32,10 +32,10 @@ public:
     void CreateWindow(const Window::WindowCreateData& windowData = Window::WindowCreateData(), bool isMainWindow = false);
 
     template<typename TLayer, typename... TArgs>
-    WB_INLINE void AddLayer(TArgs&&... args)
+    WB_INLINE WeakPtr<TLayer> AddLayer(TArgs&&... args)
     {
         /*PostTask([&](){ m_layerStack.AddLayer<TLayer>(std::forward<TArgs>(args)...); });*/
-        m_layerStack.AddLayer<TLayer>(std::forward<TArgs>(args)...);
+        return m_layerStack.AddLayer<TLayer>(std::forward<TArgs>(args)...);
     }
 
     template<typename TLayer>

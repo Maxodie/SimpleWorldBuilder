@@ -7,7 +7,8 @@ add_library(WorldBuilder
         WorldBuilder/src/Core/Application.hpp
         WorldBuilder/src/Core/LayerStack.cpp
         WorldBuilder/src/Core/LayerStack.hpp
-        WorldBuilder/src/Core/Project.hpp
+            WorldBuilder/src/Core/Project.hpp
+
             WorldBuilder/src/Core/AssetManager/Asset.hpp
             WorldBuilder/src/Core/AssetManager/AssetManagerBase.cpp
             WorldBuilder/src/Core/AssetManager/AssetManagerBase.hpp
@@ -66,6 +67,8 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Serializer/SceneSerializer.hpp
             WorldBuilder/src/Core/Serializer/AssetManagerSerializer.cpp
             WorldBuilder/src/Core/Serializer/AssetManagerSerializer.hpp
+            WorldBuilder/src/Core/Serializer/ScenePackageSerializer.cpp
+            WorldBuilder/src/Core/Serializer/ScenePackageSerializer.hpp
             WorldBuilder/src/Core/Utils/FileSystem.cpp
             WorldBuilder/src/Core/Utils/FileSystem.hpp
             WorldBuilder/src/Core/Window/Window.cpp
@@ -119,7 +122,17 @@ set_target_properties(WorldBuilder PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR}/WorldBuilder
 )
 
+if(COMPILE_CONFIG_EDITOR)
+    set(CONFIG_COMPILE_DEFINITION WB_EDITOR)
+else()
+    set(CONFIG_COMPILE_DEFINITION WB_BUILD)
+endif()
+
+message("config compile definition : ${CONFIG_COMPILE_DEFINITION}")
+
 target_compile_definitions(WorldBuilder PRIVATE
     WB_LOGGER
     WB_ASSERT
+
+    ${CONFIG_COMPILE_DEFINITION}
 )

@@ -26,6 +26,36 @@ struct Asset
 
 };
 
+class ScenePackage
+{
+public:
+    WB_INLINE const std::vector<AssetID>& GetAssets() const { return m_assets; }
+    WB_INLINE AssetID GetScene() const { return m_sceneID; }
+
+    WB_INLINE void ResizeAssetList(size_t newSize) { m_assets.resize(newSize); }
+
+    void AddUniqueAsset(AssetID assetID)
+    {
+        for(AssetID id : m_assets)
+        {
+            if(assetID == id)
+            {
+                return;
+            }
+        }
+
+        m_assets.push_back(assetID);
+    }
+
+    WB_INLINE void SetScene(AssetID sceneID) { m_sceneID = sceneID; }
+
+private:
+    std::vector<AssetID> m_assets;
+    AssetID m_sceneID;
+};
+
+using ScenePackageRegistry = std::vector<SharedPtr<ScenePackage>>;
+
 struct Mesh
 {
     std::vector<Vertex3D> m_vertices;

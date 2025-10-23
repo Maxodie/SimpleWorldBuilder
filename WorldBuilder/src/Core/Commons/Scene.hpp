@@ -6,7 +6,6 @@
 namespace WB
 {
 
-
 using EntityHandle = entt::entity;
 class Scene3D : public Asset
 {
@@ -17,11 +16,8 @@ public:
     void UpdateScene();
     void EndScene();
 
+    WeakPtr<Scene3D> TransitionToNewPackage(const ScenePackage& packageToTranstion);
     void Clear();
-    WeakPtr<Scene3D> TransitionToNewPackage(AssetID newSceneID);
-
-    void PrepareScene();
-    void RestoreScene();
 
     template<typename TComp>
     WB_INLINE bool Has(EntityHandle entityHandle) const

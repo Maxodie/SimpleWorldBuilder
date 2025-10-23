@@ -23,7 +23,7 @@ using MetaDataRegistry = std::unordered_map<AssetID, SharedPtr<AssetMetaData>>;
 class EditorAssetManager : public AssetManagerBase
 {
 public:
-    WB_INLINE bool IsMetaDataAssetValid(AssetID id) const
+    WB_FORCEINLINE bool IsMetaDataAssetValid(AssetID id) const
     {
         return m_metaDataRegistry.find(id) != m_metaDataRegistry.end() && id != EMPTY_ASSET;
     }
@@ -35,7 +35,12 @@ public:
     template<typename TAsset>
     WeakPtr<TAsset> CreateAsset(AssetType type, const Path& path, const std::string& name)
     {
-        SharedPtr<TAsset> asset;
+        SharedPtr<TAsset> asset = MakeShared<TAsset>();
+        AssetID nextID = s_maxAssetID + 1;
+
+        asset->id = nextID;
+        asset->type = type;
+
         switch(type)
         {
             case AssetType::MODEL:
@@ -49,9 +54,7 @@ public:
             case AssetType::SCENE:
             {
                 std::string fullName = name + s_sceneExtension;
-                SharedPtr<Scene3D> scene = MakeShared<Scene3D>();
-                SceneSerializer::Serialize(*scene, path / fullName);
-                asset = scene;
+                SceneSerializer::Serialize(*asset, path / fullName);
                 break;
             }
             case AssetType::TEXTURE:
@@ -69,9 +72,7 @@ public:
 
         if(asset)
         {
-            asset->id =  ++s_maxAssetID;
-            asset->type = type;
-
+            ++s_maxAssetID;
             m_registry[asset->id] = asset;
             return asset;
         }
@@ -87,9 +88,10 @@ public:
     void LoadAllProjectMetaData();
     void SaveAllProjectMetaData();
 
+    virtual bool CheckPackagesValidity() override;
+
     WB_INLINE MetaDataRegistry& GetMetaDataRegistry() { return m_metaDataRegistry; }
 
-public:
     WB_INLINE static const std::string s_metaExtention = ".meta";
     WB_INLINE static void ConvertToMetaPath(Path& path)
     {

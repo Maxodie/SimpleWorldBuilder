@@ -18,6 +18,7 @@ void SceneAssetInspector::Show(SharedPtr<AssetMetaData> metaData)
     if(ImGui::Button("Delete"))
     {
         Project::GetActive()->GetEditorAssetManager()->DeleteMeta(metaData);
+        Project::GetActive()->GetAssetManager()->CheckPackagesValidity();
     }
 
     ImGui::PopStyleVar();

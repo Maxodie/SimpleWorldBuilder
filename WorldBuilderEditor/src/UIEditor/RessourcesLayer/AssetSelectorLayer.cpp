@@ -35,7 +35,7 @@ void AssetSelectorLayer::UpdateGUI()
 
         ImGui::Text("open asset selector");
 
-        ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoTitleBar;
         if(ImGui::BeginChild("open_asset_selector_child", ImVec2(550, 200), ImGuiChildFlags_None, window_flags))
         {
             if(ImGui::Button("Close"))
@@ -46,7 +46,8 @@ void AssetSelectorLayer::UpdateGUI()
             MetaDataRegistry& registry = Project::GetActive()->GetEditorAssetManager()->GetMetaDataRegistry();
             for(auto& [key, metaData] : registry)
             {
-                if(metaData->type == AssetType::MODEL)
+                bool isSelected = false;
+                if(metaData->type == m_type)
                 {
                     if(ImGui::Selectable(metaData->name.c_str()))
                     {

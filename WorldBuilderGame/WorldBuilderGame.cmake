@@ -23,6 +23,7 @@ set_target_properties(WorldBuilderGame PROPERTIES
 target_compile_definitions(WorldBuilderGame PRIVATE
     # WB_LOGGER
     # WB_ASSERT
+    WB_BUILD
 )
 
 target_compile_options(WorldBuilderGame PRIVATE

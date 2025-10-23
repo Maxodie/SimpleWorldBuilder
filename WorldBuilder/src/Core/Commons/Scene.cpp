@@ -5,7 +5,7 @@
 #include "Core/Renderer/Renderer3D.hpp"
 #include "Core/Renderer/RenderCommand.hpp"
 #include "Core/ECS/Entity.hpp"
-#include "Core/Serializer/SceneSerializer.hpp"
+#include "Core/Commons/SceneManagement.hpp"
 
 namespace WB
 {
@@ -57,38 +57,33 @@ void Scene3D::Clear()
     CORE_LOG_DEBUG("Scene asset %zu has been cleared", id);
 }
 
-WeakPtr<Scene3D> Scene3D::TransitionToNewPackage(AssetID newSceneID)
+WeakPtr<Scene3D> Scene3D::TransitionToNewPackage(const ScenePackage& packageToTranstion)
 {
-    if(newSceneID == id)
+    if(packageToTranstion.GetScene() == id)
     {
         CORE_LOG_WARNING("Trying to transition to the same scene, it may create error since it doesn't change the asset'");
         return {};
     }
 
-    WeakPtr<Scene3D> sceneAsset = Project::GetActive()->GetAssetManager()->GetAsset<Scene3D>(newSceneID);
 
-    if(!sceneAsset.lock())
+    if(packageToTranstion.GetScene() == EMPTY_ASSET)
     {
         CORE_LOG_ERROR("Invalid given scene asset id");
         return {};
     }
 
-    CORE_LOG_DEBUG("Scene asset %zu has been loaded", newSceneID);
-
     EntityView<ModelComponent>(
         [&](EntityHandle handle, ModelComponent& modelBase)
         {
             bool toBeUnload = true;
-            sceneAsset.lock()->EntityView<ModelComponent>(
-                [&](EntityHandle handle, ModelComponent& model)
+            for(auto& id : packageToTranstion.GetAssets())
+            {
+                if(modelBase.asset.lock()->id == id)
                 {
-                    if(modelBase.asset.lock()->id == model.asset.lock()->id)
-                    {
-                        toBeUnload = false;
-                        return;
-                    }
+                    toBeUnload = false;
+                    return;
                 }
-            );
+            }
 
             if(toBeUnload)
             {
@@ -100,16 +95,10 @@ WeakPtr<Scene3D> Scene3D::TransitionToNewPackage(AssetID newSceneID)
     Project::GetActive()->GetAssetManager()->UnloadAsset(id);
     CORE_LOG_DEBUG("Scene asset %zu has been cleared", id);
 
+    WeakPtr<Scene3D> sceneAsset = Project::GetActive()->GetAssetManager()->GetAsset<Scene3D>(packageToTranstion.GetScene());
+    CORE_LOG_DEBUG("Scene asset %zu has been loaded", packageToTranstion.GetScene());
+
     return sceneAsset;
-}
-
-void Scene3D::PrepareScene()
-{
-
-}
-
-void Scene3D::RestoreScene()
-{
 }
 
 Entity Scene3D::CreateEntity()

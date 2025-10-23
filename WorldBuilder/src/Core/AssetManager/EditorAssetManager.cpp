@@ -106,23 +106,29 @@ WeakPtr<AssetMetaData> EditorAssetManager::CreateMetaData(const Path& path)
     if(FileSystem::HasExtension(path, ".fbx"))
     {
         metaData->type = AssetType::MODEL;
+        metaData->id = ++s_maxAssetID;
     }
     else if(FileSystem::IsFolder(path))
     {
         metaData->type = AssetType::FOLDER;
+        metaData->id = ++s_maxAssetID;
     }
     else if(FileSystem::HasExtension(path, ".glsl"))
     {
         metaData->type = AssetType::SHADER;
+        metaData->id = ++s_maxAssetID;
     }
     else if(FileSystem::HasExtension(path, s_sceneExtension))
     {
         metaData->type = AssetType::SCENE;
+        Scene3D scene;
+        SceneSerializer::Deserialize(scene, path, false);
+        CORE_LOG_WARNING("id scene : %zu", scene.id);
+        metaData->id = scene.id;
     }
 
     metaData->name = path.filename().string();
 
-    metaData->id = ++s_maxAssetID;
 
     Path metaPath = path;
     ConvertToMetaPath(metaPath);
@@ -187,6 +193,23 @@ void EditorAssetManager::SaveAllProjectMetaData()
     {
         CORE_LOG_ERROR("Fail to serialize project meta data list");
     }
+}
+
+bool EditorAssetManager::CheckPackagesValidity()
+{
+    bool isValid = true;
+    for(size_t i = 0; i < m_packages.size(); i++)
+    {
+        bool isValid = IsMetaDataAssetValid(m_packages[i]->GetScene());
+        if(!isValid)
+        {
+            RemovePackage(m_packages[i]->GetScene());
+            isValid = false;
+            i--;
+        }
+    }
+
+    return isValid;
 }
 
 } // namespace WB

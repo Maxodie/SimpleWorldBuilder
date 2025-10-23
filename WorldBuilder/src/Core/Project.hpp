@@ -15,8 +15,10 @@ struct ProjectSettings
 {
     std::string projectName = "New Project";
     Path projectPath;
+    Path settingsPath;
     Path projectAssetPath;
     Path projectMetaListPath;
+    Path projectPackageListPath;
     Path activeScenePath;
 };
 
@@ -78,12 +80,16 @@ public:
 
         std::string assetsFolder = "assets";
         std::string metaDataAssetsList = "metaList.save";
+        std::string packageListPath = "packageList.pcklst";
+        std::string settingsPath = "settings.settings";
 
         ProjectSettings settings;
         settings.projectName = name;
         settings.projectPath = folderPath;
+        settings.settingsPath = folderPath / settingsPath;
         settings.projectAssetPath = folderPath / assetsFolder;
         settings.projectMetaListPath = folderPath / metaDataAssetsList;
+        settings.projectPackageListPath = folderPath / packageListPath;
         settings.activeScenePath = settings.projectAssetPath / "sample.scene";
 
         FileSystem::CreateFolder(path, pathName);
@@ -130,7 +136,13 @@ public:
     WB_INLINE static void SetActiveProject(SharedPtr<Project>& project)
     {
         s_active = project;
+
+#ifdef WB_EDITOR
+        CORE_LOG_DEBUG("loading editor project");
         GetActive()->GetEditorAssetManager()->LoadAllProjectMetaData();
+#endif
+        GetActive()->GetAssetManager()->LoadPackages();
+
         CORE_LOG_DEBUG("active project changed : %s, assets path : %s", project->GetSettings().projectName.c_str(), project->GetSettings().projectAssetPath.string().c_str());
     }
 
@@ -153,7 +165,7 @@ public:
         return manager;
     }
 
-    WB_INLINE SharedPtr<RuntimeAssetManager> GetBuildAssetManager()
+    WB_INLINE SharedPtr<RuntimeAssetManager> GetRuntimeAssetManager()
     {
         SharedPtr<RuntimeAssetManager> manager = static_pointer_cast<RuntimeAssetManager>(m_assetManager);
         WB_CORE_ASSERT(manager, "Build asset manager used in editor");

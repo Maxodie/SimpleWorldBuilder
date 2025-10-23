@@ -1,5 +1,7 @@
 project_name: Sandbox Game
 project_path: E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\DefaultRessources\SandboxGame
+project_settings: E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\DefaultRessources\SandboxGame\settings.settings
 project_assets_path: E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\DefaultRessources\SandboxGame\assets
 project_meta_list: E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\DefaultRessources\SandboxGame\metaList.save
+project_package_list: E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\DefaultRessources\SandboxGame\packageList.pcklst
 project_default_scene: E:\_prog\C++\Engine\SimpleWorldBuilder\SimpleWorldBuilder\DefaultRessources\SandboxGame\assets\sample.scene

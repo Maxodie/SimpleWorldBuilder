@@ -3,6 +3,7 @@
 #include "Core/Project.hpp"
 #include "Core/AssetManager/EditorAssetManager.hpp"
 #include "Core/Serializer/Serializer.hpp"
+#include "Core/Commons/SceneManagement.hpp"
 
 #include "yaml-cpp/yaml.h"
 #include "yaml-cpp/node/convert.h"
@@ -10,14 +11,62 @@
 namespace WB
 {
 
+bool SceneBuildIndexSerializer::Serialize(const SceneBuildRegistry& registry, const Path& path)
+{
+    YAML::Emitter emitter;
+    emitter << YAML::BeginMap;
+    for(AssetID i = 0; i < registry.sceneIDs.size(); i++)
+    {
+        emitter << YAML::Key << "sceneAssetID" + std::to_string(i);
+        emitter << YAML::Value << registry.sceneIDs[i];
+    }
+    emitter << YAML::EndMap;
+
+    return FileSystem::SyncWriteAtPathAsString(path, emitter.c_str());
+}
+
+bool SceneBuildIndexSerializer::Deserialize(SceneBuildRegistry& registry, const Path& path)
+{
+    if(!FileSystem::Exists(path))
+    {
+        return false;
+    }
+
+    try
+    {
+        YAML::Node root = YAML::LoadFile(path.string());
+        if(root.IsNull())
+        {
+            CORE_LOG_ERROR("failed to parse %s", path.string().c_str());
+            return false;
+        }
+
+        AssetID i = 0;
+        for (auto sceneAssetID : root)
+        {
+            registry.sceneIDs.push_back(root["sceneAssetID" + std::to_string(i)].as<AssetID>());
+            i++;
+        }
+
+        return true;
+    }
+    catch(const YAML::ParserException& ex)
+    {
+        return false;
+    }
+}
+
+
 bool ProjectSerializer::Serialize(const ProjectSettings& settings, const Path& path)
 {
     YAML::Emitter emitter;
     emitter << YAML::BeginMap;
     emitter << YAML::Key << "project_name" << YAML::Value << settings.projectName;
     emitter << YAML::Key << "project_path" << YAML::Value << settings.projectPath.string();
+    emitter << YAML::Key << "project_settings" << YAML::Value << settings.settingsPath.string();
     emitter << YAML::Key << "project_assets_path" << YAML::Value << settings.projectAssetPath.string();
     emitter << YAML::Key << "project_meta_list" << YAML::Value << settings.projectMetaListPath.string();
+    emitter << YAML::Key << "project_package_list" << YAML::Value << settings.projectPackageListPath.string();
     emitter << YAML::Key << "project_default_scene" << YAML::Value << settings.activeScenePath.string();
     emitter << YAML::EndMap;
 
@@ -42,8 +91,10 @@ bool ProjectSerializer::Deserialize(ProjectSettings& settings, const Path& path)
 
         settings.projectName = root["project_name"].as<std::string>();
         settings.projectPath = root["project_path"].as<std::string>();
+        settings.settingsPath = root["project_settings"].as<std::string>();
         settings.projectAssetPath = root["project_assets_path"].as<std::string>();
         settings.projectMetaListPath = root["project_meta_list"].as<std::string>();
+        settings.projectPackageListPath = root["project_package_list"].as<std::string>();
         settings.activeScenePath = root["project_default_scene"].as<std::string>();
         return true;
     }

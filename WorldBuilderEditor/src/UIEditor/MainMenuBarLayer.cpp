@@ -2,6 +2,7 @@
 #include "Core/Serializer/SceneSerializer.hpp"
 #include "UIEditor/ProjectEditor/CreateProjectEditorLayer.hpp"
 #include "UIEditor/ProjectEditor/OpenProjectEditorLayer.hpp"
+#include "UIEditor/BuildLayer/BuildMenuLayer.hpp"
 
 #include "WorldBuilder.hpp"
 
@@ -48,6 +49,11 @@ void MainMenuBarLayer::UpdateGUI()
                     Path path = Project::GetActive()->GetEditorAssetManager()->GetMetaData(m_activeScene.lock()->id).lock()->path;
                     SceneSerializer::Serialize(*m_activeScene.lock(), path);
                 }
+            }
+
+            if (ImGui::MenuItem("Build settings"))
+            {
+                GetContext()->AddLayer<BuildMenuLayer>();
             }
 
           ImGui::EndMenu();
