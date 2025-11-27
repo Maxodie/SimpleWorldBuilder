@@ -43,28 +43,18 @@ void AssetSelectorLayer::UpdateGUI()
                 GetContext()->RemoveLayer<AssetSelectorLayer>();
             }
 
+            HandleAssetSelector("None", EMPTY_ASSET);
+
             MetaDataRegistry& registry = Project::GetActive()->GetEditorAssetManager()->GetMetaDataRegistry();
             for(auto& [key, metaData] : registry)
             {
                 bool isSelected = false;
                 if(metaData->type == m_type)
                 {
-                    if(ImGui::Selectable(metaData->name.c_str()))
-                    {
-                        if (ImGui::IsKeyDown(ImGuiKey_Enter))
-                        {
-                            GetContext()->RemoveLayer<AssetSelectorLayer>();
-                            m_selectionCallback(key);
-                        }
-                    }
-
-                    if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
-                    {
-                        GetContext()->RemoveLayer<AssetSelectorLayer>();
-                        m_selectionCallback(key);
-                    }
+                    HandleAssetSelector(metaData->name, key);
                 }
             }
+
             ImGui::EndChild();
         }
 
@@ -80,6 +70,24 @@ void AssetSelectorLayer::OnAttach()
 void AssetSelectorLayer::OnDetach()
 {
 
+}
+
+void AssetSelectorLayer::HandleAssetSelector(const std::string& name, AssetID id)
+{
+    if(ImGui::Selectable(name.c_str()))
+    {
+        if (ImGui::IsKeyDown(ImGuiKey_Enter))
+        {
+            GetContext()->RemoveLayer<AssetSelectorLayer>();
+            m_selectionCallback(id);
+        }
+    }
+
+    if(ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+    {
+        GetContext()->RemoveLayer<AssetSelectorLayer>();
+        m_selectionCallback(id);
+    }
 }
 
 }

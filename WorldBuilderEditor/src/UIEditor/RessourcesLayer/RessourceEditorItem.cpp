@@ -1,4 +1,5 @@
 #include "UIEditor/RessourcesLayer/RessourceEditorItem.hpp"
+#include "Core/Log/Log.hpp"
 #include "Editor.hpp"
 #include "UIEditor/RessourcesLayer/RessourcesLayer.hpp"
 

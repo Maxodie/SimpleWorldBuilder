@@ -41,7 +41,8 @@ public:
     static bool Exists(const Path& path);
     static bool IsFolder(const Path& path);
     static bool HasExtension(const Path& path, const Path& extension);
-    static bool HasAnyExtension(const Path& path, std::vector<Path>& extensions);
+    static bool HasAnyExtension(const Path& path, const std::vector<Path>& extensions);
+    static bool HasAnyExtension(const Path& path, const char* const* extensions, size_t count);
     static void ReplaceExtension(Path& path, const std::string& extension);
 
     static void Delete(const Path& path);

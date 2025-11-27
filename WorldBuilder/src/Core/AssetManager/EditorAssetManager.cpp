@@ -2,10 +2,12 @@
 #include "Core/AssetManager/Asset.hpp"
 #include "Core/AssetManager/Importer/ModelImporter.hpp"
 #include "Core/Commons/Scene.hpp"
+#include "Core/Renderer/Material.hpp"
 #include "Core/Core.hpp"
 #include "Core/Log/Log.hpp"
 #include "Core/Serializer/AssetManagerSerializer.hpp"
 #include "Core/Project.hpp"
+#include "Core/Serializer/MaterialSerializer.hpp"
 #include "Core/Serializer/SceneSerializer.hpp"
 #include "Core/Utils/FileSystem.hpp"
 
@@ -55,15 +57,23 @@ WeakPtr<Asset> EditorAssetManager::LoadAsset(const AssetMetaData& metaData)
         case AssetType::SCENE:
         {
             SharedPtr<Scene3D> scene = MakeShared<Scene3D>();
-            SceneSerializer::Deserialize(*scene, metaData.path);
+            SceneSerializer::Deserialize(*scene, metaData.path, true);
             asset = scene;
             break;
         }
-        case AssetType::TEXTURE:
+        case AssetType::TEXTURE2D:
+        {
+            SharedPtr<Texture2D> texture = Texture2D::CreateTexture(metaData.path);
+            asset = texture;
             break;
+        }
         case AssetType::MATERIAL:
+        {
+            SharedPtr<Material> material = MakeShared<Material>();
+            MaterialSerializer::Deserialize(*material, metaData.path);
+            asset = material;
             break;
-
+        }
         case AssetType::FOLDER:
             return {};
             break;
@@ -107,6 +117,7 @@ WeakPtr<AssetMetaData> EditorAssetManager::CreateMetaData(const Path& path)
     {
         metaData->type = AssetType::MODEL;
         metaData->id = ++s_maxAssetID;
+        CORE_LOG_DEBUG("id model : %zu", s_maxAssetID);
     }
     else if(FileSystem::IsFolder(path))
     {
@@ -117,13 +128,28 @@ WeakPtr<AssetMetaData> EditorAssetManager::CreateMetaData(const Path& path)
     {
         metaData->type = AssetType::SHADER;
         metaData->id = ++s_maxAssetID;
+        CORE_LOG_DEBUG("id shader : %zu", s_maxAssetID);
+    }
+    else if(FileSystem::HasExtension(path, s_materialExtension))
+    {
+        metaData->type = AssetType::MATERIAL;
+        Material material;
+        MaterialSerializer::Deserialize(material, path);
+        CORE_LOG_DEBUG("id Material : %zu", material.id);
+        metaData->id = material.id;
+    }
+    else if(FileSystem::HasAnyExtension(path, s_textureExtensions, s_textureExtensionsCount))
+    {
+        metaData->type = AssetType::TEXTURE2D;
+        metaData->id = ++s_maxAssetID;
+        CORE_LOG_DEBUG("id texture : %zu", s_maxAssetID);
     }
     else if(FileSystem::HasExtension(path, s_sceneExtension))
     {
         metaData->type = AssetType::SCENE;
         Scene3D scene;
         SceneSerializer::Deserialize(scene, path, false);
-        CORE_LOG_WARNING("id scene : %zu", scene.id);
+        CORE_LOG_DEBUG("id scene : %zu", scene.id);
         metaData->id = scene.id;
     }
 
@@ -210,6 +236,41 @@ bool EditorAssetManager::CheckPackagesValidity()
     }
 
     return isValid;
+}
+
+void EditorAssetManager::HandleAssetCreationByType(AssetType type, const SharedPtr<Asset>& asset, const Path& path, const std::string& name)
+{
+    switch(type)
+    {
+        case AssetType::MODEL:
+        {
+            break;
+        }
+        case AssetType::SHADER:
+        {
+            break;
+        }
+        case AssetType::SCENE:
+        {
+            std::string fullName = name + s_sceneExtension;
+            SceneSerializer::Serialize(*static_pointer_cast<Scene3D>(asset), path / fullName);
+            break;
+        }
+        case AssetType::TEXTURE2D:
+            break;
+        case AssetType::MATERIAL:
+        {
+            std::string fullName = name + s_materialExtension;
+            MaterialSerializer::Serialize(*static_pointer_cast<Material>(asset), path / fullName);
+            break;
+        }
+        case AssetType::FOLDER:
+            break;
+        case AssetType::UNKNOWN:
+            break;
+        default:
+            break;
+    }
 }
 
 } // namespace WB

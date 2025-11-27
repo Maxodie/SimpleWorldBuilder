@@ -85,15 +85,25 @@ void InspectorLayer::UpdateGUI()
                 break;
             }
             case AssetType::FOLDER:
-            break;
+                {
+
+                    break;
+                }
             case AssetType::MATERIAL:
+            {
+                MaterialAssetInspector::Show(m_metaData, *GetContext());
+                break;
+            }
             break;
             case AssetType::MODEL:
             break;
             case AssetType::SHADER:
             break;
-            case AssetType::TEXTURE:
-            break;
+            case AssetType::TEXTURE2D:
+            {
+                Texture2DAssetInspector::Show(m_metaData, *GetContext());
+                break;
+            }
             case AssetType::UNKNOWN:
             break;
         }

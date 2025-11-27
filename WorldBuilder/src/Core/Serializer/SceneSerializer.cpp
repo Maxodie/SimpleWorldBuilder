@@ -45,17 +45,21 @@ bool SceneSerializer::Serialize(const Scene3D& scene, const Path& path)
             if(scene.Has<ModelComponent>(entityHandle))
             {
                 emitter << YAML::Key << "model";
-                AssetID id;
-                if(scene.Get<ModelComponent>(entityHandle).asset.lock())
+                AssetID id = EMPTY_ASSET;
+                AssetID matID = EMPTY_ASSET;
+                const ModelComponent& modelComp = scene.Get<ModelComponent>(entityHandle);
+                if(modelComp.asset.lock())
                 {
-                    id = scene.Get<ModelComponent>(entityHandle).asset.lock()->id;
+                    id = modelComp.asset.lock()->id;
                 }
-                else
+                if(modelComp.material.lock())
                 {
-                    id = EMPTY_ASSET;
+                    matID = modelComp.material.lock()->id;
                 }
 
                 emitter << YAML::Value << id;
+                emitter << YAML::Key << "material";
+                emitter << YAML::Value << matID;
                 scenePackage->AddUniqueAsset(id);
             }
 
@@ -110,18 +114,44 @@ bool SceneSerializer::Deserialize(Scene3D& scene, const Path& path, bool loadLin
                 entity.AddComponent<TransformComponent>(tr);
             }
 
+
+
             if(const auto& modelNode = entityNode["model"])
             {
                 ModelComponent model;
                 AssetID modelID = modelNode.as<AssetID>();
+                AssetID materialID = EMPTY_ASSET;
+
+                if(const auto& modelNode = entityNode["material"])
+                {
+                    materialID = modelNode.as<AssetID>();
+                }
 
                 if(loadLinkedAssets)
                 {
-                    model.asset = Project::GetActive()->GetAssetManager()->GetAsset<ModelAsset>(modelID);
-                    CORE_LOG_DEBUG("scene serializer asset loaded, id %d", modelID);
+                    if(modelID != EMPTY_ASSET)
+                    {
+                        model.asset = Project::GetActive()->GetAssetManager()->GetAsset<ModelAsset>(modelID);
+                        CORE_LOG_DEBUG("scene serializer asset loaded, id %d", modelID);
+                    }
+
+                    if(materialID != EMPTY_ASSET)
+                    {
+                        model.material = Project::GetActive()->GetAssetManager()->GetAsset<Material>(materialID);
+                        CORE_LOG_DEBUG("scene serializer asset loaded, id %d", materialID);
+                    }
+                }
+
+                if(const auto& modelNode = entityNode["material"])
+                {
+                    if(loadLinkedAssets)
+                    {
+                        model.asset = Project::GetActive()->GetAssetManager()->GetAsset<ModelAsset>(modelID);
+                    }
                 }
 
                 scenePackage->AddUniqueAsset(modelID);
+                scenePackage->AddUniqueAsset(materialID);
                 entity.AddComponent<ModelComponent>(model);
             }
         }

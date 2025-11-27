@@ -15,7 +15,7 @@ enum class AssetType : uint8_t
     SHADER,
     MODEL,
     MATERIAL,
-    TEXTURE,
+    TEXTURE2D,
     SCENE,
 };
 

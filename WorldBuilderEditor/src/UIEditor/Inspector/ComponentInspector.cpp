@@ -1,4 +1,5 @@
 #include "UIEditor/Inspector/ComponentInspector.hpp"
+#include "Core/Log/Log.hpp"
 #include "UIEditor/RessourcesLayer/AssetSelectorLayer.hpp"
 #include "imgui.h"
 #include "misc/cpp/imgui_stdlib.h"
@@ -71,6 +72,31 @@ void ModelComponentInspector::Show(ModelComponent& model, Application& context)
                     [&](AssetID id)
                     {
                         model.asset = Project::GetActive()->GetAssetManager()->GetAsset<ModelAsset>(id);
+                    }
+                );
+            }
+        }
+
+        name = "No material";
+        if(model.material.lock())
+        {
+            WeakPtr<AssetMetaData> metaData = Project::GetActive()->GetEditorAssetManager()->GetMetaData(model.material.lock()->id);
+            if(metaData.lock())
+            {
+                name = metaData.lock()->name;
+            }
+        }
+
+        if(ImGui::Button(("Material : " + name).c_str()))
+        {
+            context.AddLayer<AssetSelectorLayer>(AssetType::MATERIAL);
+            WeakPtr<AssetSelectorLayer> layer = context.GetLayer<AssetSelectorLayer>();
+            if(layer.lock())
+            {
+                layer.lock()->SetSelectionCallback(
+                    [&](AssetID id)
+                    {
+                        model.material = Project::GetActive()->GetAssetManager()->GetAsset<Material>(id);
                     }
                 );
             }

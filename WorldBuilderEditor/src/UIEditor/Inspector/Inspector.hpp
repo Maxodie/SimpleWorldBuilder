@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/Log/Log.hpp"
 #include "WorldBuilder.hpp"
 
 namespace WB

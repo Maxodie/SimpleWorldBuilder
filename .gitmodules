@@ -17,3 +17,6 @@
 [submodule "WorldBuilder/vendors/yamlcpp/yamlcpp"]
 	path = WorldBuilder/vendors/yamlcpp/yamlcpp
 	url = https://github.com/jbeder/yaml-cpp
+[submodule "WorldBuilder/vendors/stb/stb"]
+	path = WorldBuilder/vendors/stb/stb
+	url = https://github.com/nothings/stb

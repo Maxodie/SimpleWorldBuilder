@@ -2,6 +2,7 @@
 
 #include "Core/AssetManager/AssetManagerBase.hpp"
 #include "Core/AssetManager/Importer/ModelImporter.hpp"
+#include "Core/Serializer/MaterialSerializer.hpp"
 #include "Core/Serializer/SceneSerializer.hpp"
 #include "Core/Commons/Scene.hpp"
 #include "Core/Utils/FileSystem.hpp"
@@ -41,34 +42,7 @@ public:
         asset->id = nextID;
         asset->type = type;
 
-        switch(type)
-        {
-            case AssetType::MODEL:
-            {
-                break;
-            }
-            case AssetType::SHADER:
-            {
-                break;
-            }
-            case AssetType::SCENE:
-            {
-                std::string fullName = name + s_sceneExtension;
-                SceneSerializer::Serialize(*asset, path / fullName);
-                break;
-            }
-            case AssetType::TEXTURE:
-                break;
-            case AssetType::MATERIAL:
-                break;
-
-            case AssetType::FOLDER:
-                break;
-            case AssetType::UNKNOWN:
-                break;
-            default:
-                break;
-        }
+        HandleAssetCreationByType(type, asset, path, name);
 
         if(asset)
         {
@@ -80,6 +54,7 @@ public:
         CORE_LOG_ERROR("could not create asset of type %d", type);
         return {};
     }
+
 
     WeakPtr<AssetMetaData> GetMetaData(AssetID id);
     WeakPtr<AssetMetaData> CreateMetaData(const Path& path);
@@ -106,9 +81,16 @@ public:
     }
 
 private:
+    void HandleAssetCreationByType(AssetType type, const SharedPtr<Asset>& asset, const Path& path, const std::string& name);
+
+private:
     MetaDataRegistry m_metaDataRegistry;
 
     WB_INLINE const static std::string s_sceneExtension = ".scene";
+    WB_INLINE const static std::string s_materialExtension = ".mat";
+
+    WB_INLINE static constexpr size_t s_textureExtensionsCount = 2;
+    WB_INLINE static constexpr const char* s_textureExtensions[2] = {".png", ".jpg"};
 };
 
 }

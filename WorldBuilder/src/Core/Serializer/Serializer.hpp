@@ -13,8 +13,12 @@ class Serializer
 public:
     Serializer() = delete;
 
-    static YAML::Node encode(const glm::vec3& rhs);
-    static bool decode(const YAML::Node& node, glm::vec3& rhs);
+    static YAML::Node Encode(const glm::vec4& rhs);
+    static bool Decode(const YAML::Node& node, glm::vec4& rhs);
+    static YAML::Node Encode(const glm::vec3& rhs);
+    static bool Decode(const YAML::Node& node, glm::vec3& rhs);
+    static YAML::Node Encode(const glm::vec2& rhs);
+    static bool Decode(const YAML::Node& node, glm::vec2& rhs);
 
     //components
     static YAML::Node EncodeInfo(const class InfoComponent& info);

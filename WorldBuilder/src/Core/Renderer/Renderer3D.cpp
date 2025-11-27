@@ -20,7 +20,6 @@ void Renderer3D::Init()
 
     m_renderData.VertexBuffer->SetLayout(
         {
-            {"aColor", ShaderElementType::Float4},
             {"aPos", ShaderElementType::Float3},
             {"aTexCoords", ShaderElementType::Float2},
         }
@@ -40,7 +39,23 @@ void Renderer3D::Init()
     m_renderData.ShaderProgram = ShaderProgram::Create();
     m_renderData.ShaderProgram->AttachShader(*m_renderData.VertexShader);
     m_renderData.ShaderProgram->AttachShader(*m_renderData.FragmentShader);
+
     //SHADERS
+
+    //White texture
+    SharedPtr<Texture2D> whiteTexture2D = Texture2D::CreateTexture(1, 1);
+    uint32_t witheTexture = 0xffffffff;
+    whiteTexture2D->SetData(&witheTexture, sizeof(uint32_t));
+    AddDrawTexture(whiteTexture2D);
+
+    int samplers[m_renderData.MaxTextureCount];
+    for(uint32_t i = 0; i < m_renderData.MaxTextureCount; ++i)
+    {
+        samplers[i] = i;
+    }
+
+    m_renderData.ShaderProgram->SetIntArray("Textures", samplers, m_renderData.MaxTextureCount);
+
 
     CORE_LOG_SUCCESS("Renderer3D has been Initialized");
 }
@@ -72,6 +87,22 @@ void Renderer3D::DrawModel(const ModelComponent& model, const TransformComponent
         return;
     }
 
+    if(model.material.lock())
+    {
+        m_renderData.ShaderProgram->SetFloat4("uMaterial.color", model.material.lock()->GetAlbedoColor());
+
+        if(model.material.lock()->GetAlbedoTexture().lock())
+        {
+            float texID = static_cast<float>(AddDrawTexture(model.material.lock()->GetAlbedoTexture().lock()));
+            m_renderData.ShaderProgram->SetFloat("uMaterial.albedoTexID", texID);
+        }
+    }
+    else
+    {
+        m_renderData.ShaderProgram->SetFloat4("uMaterial.color", {255, 255, 255, 255});
+        m_renderData.ShaderProgram->SetFloat("uMaterial.albedoTexID", 0);
+    }
+
     m_renderData.ShaderProgram->SetMat4("uModelMat", transform.GetModelMatrix());
 
     for(const auto& mesh : model.asset.lock()->meshes)
@@ -88,7 +119,7 @@ void Renderer3D::DrawModel(const ModelComponent& model, const TransformComponent
         m_renderData.IndexOffset += *std::max_element(mesh.m_indices.begin(), mesh.m_indices.end());
     }
 
-    Flush(); //draw call for each object bc dynamic
+    Flush(); //draw call for each dynamic object (only dynamic for now)
 }
 
 void Renderer3D::StaticDrawModel(const ModelComponent& model,const TransformComponent& transform)
@@ -100,6 +131,11 @@ void Renderer3D::Flush()
 {
     m_renderData.ShaderProgram->BindProgram();
 
+    for(uint32_t i = 0; i < m_renderData.TextureCount; ++i)
+    {
+        m_renderData.Textures[i]->Bind(i);
+    }
+
     RenderCommand::Draw(m_renderData.VertexArray, m_renderData.IndexBuffer);
 
     for(auto& vertexBuffer : m_renderData.VertexArray->GetLayout())
@@ -109,6 +145,21 @@ void Renderer3D::Flush()
 
     m_renderData.IndexBuffer->ResetBuffer();
     m_renderData.IndexOffset = 0;
+    m_renderData.TextureCount = 1; // 0 is white texture
+}
+
+uint32_t Renderer3D::AddDrawTexture(const SharedPtr<Texture2D>& texture)
+{
+    for(uint32_t i = 0; i < m_renderData.TextureCount; ++i)
+    {
+        if(m_renderData.Textures[i].get() == texture.get())
+        {
+            return i;
+        }
+    }
+
+    m_renderData.Textures[m_renderData.TextureCount] = texture;
+    return m_renderData.TextureCount++;
 }
 
 }

@@ -20,6 +20,9 @@ public:
     WB_INLINE void SetSelectionCallback(AssetSelectionLayerCallback&& callback) { m_selectionCallback = callback; }
 
 private:
+    void HandleAssetSelector(const std::string& name, AssetID id);
+
+private:
     AssetType m_type;
     AssetSelectionLayerCallback m_selectionCallback;
 };

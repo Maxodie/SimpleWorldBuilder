@@ -29,7 +29,24 @@ RessourcesLayer::RessourcesLayer()
                     return;
                 }
             }
-        });
+        }
+    );
+
+    m_contextPopup.AddElement(
+        "Create Material",
+        [&]()
+        {
+            WeakPtr<Material> material = Project::GetActive()->GetEditorAssetManager()->CreateAsset<Material>(AssetType::MATERIAL, m_currentViewPath, "new Material");
+            if(material.lock())
+            {
+                WeakPtr<EditorLayer> editorLayer = GetContext()->GetLayer<EditorLayer>();
+                if(!editorLayer.lock())
+                {
+                    return;
+                }
+            }
+        }
+    );
 }
 
 void RessourcesLayer::Update()

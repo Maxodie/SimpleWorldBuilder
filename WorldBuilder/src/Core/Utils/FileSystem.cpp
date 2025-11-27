@@ -145,11 +145,26 @@ bool FileSystem::HasExtension(const Path& path, const Path& extension)
     return path.extension() == extension;
 }
 
-bool FileSystem::HasAnyExtension(const Path& path, std::vector<Path>& extensions)
+bool FileSystem::HasAnyExtension(const Path& path, const std::vector<Path>& extensions)
 {
     for(const auto& extension : extensions)
     {
         if(HasExtension(path, extension))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool FileSystem::HasAnyExtension(const Path& path, const char* const* extensions, size_t count)
+{
+    if(!extensions || count <= 0) return false;
+
+    for(size_t i = 0; i < count; ++i)
+    {
+        if(HasExtension(path, extensions[i]))
         {
             return true;
         }
@@ -198,7 +213,7 @@ bool FileSystem::OpenFile(const Path& path, File& outFile, FileMode mode)
 
     if(!outFile.handle.is_open())
     {
-        CORE_LOG_ERROR("failed to open file %s", path.string().c_str());
+        CORE_LOG_ERROR("failed to open file %s", path.c_str());
         return false;
     }
 

@@ -7,7 +7,32 @@
 namespace WB
 {
 
-YAML::Node Serializer::encode(const glm::vec3& rhs)
+YAML::Node Serializer::Encode(const glm::vec4& rhs)
+{
+    YAML::Node node;
+    node.push_back(rhs.x);
+    node.push_back(rhs.y);
+    node.push_back(rhs.z);
+    node.push_back(rhs.w);
+    return node;
+}
+
+bool Serializer::Decode(const YAML::Node& node, glm::vec4& rhs)
+{
+    if(!node.IsSequence() || node.size() != 4)
+    {
+        return false;
+    }
+
+    rhs.x = node[0].as<float>();
+    rhs.y = node[1].as<float>();
+    rhs.z = node[2].as<float>();
+    rhs.w = node[3].as<float>();
+
+    return true;
+}
+
+YAML::Node Serializer::Encode(const glm::vec3& rhs)
 {
     YAML::Node node;
     node.push_back(rhs.x);
@@ -16,7 +41,7 @@ YAML::Node Serializer::encode(const glm::vec3& rhs)
     return node;
 }
 
-bool Serializer::decode(const YAML::Node& node, glm::vec3& rhs)
+bool Serializer::Decode(const YAML::Node& node, glm::vec3& rhs)
 {
     if(!node.IsSequence() || node.size() != 3)
     {
@@ -26,6 +51,27 @@ bool Serializer::decode(const YAML::Node& node, glm::vec3& rhs)
     rhs.x = node[0].as<float>();
     rhs.y = node[1].as<float>();
     rhs.z = node[2].as<float>();
+
+    return true;
+}
+
+YAML::Node Serializer::Encode(const glm::vec2& rhs)
+{
+    YAML::Node node;
+    node.push_back(rhs.x);
+    node.push_back(rhs.y);
+    return node;
+}
+
+bool Serializer::Decode(const YAML::Node& node, glm::vec2& rhs)
+{
+    if(!node.IsSequence() || node.size() != 2)
+    {
+        return false;
+    }
+
+    rhs.x = node[0].as<float>();
+    rhs.y = node[1].as<float>();
 
     return true;
 }
@@ -57,9 +103,9 @@ bool Serializer::DecodeInfo(InfoComponent& info, const YAML::Node& node)
 YAML::Node Serializer::EncodeTransform(const TransformComponent& transform)
 {
     YAML::Node node;
-    node.push_back(encode(transform.GetPosition()));
-    node.push_back(encode(transform.GetRotation()));
-    node.push_back(encode(transform.GetScale()));
+    node.push_back(Encode(transform.GetPosition()));
+    node.push_back(Encode(transform.GetRotation()));
+    node.push_back(Encode(transform.GetScale()));
     return node;
 }
 
@@ -72,13 +118,13 @@ bool Serializer::DecodeTransform(TransformComponent& transform, const YAML::Node
 
     glm::vec3 vec;
 
-    decode(node[0], vec);
+    Decode(node[0], vec);
     transform.SetPosition(vec);
 
-    decode(node[1], vec);
+    Decode(node[1], vec);
     transform.SetRotation(vec);
 
-    decode(node[2], vec);
+    Decode(node[2], vec);
     transform.SetScale(vec);
 
     return true;
@@ -92,7 +138,7 @@ std::string Serializer::AssetTypeAsString(AssetType type)
         case AssetType::MODEL: return "Model";
         case AssetType::SHADER: return "Shader";
         case AssetType::SCENE: return "Scene";
-        case AssetType::TEXTURE: return "Texture";
+        case AssetType::TEXTURE2D: return "Texture2D";
         case AssetType::MATERIAL: return "Material";
         case AssetType::FOLDER: return "Folder";
         case AssetType::UNKNOWN: return "Unknown";
@@ -119,9 +165,13 @@ AssetType Serializer::AssetStringAsType(std::string type)
     {
         return AssetType::SCENE;
     }
-    else if(type == "Texture")
+    else if(type == "Texture2D")
     {
-        return AssetType::TEXTURE;
+        return AssetType::TEXTURE2D;
+    }
+    else if(type == "Material")
+    {
+        return AssetType::MATERIAL;
     }
     else if(type == "Folder")
     {
