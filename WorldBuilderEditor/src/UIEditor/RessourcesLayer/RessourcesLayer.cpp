@@ -1,5 +1,6 @@
 #include "UIEditor/RessourcesLayer/RessourcesLayer.hpp"
 #include "Core/AssetManager/Asset.hpp"
+#include "Core/Log/Log.hpp"
 #include "Core/Serializer/SceneSerializer.hpp"
 #include "UIEditor/RessourcesLayer/RessourceEditorItem.hpp"
 #include "WorldBuilder.hpp"
@@ -101,9 +102,17 @@ void RessourcesLayer::UpdateGUI()
 
     }
 
-    for(auto& item : m_items)
+    float windowVisibleX2 = ImGui::GetCursorScreenPos().x + ImGui::GetContentRegionAvail().x;
+    ImGuiStyle& style = ImGui::GetStyle();
+    for(uint32_t i = 0; i < m_items.size(); ++i)
     {
-        item->Draw();
+        m_items[i]->Draw();
+        float lastItemX2 = ImGui::GetItemRectMax().x;
+        float nextItemX2 = lastItemX2 + style.ItemSpacing.x + m_items[i]->GetSize().x; // Expected position if next button was on same line
+        if (i + 1 < m_items.size() && nextItemX2 < windowVisibleX2)
+        {
+            ImGui::SameLine();
+        }
     }
 
     m_contextPopup.Begin();

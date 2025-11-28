@@ -122,9 +122,9 @@ bool SceneSerializer::Deserialize(Scene3D& scene, const Path& path, bool loadLin
                 AssetID modelID = modelNode.as<AssetID>();
                 AssetID materialID = EMPTY_ASSET;
 
-                if(const auto& modelNode = entityNode["material"])
+                if(const auto& material = entityNode["material"])
                 {
-                    materialID = modelNode.as<AssetID>();
+                    materialID = material.as<AssetID>();
                 }
 
                 if(loadLinkedAssets)

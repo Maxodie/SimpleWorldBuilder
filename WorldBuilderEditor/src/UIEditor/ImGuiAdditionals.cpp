@@ -64,4 +64,22 @@ void WB_ImGui::EndBottomMainMenuBar()
     ImGui::End();
 }
 
+void WB_ImGui::TextCentered(const std::string& text)
+{
+    auto windowWidth = ImGui::GetContentRegionAvail().x;
+    auto textWidth   = ImGui::CalcTextSize(text.c_str()).x;
+
+    ImGui::SetCursorPosX((windowWidth - textWidth) * 0.5f);
+    ImGui::Text(text.c_str());
+}
+
+void WB_ImGui::TextCentered(const std::string& text, float maxRegionSizeX)
+{
+    auto windowWidth = maxRegionSizeX;
+    auto textWidth = ImGui::CalcTextSize(text.c_str()).x;
+
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + (windowWidth - textWidth) * 0.5f);
+    ImGui::Text(text.c_str());
+}
+
 }

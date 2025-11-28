@@ -16,6 +16,8 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/AssetManager/RuntimeAssetManager.hpp
             WorldBuilder/src/Core/AssetManager/EditorAssetManager.cpp
             WorldBuilder/src/Core/AssetManager/EditorAssetManager.hpp
+            WorldBuilder/src/Core/AssetManager/Engine/EngineAssetManager.cpp
+            WorldBuilder/src/Core/AssetManager/Engine/EngineAssetManager.hpp
                 WorldBuilder/src/Core/AssetManager/Importer/ModelImporter.cpp
                 WorldBuilder/src/Core/AssetManager/Importer/ModelImporter.hpp
             WorldBuilder/src/Core/Commons/Camera.cpp

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "WorldBuilder.hpp"
+#include "imgui.h"
 
 namespace WB
 {
@@ -13,9 +14,13 @@ public:
     virtual void Draw();
     virtual void Open() = 0;
 
+    WB_INLINE const ImVec2& GetSize() const { return m_itemSize; }
+
 protected:
-    float m_itemWidth = 200, m_itemHeight = 200;
+    ImVec2 m_itemSize { 200, 200 };
     WeakPtr<class AssetMetaData> m_metaData;
+    WeakPtr<Texture2D> m_icon;
+    ImVec2 m_uv0{0, 0}, m_uv1{1, 1};
     RessourcesLayer& m_context;
 };
 

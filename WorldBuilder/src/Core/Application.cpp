@@ -1,4 +1,5 @@
 #include "Core/Application.hpp"
+#include "Core/AssetManager/Engine/EngineAssetManager.hpp"
 #include "Core/Core.hpp"
 #include "Core/Editor/ImGuiLayer.hpp"
 #include "Core/Input/Input.hpp"
@@ -21,6 +22,10 @@ Application::Application()
 
 }
 
+Application::~Application()
+{
+}
+
 void Application::Start()
 {
     CORE_LOG_SUCCESS("App is starting...");
@@ -40,7 +45,11 @@ void Application::Start()
     RenderCommand::SetViewport(0, 0, 800, 640);
     RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f);
 
+#ifdef WB_EDITOR
     ImGuiLayerBase::BaseInit();
+
+    EngineAssetManager::Get().Init();
+#endif
 }
 
 void Application::Run()
@@ -106,7 +115,11 @@ void Application::Shutdown()
 {
     m_layerStack.ClearLayers();
 
+#ifdef WB_EDITOR
     ImGuiLayerBase::BaseShutdown();
+
+    EngineAssetManager::Get().Shutdown();
+#endif
 
     for(auto& window : m_windows)
     {

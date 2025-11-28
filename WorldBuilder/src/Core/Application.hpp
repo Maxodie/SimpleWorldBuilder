@@ -11,7 +11,7 @@ namespace WB
 class Application : public EventDispatcher
 {
 public:
-    ~Application() = default;
+    ~Application();
 
     void Start();
     void Run();
@@ -65,6 +65,12 @@ public:
         s_instance = new Application();
         CORE_LOG_SUCCESS("App created");
         return *s_instance;
+    }
+
+    static WB_INLINE void Destroy()
+    {
+        delete s_instance;
+        CORE_LOG_SUCCESS("App destroyed");
     }
 
     WB_INLINE static float GetDeltaTime()

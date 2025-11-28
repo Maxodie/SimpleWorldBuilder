@@ -11,4 +11,6 @@ int main()
 
     app.Run();
     app.Shutdown();
+
+    app.Destroy();
 }

@@ -23,8 +23,11 @@ OpenglTexture2D::OpenglTexture2D(uint32_t width, uint32_t height)
 
 OpenglTexture2D::OpenglTexture2D(const Path& path)
 {
+    CORE_LOG_DEBUG("Loading image at path %s", path.string().c_str());
     int width, height, channels;
+
     stbi_set_flip_vertically_on_load(1);
+
     stbi_uc* data = nullptr;
     data = stbi_load(path.string().c_str(), &width, &height, &channels, 0);
     WB_CORE_ASSERT(data, "Failed to load image!");

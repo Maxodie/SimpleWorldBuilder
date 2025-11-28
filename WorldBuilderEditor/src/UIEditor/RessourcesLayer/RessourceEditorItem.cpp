@@ -1,10 +1,13 @@
 #include "UIEditor/RessourcesLayer/RessourceEditorItem.hpp"
+#include "Core/AssetManager/Engine/EngineAssetManager.hpp"
 #include "Core/Log/Log.hpp"
 #include "Editor.hpp"
+#include "UIEditor/ImGuiAdditionals.hpp"
 #include "UIEditor/RessourcesLayer/RessourcesLayer.hpp"
 
 #include "WorldBuilder.hpp"
 #include "imgui.h"
+#include "imgui_internal.h"
 
 namespace WB
 {
@@ -12,7 +15,61 @@ namespace WB
 RessourceEditorItem::RessourceEditorItem(WeakPtr<AssetMetaData> metaData, RessourcesLayer& context)
     : m_context(context), m_metaData(metaData)
 {
+    if(!m_metaData.lock())
+    {
+        CORE_LOG_ERROR("Item file does not exist");
+    }
 
+    if(m_metaData.lock())
+    {
+        switch (m_metaData.lock()->type)
+        {
+            case AssetType::UNKNOWN:
+                {
+
+                }
+            case AssetType::FOLDER:
+                {
+                    m_icon = EngineAssetManager::Get().GetAsset("file_icon");
+                    break;
+                }
+            case AssetType::SHADER:
+                {
+                    m_icon = EngineAssetManager::Get().GetAsset("file_icon");
+                    break;
+                }
+            case AssetType::MODEL:
+                {
+                    m_icon = EngineAssetManager::Get().GetAsset("file_icon");
+                    break;
+                }
+            case AssetType::MATERIAL:
+                {
+                    m_icon = EngineAssetManager::Get().GetAsset("file_icon");
+                    break;
+                }
+            case AssetType::TEXTURE2D:
+                {
+                    m_icon = Project::GetActive()->GetAssetManager()->GetAsset<Texture2D>(m_metaData.lock()->id);
+                    m_uv0 = {1, 1};
+                    m_uv1 = {0, 0};
+                    break;
+                }
+            case AssetType::SCENE:
+                {
+                    m_icon = EngineAssetManager::Get().GetAsset("file_icon");
+                    break;
+                }
+
+            default:
+                {
+                    m_icon = EngineAssetManager::Get().GetAsset("file_icon");
+                    break;
+                }
+        }
+    }
+
+    WB_CORE_ASSERT(m_icon.lock(), "Item file icon does not exist");
 }
 
 void RessourceEditorItem::Draw()
@@ -22,28 +79,38 @@ void RessourceEditorItem::Draw()
         return;
     }
 
-    static bool selected = false;
-
-    if(ImGui::Selectable(FileSystem::GetFileName(m_metaData.lock()->path).c_str(), selected))
+    if(m_icon.lock())
     {
-        WeakPtr<AssetMetaData> metaData = Project::GetActive()->GetEditorAssetManager()->GetMetaData(m_metaData.lock()->id);
-        if(metaData.lock())
+        std::string name = FileSystem::GetFileName(m_metaData.lock()->path);
+
+        ImGui::BeginGroup();
+
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.f, 0.f, 0.f));
+
+        if(ImGui::ImageButton(("##RessourceItem" + name).c_str(),
+                              m_icon.lock()->GetTextureID(), m_itemSize, m_uv0, m_uv1))
         {
-            m_context.OnAssetSelectedCallback(metaData.lock());
+            WeakPtr<AssetMetaData> metaData = Project::GetActive()->GetEditorAssetManager()->GetMetaData(m_metaData.lock()->id);
+            if(metaData.lock())
+            {
+                m_context.OnAssetSelectedCallback(metaData.lock());
+            }
+
+            if (ImGui::IsKeyDown(ImGuiKey_Enter))
+            {
+                Open();
+            }
+
         }
 
-        if (ImGui::IsKeyDown(ImGuiKey_Enter))
+        WB_ImGui::TextCentered(name.c_str(), m_itemSize.x);
+        ImGui::EndGroup();
+        ImGui::PopStyleColor();
+        if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
         {
-
             Open();
         }
     }
-
-    if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
-    {
-        Open();
-    }
-
 }
 
 
