@@ -1,8 +1,9 @@
+- Scene: 12
+  AssetID0: 3
+  AssetID1: 27
+  AssetID2: 4
+  AssetID3: 20
 - Scene: 8
   AssetID0: 4
   AssetID1: 27
-  AssetID2: 20
-- Scene: 12
-  AssetID0: 3
-  AssetID1: 4
   AssetID2: 20

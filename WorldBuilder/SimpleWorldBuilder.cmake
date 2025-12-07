@@ -142,13 +142,13 @@ set_target_properties(WorldBuilder PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR}/WorldBuilder
 )
 
-if(COMPILE_CONFIG_EDITOR)
-    set(CONFIG_COMPILE_DEFINITION WB_EDITOR)
-else()
+if(COMPILE_CONFIG_BUILD)
     set(CONFIG_COMPILE_DEFINITION WB_BUILD)
+else()
+    set(CONFIG_COMPILE_DEFINITION WB_EDITOR)
 endif()
 
-message("config compile definition : ${CONFIG_COMPILE_DEFINITION}")
+message("==== Config compile definition : ${CONFIG_COMPILE_DEFINITION} ====")
 
 target_compile_definitions(WorldBuilder PRIVATE
     WB_LOGGER

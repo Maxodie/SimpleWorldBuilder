@@ -6,7 +6,7 @@ option(CMAKE_EXPORT_COMPILE_COMMANDS "allow the creatation of an compile_command
 option(GIT_SUBMODULE "allow git submodule auto update" ON)
 
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
-    message("==== create .clang file to store 'CompilationDatabase: build/' ====")
+    message("==== Create .clang file to store 'CompilationDatabase: build/' ====")
     file(WRITE ".clang"
         "CompileFlags:
             CompilationDatabase: build/"
@@ -38,3 +38,5 @@ add_subdirectory(WorldBuilder/vendors/yamlcpp/yamlcpp)
 include(WorldBuilder/vendors/imgui/imgui.cmake)
 include(WorldBuilder/vendors/stb/stb.cmake)
 include(WorldBuilder/vendors/ImGuizmo/ImGuizmo.cmake)
+
+unset(COMPILE_CONFIG_BUILD CACHE)
