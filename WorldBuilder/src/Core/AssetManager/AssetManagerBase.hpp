@@ -19,7 +19,7 @@ public:
         return m_registry.find(id) != m_registry.end() && id != EMPTY_ASSET;
     }
 
-    template<typename TAsset>
+    template<typename TAsset = Asset>
     WB_FORCEINLINE WeakPtr<TAsset> GetAsset(AssetID id)
     {
         WeakPtr<Asset> asset = GetAsset(id).lock();

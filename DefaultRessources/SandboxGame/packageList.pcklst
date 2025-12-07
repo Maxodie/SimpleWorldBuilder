@@ -1,11 +1,8 @@
 - Scene: 8
   AssetID0: 4
-  AssetID1: 0
-  AssetID2: 3
-  AssetID3: 16
+  AssetID1: 20
 - Scene: 12
-  AssetID0: 5
-  AssetID1: 16
+  AssetID0: 20
+  AssetID1: 27
   AssetID2: 4
-  AssetID3: 0
-  AssetID4: 3
+  AssetID3: 3

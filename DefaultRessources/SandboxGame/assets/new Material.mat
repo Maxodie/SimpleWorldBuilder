@@ -1,0 +1,39 @@
+id: 27
+fragment_shader: 25
+vertex_shader: 26
+layout:
+  - display_name: AlbedoTexture
+    name: uMaterial.albedoMapID
+    data_size: 8
+    data: !!binary "FgAAAAAAAAA="
+    type: sampler2D
+  - display_name: AlbedoColor
+    name: uMaterial.albedoColor
+    data_size: 16
+    data: !!binary "AACAPwAAgD8AAIA/AACAPw=="
+    type: vec4
+  - display_name: MetallicTexture
+    name: uMaterial.metallicMapID
+    data_size: 8
+    data: !!binary "EgAAAAAAAAA="
+    type: sampler2D
+  - display_name: Metallic
+    name: uMaterial.metallicPercentage
+    data_size: 4
+    data: !!binary "AAAAAA=="
+    type: float
+  - display_name: RoughnessTexture
+    name: uMaterial.roughnessMapID
+    data_size: 8
+    data: !!binary "EwAAAAAAAAA="
+    type: sampler2D
+  - display_name: Roughness
+    name: uMaterial.roughnessPercentage
+    data_size: 4
+    data: !!binary "AAAAAA=="
+    type: float
+  - display_name: OcclusionTexture
+    name: uMaterial.ambiantOcclusionMapID
+    data_size: 8
+    data: !!binary "FgAAAAAAAAA="
+    type: sampler2D

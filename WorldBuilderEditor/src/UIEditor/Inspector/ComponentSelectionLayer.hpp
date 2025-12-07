@@ -23,8 +23,9 @@ public:
 private:
     ComponentSelectionLayerCallback m_selectionCallback;
 
-    TypeID m_componentsID[1] = {
+    TypeID m_componentsID[2] = {
         GetTypeID<ModelComponent>(),
+        GetTypeID<PointLightComponent>(),
     };
 };
 

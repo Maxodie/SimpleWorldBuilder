@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/Log/Log.hpp"
 #include "Core/Renderer/Shader.hpp"
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
@@ -9,7 +10,11 @@ namespace WB
 class OpenglShader : public Shader
 {
 public:
-    virtual ~OpenglShader() = default;
+    virtual ~OpenglShader()
+    {
+        CORE_LOG_DEBUG("Unload shader id %zu", id);
+        DestroyShaderData();
+    }
 
     virtual bool CompileShader() override;
     WB_INLINE virtual uint32_t GetShaderID() const override

@@ -135,6 +135,11 @@ public:
 
     WB_INLINE static void SetActiveProject(SharedPtr<Project>& project)
     {
+        if(s_active)
+        {
+            GetActive()->GetAssetManager()->ClearRegistry();
+        }
+
         s_active = project;
 
 #ifdef WB_EDITOR

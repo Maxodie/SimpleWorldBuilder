@@ -12,6 +12,8 @@ add_executable(WorldBuilderEditor
     WorldBuilderEditor/src/UIEditor/EditorShortcutInputManager.cpp
     WorldBuilderEditor/src/UIEditor/ViewportLayer.hpp
     WorldBuilderEditor/src/UIEditor/ViewportLayer.cpp
+    WorldBuilderEditor/src/UIEditor/GuizmoEditor.hpp
+    WorldBuilderEditor/src/UIEditor/GuizmoEditor.cpp
         WorldBuilderEditor/src/UIEditor/ProjectEditor/CreateProjectEditorLayer.hpp
         WorldBuilderEditor/src/UIEditor/ProjectEditor/CreateProjectEditorLayer.cpp
         WorldBuilderEditor/src/UIEditor/ProjectEditor/OpenProjectEditorLayer.hpp
@@ -44,6 +46,7 @@ target_link_libraries(WorldBuilderEditor
     glm_math
     imgui
     EnTT::EnTT
+    ImGuizmo
 )
 
 target_include_directories(WorldBuilderEditor PRIVATE

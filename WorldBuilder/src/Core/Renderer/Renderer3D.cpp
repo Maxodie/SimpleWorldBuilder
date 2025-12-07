@@ -9,36 +9,38 @@
 namespace WB
 {
 
-Renderer3D::RenderData Renderer3D::m_renderData {};
+Renderer3D::RenderData Renderer3D::s_renderData{};
+Renderer3D::LightSettings Renderer3D::s_lightSettings{};
 
 void Renderer3D::Init()
 {
-    m_renderData.VertexArray = VertexArrayBuffer<Vertex3D>::Create();
+    s_renderData.VertexArray = VertexArrayBuffer<Vertex3D>::Create();
 
-    m_renderData.VertexBuffer = VertexBuffer<Vertex3D>::Create(m_renderData.MaxVertex);
-    m_renderData.IndexBuffer = IndexBuffer<uint32_t>::Create(m_renderData.MaxIndex);
+    s_renderData.VertexBuffer = VertexBuffer<Vertex3D>::Create(s_renderData.MaxVertex);
+    s_renderData.IndexBuffer = IndexBuffer<uint32_t>::Create(s_renderData.MaxIndex);
 
-    m_renderData.VertexBuffer->SetLayout(
+    s_renderData.VertexBuffer->SetLayout(
         {
             {"aPos", ShaderElementType::Float3},
+            {"aNormal", ShaderElementType::Float3},
             {"aTexCoords", ShaderElementType::Float2},
         }
     );
 
-    m_renderData.VertexArray->AddVertexBuffer(m_renderData.VertexBuffer);
+    s_renderData.VertexArray->AddVertexBuffer(s_renderData.VertexBuffer);
 
     //SHADERS
-    m_renderData.VertexShader = Shader::Create();
-    m_renderData.VertexShader->LoadShader("WorldBuilderEditor/assets/VertexShader.glsl");
-    m_renderData.VertexShader->CompileShader();
-
-    m_renderData.FragmentShader = Shader::Create();
-    m_renderData.FragmentShader->LoadShader("WorldBuilderEditor/assets/FragmentShader.glsl");
-    m_renderData.FragmentShader->CompileShader();
-
-    m_renderData.ShaderProgram = ShaderProgram::Create();
-    m_renderData.ShaderProgram->AttachShader(*m_renderData.VertexShader);
-    m_renderData.ShaderProgram->AttachShader(*m_renderData.FragmentShader);
+    // s_renderData.VertexShader = Shader::Create();
+    // s_renderData.VertexShader->LoadShader("WorldBuilderEditor/assets/VertexShader.glsl");
+    // s_renderData.VertexShader->CompileShader();
+    //
+    // s_renderData.FragmentShader = Shader::Create();
+    // s_renderData.FragmentShader->LoadShader("WorldBuilderEditor/assets/FragmentShader.glsl");
+    // s_renderData.FragmentShader->CompileShader();
+    //
+    // s_renderData.ShaderProgram = ShaderProgram::Create();
+    // s_renderData.ShaderProgram->AttachShader(*s_renderData.VertexShader);
+    // s_renderData.ShaderProgram->AttachShader(*s_renderData.FragmentShader);
 
     //SHADERS
 
@@ -48,78 +50,96 @@ void Renderer3D::Init()
     whiteTexture2D->SetData(&witheTexture, sizeof(uint32_t));
     AddDrawTexture(whiteTexture2D);
 
-    int samplers[m_renderData.MaxTextureCount];
-    for(uint32_t i = 0; i < m_renderData.MaxTextureCount; ++i)
-    {
-        samplers[i] = i;
-    }
-
-    m_renderData.ShaderProgram->SetIntArray("Textures", samplers, m_renderData.MaxTextureCount);
-
-
     CORE_LOG_SUCCESS("Renderer3D has been Initialized");
 }
 
 void Renderer3D::Shutdown()
 {
-    m_renderData.VertexShader->UnLoadShader();
-    m_renderData.FragmentShader->UnLoadShader();
+    s_renderData.ShaderPrograms.clear();
     CORE_LOG_SUCCESS("Renderer3D has been shutted down");
+}
+
+void Renderer3D::SetupShaderProgramUniforms(SharedPtr<ShaderProgram>& shaderProgram)
+{
+    if(!shaderProgram)
+    {
+        CORE_LOG_ERROR("Given shader program is null");
+        return;
+    }
+
+    int samplers[s_renderData.MaxTextureCount];
+    for(uint32_t i = 0; i < s_renderData.MaxTextureCount; ++i)
+    {
+        samplers[i] = i;
+    }
+
+    shaderProgram->SetIntArray("Textures", samplers, s_renderData.MaxTextureCount);
+    shaderProgram->SetInt("uLightCount", 0);
+}
+
+void Renderer3D::InitShaderProgram(SharedPtr<ShaderProgram>& shaderProgram)
+{
+    s_renderData.ShaderPrograms.push_back(shaderProgram);
+}
+
+void Renderer3D::ShutdownShaderProgram(SharedPtr<ShaderProgram>& shaderProgram)
+{
+    if(shaderProgram)
+    {
+        shaderProgram->DestroyProgram();
+    }
 }
 
 void Renderer3D::BeginScene(const Camera& cam, const TransformComponent& transform)
 {
+    s_lightSettings.lightCount = 0;
+
     //post cam uniform in shader
-    m_renderData.ShaderProgram->SetMat4("uViewMatrix", cam.GetViewMatrix());
-    m_renderData.ShaderProgram->SetMat4("uProjectionMatrix", cam.GetProjectionMatrix());
+    for(auto& program : s_renderData.ShaderPrograms)
+    {
+        if(program->IsReady())
+        {
+            program->SetMat4("uViewMatrix", cam.GetViewMatrix());
+            program->SetMat4("uProjectionMatrix", cam.GetProjectionMatrix());
+            program->SetFloat3("uCamPos", transform.GetPosition());
+        }
+    }
 }
 
 void Renderer3D::EndScene()
 {
-    Flush();
+    // Flush();
 }
 
 void Renderer3D::DrawModel(const ModelComponent& model, const TransformComponent& transform)
 {
-    if(!model.asset.lock())
+    if(!model.asset.lock() || !model.material.lock())
     {
-        CORE_LOG_ERROR("model asset is not valid");
         return;
     }
 
-    if(model.material.lock())
+    if(model.material.lock() && model.material.lock()->IsReady())
     {
-        m_renderData.ShaderProgram->SetFloat4("uMaterial.color", model.material.lock()->GetAlbedoColor());
+        model.material.lock()->Bind();
+        model.material.lock()->GetShaderProgram()->SetMat4("uModelMat", transform.GetModelMatrix());
+        model.material.lock()->GetShaderProgram()->SetMat3("uNormalMat", glm::transpose(glm::inverse(glm::mat3(transform.GetModelMatrix()))));
 
-        if(model.material.lock()->GetAlbedoTexture().lock())
+        for(const auto& mesh : model.asset.lock()->meshes)
         {
-            float texID = static_cast<float>(AddDrawTexture(model.material.lock()->GetAlbedoTexture().lock()));
-            m_renderData.ShaderProgram->SetFloat("uMaterial.albedoTexID", texID);
-        }
-    }
-    else
-    {
-        m_renderData.ShaderProgram->SetFloat4("uMaterial.color", {255, 255, 255, 255});
-        m_renderData.ShaderProgram->SetFloat("uMaterial.albedoTexID", 0);
-    }
+            for(auto& vertex : mesh.m_vertices)
+            {
+                s_renderData.VertexBuffer->AddValue(vertex);
+            }
 
-    m_renderData.ShaderProgram->SetMat4("uModelMat", transform.GetModelMatrix());
-
-    for(const auto& mesh : model.asset.lock()->meshes)
-    {
-        for(auto& vertex : mesh.m_vertices)
-        {
-            m_renderData.VertexBuffer->AddValue(vertex);
+            for(uint32_t index : mesh.m_indices)
+            {
+                s_renderData.IndexBuffer->AddValue(s_renderData.IndexOffset + index);
+            }
+            s_renderData.IndexOffset += *std::max_element(mesh.m_indices.begin(), mesh.m_indices.end());
         }
 
-        for(uint32_t index : mesh.m_indices)
-        {
-            m_renderData.IndexBuffer->AddValue(m_renderData.IndexOffset + index);
-        }
-        m_renderData.IndexOffset += *std::max_element(mesh.m_indices.begin(), mesh.m_indices.end());
+        Flush(model.material.lock()->GetShaderProgram()); //draw call for each dynamic object (only dynamic for now)
     }
-
-    Flush(); //draw call for each dynamic object (only dynamic for now)
 }
 
 void Renderer3D::StaticDrawModel(const ModelComponent& model,const TransformComponent& transform)
@@ -127,39 +147,57 @@ void Renderer3D::StaticDrawModel(const ModelComponent& model,const TransformComp
     WB_CORE_ASSERT(false, "Static Draw Model is not implemented yet");
 }
 
-void Renderer3D::Flush()
+void Renderer3D::Flush(WeakPtr<ShaderProgram> shaderProgram)
 {
-    m_renderData.ShaderProgram->BindProgram();
-
-    for(uint32_t i = 0; i < m_renderData.TextureCount; ++i)
+    if(shaderProgram.lock())
     {
-        m_renderData.Textures[i]->Bind(i);
+        shaderProgram.lock()->BindProgram();
     }
 
-    RenderCommand::Draw(m_renderData.VertexArray, m_renderData.IndexBuffer);
+    for(uint32_t i = 0; i < s_renderData.TextureCount; ++i)
+    {
+        s_renderData.Textures[i]->Bind(i);
+    }
 
-    for(auto& vertexBuffer : m_renderData.VertexArray->GetLayout())
+    RenderCommand::Draw(s_renderData.VertexArray, s_renderData.IndexBuffer);
+
+    for(auto& vertexBuffer : s_renderData.VertexArray->GetLayout())
     {
         vertexBuffer->ResetBuffer();
     }
 
-    m_renderData.IndexBuffer->ResetBuffer();
-    m_renderData.IndexOffset = 0;
-    m_renderData.TextureCount = 1; // 0 is white texture
+    s_renderData.IndexBuffer->ResetBuffer();
+    s_renderData.IndexOffset = 0;
+    s_renderData.TextureCount = 1; // 0 is white texture
+
+    s_lightSettings.lightCount = 0;
+}
+
+void Renderer3D::AddPointLight(const PointLightComponent& lightPointComponenet, const TransformComponent& transform)
+{
+    for(auto& program : s_renderData.ShaderPrograms)
+    {
+        if(program->IsReady())
+        {
+            program->SetFloat3("uLights[" + std::to_string(s_lightSettings.lightCount) + "].position", transform.GetPosition());
+            program->SetFloat4("uLights[" + std::to_string(s_lightSettings.lightCount) + "].color", lightPointComponenet.GetColor());
+            program->SetInt("uLightCount", ++s_lightSettings.lightCount);
+        }
+    }
 }
 
 uint32_t Renderer3D::AddDrawTexture(const SharedPtr<Texture2D>& texture)
 {
-    for(uint32_t i = 0; i < m_renderData.TextureCount; ++i)
+    for(uint32_t i = 0; i < s_renderData.TextureCount; ++i)
     {
-        if(m_renderData.Textures[i].get() == texture.get())
+        if(s_renderData.Textures[i].get() == texture.get())
         {
             return i;
         }
     }
 
-    m_renderData.Textures[m_renderData.TextureCount] = texture;
-    return m_renderData.TextureCount++;
+    s_renderData.Textures[s_renderData.TextureCount] = texture;
+    return s_renderData.TextureCount++;
 }
 
 }

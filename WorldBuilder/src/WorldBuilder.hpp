@@ -13,6 +13,7 @@
 #include "Core/Commons/Scene.hpp"
 
 #include "Core/ECS/TransformComponent.hpp"
+#include "Core/ECS/LightComponent.hpp"
 
 #include "Core/Renderer/RenderCommand.hpp"
 #include "Core/Renderer/FrameBuffer.hpp"

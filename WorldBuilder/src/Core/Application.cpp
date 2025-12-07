@@ -6,6 +6,7 @@
 #include "Core/Event/WindowEvent.hpp"
 #include "Core/LayerStack.hpp"
 #include "Core/Log/Log.hpp"
+#include "Core/Project.hpp"
 #include "Core/Renderer/Renderer.hpp"
 #include "Core/Renderer/RenderCommand.hpp"
 #include "Core/Editor/ImGuiLayer.hpp"
@@ -67,12 +68,14 @@ void Application::Run()
 
         if(m_isMinimized) return;
 
+#ifdef WB_EDITOR
         ImGuiLayerBase::Begin();
         for(int i = 0; i < layers.size(); i++)
         {
             layers[i]->UpdateGUI();
         }
         ImGuiLayerBase::End();
+#endif
 
         HandleSwapBuffers();
         HandleEvents();
@@ -113,6 +116,11 @@ void Application::Close()
 
 void Application::Shutdown()
 {
+    if(Project::GetActive())
+    {
+        Project::GetActive()->GetAssetManager()->ClearRegistry();
+    }
+
     m_layerStack.ClearLayers();
 
 #ifdef WB_EDITOR

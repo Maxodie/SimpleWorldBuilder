@@ -1,6 +1,8 @@
 #include "UIEditor/Inspector/ComponentInspector.hpp"
 #include "Core/Log/Log.hpp"
+#include "UIEditor/GuizmoEditor.hpp"
 #include "UIEditor/RessourcesLayer/AssetSelectorLayer.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #include "imgui.h"
 #include "misc/cpp/imgui_stdlib.h"
 
@@ -30,9 +32,9 @@ void TransformComponentInspector::Show(TransformComponent& tr)
         ImGui::DragFloat3("position", pos, 0.01f, -1000.0f, 1000.0f);
         tr.SetPosition({pos[0], pos[1], pos[2]});
 
-        float rot[3] = {glm::degrees(tr.GetRotation().x), glm::degrees(tr.GetRotation().y), glm::degrees(tr.GetRotation().z)};
-        ImGui::DragFloat3("rotation", rot, 0.1f, -1000.0f, 1000.0f);
-        tr.SetRotation({glm::radians(rot[0]), glm::radians(rot[1]), glm::radians(rot[2])});
+        glm::vec3 rot = glm::degrees(tr.GetRotation());
+        ImGui::DragFloat3("rotation", glm::value_ptr(rot), 0.1f, -1000.0f, 1000.0f);
+        tr.SetRotation(glm::radians(rot));
 
         float scale[3] = {tr.GetScale().x, tr.GetScale().y, tr.GetScale().z};
         ImGui::DragFloat3("scale", scale, 0.01f, -1000.0f, 1000.0f);
@@ -71,7 +73,14 @@ void ModelComponentInspector::Show(ModelComponent& model, Application& context)
                 layer.lock()->SetSelectionCallback(
                     [&](AssetID id)
                     {
-                        model.asset = Project::GetActive()->GetAssetManager()->GetAsset<ModelAsset>(id);
+                        if(id == EMPTY_ASSET)
+                        {
+                            model.asset = {};
+                        }
+                        else
+                        {
+                            model.asset = Project::GetActive()->GetAssetManager()->GetAsset<ModelAsset>(id);
+                        }
                     }
                 );
             }
@@ -96,12 +105,36 @@ void ModelComponentInspector::Show(ModelComponent& model, Application& context)
                 layer.lock()->SetSelectionCallback(
                     [&](AssetID id)
                     {
-                        model.material = Project::GetActive()->GetAssetManager()->GetAsset<Material>(id);
+                        if(id == EMPTY_ASSET)
+                        {
+                            model.material = {};
+                        }
+                        else
+                        {
+                            model.material = Project::GetActive()->GetAssetManager()->GetAsset<Material>(id);
+                        }
                     }
                 );
             }
         }
 
+
+        ImGui::TreePop();
+    }
+    ImGui::PopStyleVar();
+}
+
+void PointLightComponentInspector::Show(PointLightComponent& light, Application& context)
+{
+    ImGuiTreeNodeFlags treeFlag = ImGuiTreeNodeFlags_DefaultOpen;
+    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 5.0f);
+    if (ImGui::TreeNodeEx("Point Light Component", treeFlag))
+    {
+        ImGui::Text("Color : ");
+        glm::vec4 glmAlbedoColor = light.GetColor();
+        float albedoColor[4] = {glmAlbedoColor.r, glmAlbedoColor.g, glmAlbedoColor.b, glmAlbedoColor.a};
+        ImGui::ColorPicker4("##MaterialAlbedoColor", albedoColor);
+        light.SetColor({albedoColor[0], albedoColor[1], albedoColor[2], albedoColor[3]});
 
         ImGui::TreePop();
     }

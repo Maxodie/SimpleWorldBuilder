@@ -3,6 +3,7 @@
 #include "Core/Commons/Scene.hpp"
 #include "Core/ECS/Entity.hpp"
 #include "Core/ECS/TransformComponent.hpp"
+#include "Core/ECS/LightComponent.hpp"
 #include "Core/Log/Log.hpp"
 #include "Core/Project.hpp"
 #include "Core/Renderer/Model.hpp"
@@ -63,6 +64,12 @@ bool SceneSerializer::Serialize(const Scene3D& scene, const Path& path)
                 scenePackage->AddUniqueAsset(id);
             }
 
+            if(scene.Has<PointLightComponent>(entityHandle))
+            {
+                emitter << YAML::Key << "point_light";
+                emitter << YAML::Value << Serializer::EncodePointLight(scene.Get<PointLightComponent>(entityHandle));
+            }
+
             emitter << YAML::EndMap;
         }
     );
@@ -109,12 +116,15 @@ bool SceneSerializer::Deserialize(Scene3D& scene, const Path& path, bool loadLin
 
             if(const auto& transformNode = entityNode["transform"])
             {
-                TransformComponent tr;
+                TransformComponent& tr = entity.AddComponent<TransformComponent>();
                 Serializer::DecodeTransform(tr, transformNode);
-                entity.AddComponent<TransformComponent>(tr);
             }
 
-
+            if(const auto& pointLightNode = entityNode["point_light"])
+            {
+                PointLightComponent& pointLight = entity.AddComponent<PointLightComponent>();
+                Serializer::DecodePointLight(pointLight, pointLightNode);
+            }
 
             if(const auto& modelNode = entityNode["model"])
             {

@@ -2,6 +2,7 @@
 #include "Core/Core.hpp"
 #include "Core/AssetManager/Asset.hpp"
 
+#include "Core/Log/Log.hpp"
 #include "glm/ext/vector_float3.hpp"
 #include "yaml-cpp/yaml.h"
 
@@ -26,10 +27,27 @@ public:
 
     static YAML::Node EncodeTransform(const class TransformComponent& transform);
     static bool DecodeTransform(TransformComponent& transform, const YAML::Node& node);
+
+    static YAML::Node EncodePointLight(const class PointLightComponent& pointLight);
+    static bool DecodePointLight(class PointLightComponent& pointLight, const YAML::Node& node);
     //
 
     static std::string AssetTypeAsString(AssetType type);
     static AssetType AssetStringAsType(std::string type);
+
+    template<typename TType>
+    static TType GetData(const YAML::Node& node, const std::string& key)
+    {
+        if(node[key])
+        {
+            return node[key].as<TType>();
+        }
+        else
+        {
+            CORE_LOG_WARNING("could not read the data, returning default value");
+            return TType{};
+        }
+    }
 };
 
 

@@ -1,7 +1,9 @@
 #include "Core/Commons/Scene.hpp"
 #include "Core/Commons/Camera.hpp"
+#include "Core/ECS/LightComponent.hpp"
 #include "Core/Log/Log.hpp"
 #include "Core/Project.hpp"
+#include "Core/Renderer/Model.hpp"
 #include "Core/Renderer/Renderer3D.hpp"
 #include "Core/Renderer/RenderCommand.hpp"
 #include "Core/ECS/Entity.hpp"
@@ -20,17 +22,27 @@ void Scene3D::BeginScene()
             transform.UpdateModelMatrix();
             cam.UpdateViewMatrix(transform);
             Renderer3D::BeginScene(cam, transform);
-        });
+        }
+    );
 }
 
 void Scene3D::UpdateScene()
 {
+    EntityView<PointLightComponent, TransformComponent>(
+        [&](auto entity, PointLightComponent& light, TransformComponent& transform)
+        {
+            transform.UpdateModelMatrix();
+            Renderer3D::AddPointLight(light, transform);
+        }
+    );
+
     EntityView<ModelComponent, TransformComponent>(
         [&](auto entity, ModelComponent& model, TransformComponent& transform)
         {
             transform.UpdateModelMatrix();
             Renderer3D::DrawModel(model, transform);
-        });
+        }
+    );
 }
 
 void Scene3D::EndScene()
@@ -55,6 +67,16 @@ void Scene3D::Clear()
     m_registry.clear();
     Project::GetActive()->GetAssetManager()->UnloadAsset(id);
     CORE_LOG_DEBUG("Scene asset %zu has been cleared", id);
+}
+
+Entity Scene3D::GetMainCameraEntity()
+{
+    return Entity(*this, m_currentCameraEntityHandle);
+}
+
+void Scene3D::SetMainCameraEntity(Entity& entity)
+{
+    m_currentCameraEntityHandle = entity.GetHandle();
 }
 
 WeakPtr<Scene3D> Scene3D::TransitionToNewPackage(const ScenePackage& packageToTranstion)

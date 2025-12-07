@@ -52,6 +52,10 @@ WeakPtr<Asset> EditorAssetManager::LoadAsset(const AssetMetaData& metaData)
         }
         case AssetType::SHADER:
         {
+            SharedPtr<Shader> shader = Shader::Create();
+            shader->LoadShader(metaData.path);
+            shader->CompileShader();
+            asset = shader;
             break;
         }
         case AssetType::SCENE:
@@ -113,7 +117,7 @@ WeakPtr<AssetMetaData> EditorAssetManager::CreateMetaData(const Path& path)
     SharedPtr<AssetMetaData> metaData = MakeShared<AssetMetaData>();
     metaData->path = path;
 
-    if(FileSystem::HasExtension(path, ".fbx"))
+    if(FileSystem::HasAnyExtension(path, s_modelExtensions, 2))
     {
         metaData->type = AssetType::MODEL;
         metaData->id = ++s_maxAssetID;
@@ -162,6 +166,7 @@ WeakPtr<AssetMetaData> EditorAssetManager::CreateMetaData(const Path& path)
     {
         m_metaDataRegistry[metaData->id] = metaData;
         Project::GetActive()->GetEditorAssetManager()->SaveAllProjectMetaData();
+
         return metaData;
     }
 

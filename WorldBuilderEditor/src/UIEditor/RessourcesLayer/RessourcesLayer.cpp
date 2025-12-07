@@ -22,14 +22,6 @@ RessourcesLayer::RessourcesLayer()
         [&]()
         {
             WeakPtr<Scene3D> scene = Project::GetActive()->GetEditorAssetManager()->CreateAsset<Scene3D>(AssetType::SCENE, m_currentViewPath, "new Scene");
-            if(scene.lock())
-            {
-                WeakPtr<EditorLayer> editorLayer = GetContext()->GetLayer<EditorLayer>();
-                if(!editorLayer.lock())
-                {
-                    return;
-                }
-            }
         }
     );
 
@@ -38,14 +30,6 @@ RessourcesLayer::RessourcesLayer()
         [&]()
         {
             WeakPtr<Material> material = Project::GetActive()->GetEditorAssetManager()->CreateAsset<Material>(AssetType::MATERIAL, m_currentViewPath, "new Material");
-            if(material.lock())
-            {
-                WeakPtr<EditorLayer> editorLayer = GetContext()->GetLayer<EditorLayer>();
-                if(!editorLayer.lock())
-                {
-                    return;
-                }
-            }
         }
     );
 }

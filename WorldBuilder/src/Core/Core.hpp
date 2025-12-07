@@ -27,6 +27,12 @@
 #define WB_INLINE inline
 #define WB_FORCEINLINE __forceinline
 
+namespace WB
+{
+    using AssetID = uint64_t;
+    static const AssetID EMPTY_ASSET = 0u;
+}
+
 #include "Core/Utils/FileSystem.hpp"
 #include "Commons/Timestep.hpp"
 

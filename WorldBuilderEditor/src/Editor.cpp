@@ -2,6 +2,7 @@
 #include "Core/AssetManager/Asset.hpp"
 #include "Core/AssetManager/Importer/ModelImporter.hpp"
 #include "Core/Commons/SceneManagement.hpp"
+#include "Core/ECS/TransformComponent.hpp"
 #include "WorldBuilder.hpp"
 #include "Core/Log/Log.hpp"
 #include "Core/Project.hpp"
@@ -9,6 +10,7 @@
 #include "Core/Serializer/SceneSerializer.hpp"
 #include "UIEditor/ProjectEditor/OpenProjectEditorLayer.hpp"
 #include "UIEditor/ProjectEditor/CreateProjectEditorLayer.hpp"
+#include "UIEditor/GuizmoEditor.hpp"
 
 EditorLayer::EditorLayer()
 {
@@ -53,10 +55,15 @@ void EditorLayer::OnAttach()
     WB::Entity camera = m_editorScene.CreateEntity();
     camera.AddComponent<WB::Camera>();
     camera.AddComponent<WB::TransformComponent>();
+    m_editorScene.SetMainCameraEntity(camera);
     ///////////////
 
     inputTable.BindInput(Keycode::WB_KEY_S, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamBackwardPressed));
     inputTable.BindInput(Keycode::WB_KEY_W, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamForwardPressed));
+    inputTable.BindInput(Keycode::WB_KEY_A, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamLeftPressed));
+    inputTable.BindInput(Keycode::WB_KEY_D, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamRightPressed));
+    inputTable.BindInput(Keycode::WB_KEY_Q, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamrotLeftPressed));
+    inputTable.BindInput(Keycode::WB_KEY_E, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnCamrotRightPressed));
     inputTable.BindInput(Keycode::WB_KEY_P, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnStartPlayInEditor));
     inputTable.BindInput(Keycode::WB_KEY_O, InputState::REPEATED, WB_BIND_FUN1(EditorLayer::OnEndPlayInEditor));
     WB::Input::SetInputTable(inputTable);
@@ -183,6 +190,7 @@ void EditorLayer::OnEntitySelectedInHierarchy(WB::Entity entity)
     if(m_inspectorLayer.lock())
     {
         m_inspectorLayer.lock()->SetCurrentEntity(entity);
+        GuizmoEditor::OnEntitySelectedInHierarchy(entity);
     }
 }
 
@@ -194,21 +202,60 @@ void EditorLayer::OnAssetSelectedInHierarchy(SharedPtr<WB::AssetMetaData> metaDa
     }
 }
 
+void EditorLayer::OnCamLeftPressed(Keycode key)
+{
+    WB::TransformComponent& camTr = m_editorScene.GetMainCameraEntity().Get<WB::TransformComponent>();
+    glm::vec3 base = camTr.GetPosition();
+    glm::vec3 left = camTr.GetLeft();
+    /**/
+    camTr.SetPosition(Lerp(base, base + left, 10 * WB::Application::GetDeltaTime()));
+}
+
+void EditorLayer::OnCamRightPressed(Keycode key)
+{
+    WB::TransformComponent& camTr = m_editorScene.GetMainCameraEntity().Get<WB::TransformComponent>();
+    glm::vec3 base = camTr.GetPosition();
+    glm::vec3 right = -camTr.GetLeft();
+    /**/
+    camTr.SetPosition(Lerp(base, base + right, 10 * WB::Application::GetDeltaTime()));
+}
 
 void EditorLayer::OnCamForwardPressed(Keycode key)
 {
-    /*glm::vec3 base = camTr.GetPosition();*/
-    /*glm::vec3 forwa = camTr.GetForward();*/
+    WB::TransformComponent& camTr = m_editorScene.GetMainCameraEntity().Get<WB::TransformComponent>();
+    glm::vec3 base = camTr.GetPosition();
+    glm::vec3 forwa = camTr.GetForward();
     /**/
-    /*camTr.SetPosition(Lerp(base, base + forwa, 10 * WB::Application::GetDeltaTime()));*/
+    camTr.SetPosition(Lerp(base, base + forwa, 10 * WB::Application::GetDeltaTime()));
 }
 
 void EditorLayer::OnCamBackwardPressed(Keycode key)
 {
-    /*glm::vec3 base = camTr.GetPosition();*/
-    /*glm::vec3 forwa = camTr.GetForward();*/
+    WB::TransformComponent& camTr = m_editorScene.GetMainCameraEntity().Get<WB::TransformComponent>();
+    glm::vec3 base = camTr.GetPosition();
+    glm::vec3 forwa = camTr.GetForward();
     /**/
-    /*camTr.SetPosition(Lerp(base, base - forwa, 10 * WB::Application::GetDeltaTime()));*/
+    camTr.SetPosition(Lerp(base, base - forwa, 10 * WB::Application::GetDeltaTime()));
+}
+
+void EditorLayer::OnCamrotLeftPressed(Keycode key)
+{
+    WB::TransformComponent& camTr = m_editorScene.GetMainCameraEntity().Get<WB::TransformComponent>();
+    glm::quat up = glm::quat({0, 1, 0});
+    /**/
+
+    // camTr.SetRotation(Lerp(base, base + up, 500 * WB::Application::GetDeltaTime()));
+    camTr.Rotate(up);
+}
+
+void EditorLayer::OnCamrotRightPressed(Keycode key)
+{
+    WB::TransformComponent& camTr = m_editorScene.GetMainCameraEntity().Get<WB::TransformComponent>();
+    glm::vec3 base = camTr.GetRotation();
+    glm::vec3 up = glm::radians(glm::vec3(0, 1, 0));
+    /**/
+
+    camTr.SetRotation(Lerp(base, base - up, 500 * WB::Application::GetDeltaTime()));
 }
 
 void EditorLayer::OnStartPlayInEditor(Keycode key)

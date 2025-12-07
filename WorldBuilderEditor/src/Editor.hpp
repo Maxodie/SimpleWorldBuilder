@@ -59,8 +59,12 @@ private:
     void OnEntitySelectedInHierarchy(WB::Entity entity);
     void OnAssetSelectedInHierarchy(SharedPtr<WB::AssetMetaData> metaData);
 
+    void OnCamLeftPressed(Keycode key);
+    void OnCamRightPressed(Keycode key);
     void OnCamForwardPressed(Keycode key);
     void OnCamBackwardPressed(Keycode key);
+    void OnCamrotLeftPressed(Keycode key);
+    void OnCamrotRightPressed(Keycode key);
     void OnStartPlayInEditor(Keycode key);
     void OnEndPlayInEditor(Keycode key);
 

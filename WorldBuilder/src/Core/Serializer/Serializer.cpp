@@ -1,6 +1,7 @@
 #include "Core/Serializer/Serializer.hpp"
 #include "Core/AssetManager/Asset.hpp"
 #include "Core/ECS/TransformComponent.hpp"
+#include "Core/ECS/LightComponent.hpp"
 #include "Core/Log/Log.hpp"
 #include "Core/Renderer/Model.hpp"
 
@@ -129,6 +130,29 @@ bool Serializer::DecodeTransform(TransformComponent& transform, const YAML::Node
 
     return true;
 }
+
+YAML::Node Serializer::EncodePointLight(const PointLightComponent& pointLight)
+{
+    YAML::Node node;
+    node.push_back(Encode(pointLight.GetColor()));
+    return node;
+}
+
+bool Serializer::DecodePointLight(PointLightComponent& pointLight, const YAML::Node& node)
+{
+    if(!node.IsSequence() || node.size() != 1)
+    {
+        return false;
+    }
+
+    glm::vec4 vec;
+
+    Decode(node[0], vec);
+    pointLight.SetColor(vec);
+
+    return true;
+}
+
 //
 
 std::string Serializer::AssetTypeAsString(AssetType type)

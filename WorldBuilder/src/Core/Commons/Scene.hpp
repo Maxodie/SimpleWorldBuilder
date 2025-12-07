@@ -19,6 +19,9 @@ public:
     WeakPtr<Scene3D> TransitionToNewPackage(const ScenePackage& packageToTranstion);
     void Clear();
 
+    class Entity GetMainCameraEntity();
+    void SetMainCameraEntity(Entity& entity);
+
     template<typename TComp>
     WB_INLINE bool Has(EntityHandle entityHandle) const
     {
@@ -82,6 +85,7 @@ public:
 
 private:
     entt::registry m_registry;
+    EntityHandle m_currentCameraEntityHandle;
 };
 
 }

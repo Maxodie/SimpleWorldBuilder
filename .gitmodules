@@ -20,3 +20,6 @@
 [submodule "WorldBuilder/vendors/stb/stb"]
 	path = WorldBuilder/vendors/stb/stb
 	url = https://github.com/nothings/stb
+[submodule "WorldBuilder/vendors/ImGuizmo/ImGuizmo"]
+	path = WorldBuilder/vendors/ImGuizmo/ImGuizmo
+	url = https://github.com/CedricGuillemet/ImGuizmo

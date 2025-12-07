@@ -16,7 +16,8 @@ public:
     virtual void AttachShader(const Shader& shader) override;
     virtual void DetachShader(const Shader& shader) override;
 
-    void Link();
+    virtual void Link() override;
+    WB_INLINE virtual bool IsReady() const override { return m_isReady; }
 
     WB_INLINE virtual void SetFloat(const std::string& name, float value) override
     {
@@ -60,6 +61,11 @@ public:
         glUniform1iv(glGetUniformLocation(m_programID, name.c_str()), count, values);
     }
 
+    WB_INLINE virtual void SetMat3(const std::string& name, const glm::mat3& value) override
+    {
+        BindProgram();
+        glUniformMatrix3fv(glGetUniformLocation(m_programID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+    }
 
     WB_INLINE virtual void SetMat4(const std::string& name, const glm::mat4& value) override
     {
@@ -70,8 +76,9 @@ public:
 private:
     uint32_t m_programID;
 
-    int  success;
-    char infoLog[512];
+    int  m_success;
+    bool m_isReady = false;
+    char m_infoLog[512];
 };
 
 }

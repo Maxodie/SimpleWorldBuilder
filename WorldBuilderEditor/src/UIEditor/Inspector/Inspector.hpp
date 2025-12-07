@@ -1,5 +1,4 @@
 #pragma once
-#include "Core/Log/Log.hpp"
 #include "WorldBuilder.hpp"
 
 namespace WB
@@ -13,7 +12,10 @@ public:
     virtual void OnAttach() override;
     virtual void OnDetach() override;
 
+    WB_INLINE Entity& GetSelectedEntity() { return m_currentEntity; }
+
     WB_INLINE void SetCurrentEntity(Entity& handle)
+
     {
         RemoveAsset();
         m_currentEntity = handle;

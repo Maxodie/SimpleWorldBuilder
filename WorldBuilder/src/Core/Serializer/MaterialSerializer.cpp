@@ -1,7 +1,11 @@
 #include "Core/Serializer/MaterialSerializer.hpp"
+#include "Core/Core.hpp"
+#include "Core/Log/Log.hpp"
 #include "Core/Project.hpp"
+#include "Core/Renderer/Shader.hpp"
 #include "Core/Serializer/Serializer.hpp"
 #include "Core/Renderer/Material.hpp"
+#include "yaml-cpp/binary.h"
 #include "yaml-cpp/emittermanip.h"
 #include "yaml-cpp/yaml.h"
 
@@ -13,16 +17,39 @@ bool MaterialSerializer::Serialize(const Material& material, const Path& path)
 
     emitter << YAML::BeginMap;
     emitter << YAML::Key << "id" << YAML::Value << material.id;
-    emitter << YAML::Key << "color" << YAML::Value << Serializer::Encode(material.GetAlbedoColor());
 
-    AssetID texID = EMPTY_ASSET;
-    if(material.GetAlbedoTexture().lock())
+    AssetID shaderID = EMPTY_ASSET;
+    if(material.GetFragmentShader().lock())
     {
-        texID = material.GetAlbedoTexture().lock()->id;
+        shaderID = material.GetFragmentShader().lock()->id;
     }
+    emitter << YAML::Key << "fragment_shader" << YAML::Value << shaderID;
 
-    emitter << YAML::Key << "albedo_tex_id" << YAML::Value << texID;
-    emitter << YAML::EndMap;
+    if(material.GetVertexShader().lock())
+    {
+        shaderID = material.GetVertexShader().lock()->id;
+    }
+    emitter << YAML::Key << "vertex_shader" << YAML::Value << shaderID;
+
+    emitter << YAML::Key << "layout" << YAML::Value << YAML::BeginSeq;
+
+    const CustomShaderUniformBuffer& customLayout = material.GetCustomBufferLayout();
+    for(const auto& element : customLayout.GetElements())
+    {
+        emitter << YAML::BeginMap;
+        emitter << YAML::Key << "display_name" << YAML::Value << element.GetDisplayName();
+        emitter << YAML::Key << "name" << YAML::Value << element.GetName();
+        emitter << YAML::Key << "data_size" << YAML::Value << element.GetDataSize();
+
+        if(element.GetData<const unsigned char>())
+        {
+            emitter << YAML::Key << "data" << YAML::Value << YAML::Binary(element.GetData<const unsigned char>(), element.GetDataSize());
+        }
+
+        emitter << YAML::Key << "type" << YAML::Value << CustomShaderUniformBufferElement::ShaderElementToString(element.GetType());
+        emitter << YAML::EndMap;
+    }
+    emitter << YAML::EndSeq;
 
     return FileSystem::SyncWriteAtPathAsString(path, emitter.c_str());
 }
@@ -43,23 +70,39 @@ bool MaterialSerializer::Deserialize(Material& material, const Path& path)
             return false;
         }
 
-        if(root["id"])
+        material.id = Serializer::GetData<AssetID>(root, "id");
+
+        AssetID fragmentShaderID = Serializer::GetData<AssetID>(root, "fragment_shader");
+        AssetID vertexShaderID = Serializer::GetData<AssetID>(root, "vertex_shader");
+        WeakPtr<Shader> fragmentShader, vertexShader;
+        if(fragmentShaderID != EMPTY_ASSET)
         {
-            material.id = root["id"].as<AssetID>();
+            fragmentShader = Project::GetActive()->GetAssetManager()->GetAsset<Shader>(fragmentShaderID);
+        }
+        if(vertexShaderID != EMPTY_ASSET)
+        {
+            vertexShader = Project::GetActive()->GetAssetManager()->GetAsset<Shader>(vertexShaderID);
         }
 
-        if(root["color"])
+        material.Load(vertexShader, fragmentShader);
+
+        if(root["layout"])
         {
-            glm::vec4 color;
-            if(Serializer::Decode(root["color"], color))
+            CustomShaderUniformBuffer& customLayoutBuffer = material.GetCustomBufferLayout();
+            for(const auto& node : root["layout"])
             {
-                material.SetAlbedoColor(color);
+                for(auto& matElement : customLayoutBuffer.GetElements())
+                {
+                    std::string name = Serializer::GetData<std::string>(node, "name");
+                    std::string type = Serializer::GetData<std::string>(node, "type");
+                    std::string displayName = Serializer::GetData<std::string>(node, "display_name");
+                    if(matElement.Equal(CustomShaderUniformBufferElement::StringToShaderElement(type), displayName, name))
+                    {
+                        YAML::Binary data = Serializer::GetData<YAML::Binary>(node, "data");
+                        matElement.SetData(data.data(), matElement.GetDataSize());
+                    }
+                }
             }
-        }
-
-        if(root["albedo_tex_id"])
-        {
-            material.SetTexture(Project::GetActive()->GetAssetManager()->GetAsset<Texture2D>(root["albedo_tex_id"].as<AssetID>()));
         }
 
         return true;

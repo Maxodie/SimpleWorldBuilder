@@ -1,6 +1,9 @@
 #include "UIEditor/Inspector/AssetInspector.hpp"
+#include "Core/AssetManager/Engine/EngineAssetManager.hpp"
+#include "Core/Log/Log.hpp"
 #include "Core/Serializer/MaterialSerializer.hpp"
 #include "UIEditor/RessourcesLayer/AssetSelectorLayer.hpp"
+#include "glm/gtc/type_ptr.hpp"
 #include "imgui.h"
 
 namespace WB
@@ -46,48 +49,208 @@ void MaterialAssetInspector::Show(SharedPtr<AssetMetaData> metaData, Application
 
     Material& matRef = *mat.lock();
 
-    ImGui::Text("Albedo Color : ");
-    glm::vec4 glmAlbedoColor = matRef.GetAlbedoColor();
-    float albedoColor[4] = {glmAlbedoColor.r, glmAlbedoColor.g, glmAlbedoColor.b, glmAlbedoColor.a};
-    ImGui::ColorPicker4("##MaterialAlbedoColor", albedoColor);
-    matRef.SetAlbedoColor({albedoColor[0], albedoColor[1], albedoColor[2], albedoColor[3]});
-
-    const WeakPtr<Texture2D>& albedoTex = matRef.GetAlbedoTexture();
-    std::string albedoTexName = "None";
-    if(albedoTex.lock())
+    std::string shaderName = "None";
+    if(matRef.GetFragmentShader().lock())
     {
-        WeakPtr<AssetMetaData> albedoTexMeta = Project::GetActive()->GetEditorAssetManager()->GetMetaData(albedoTex.lock()->id);
-        if(albedoTexMeta.lock())
+        WeakPtr<AssetMetaData> shaderMeta = Project::GetActive()->GetEditorAssetManager()->GetMetaData(matRef.GetFragmentShader().lock()->id);
+        if(shaderMeta.lock())
         {
-            albedoTexName = albedoTexMeta.lock()->name;
+            shaderName = shaderMeta.lock()->name;
         }
     }
 
-    if(ImGui::Button(("Albedo Texture : " + albedoTexName).c_str()))
+    if(ImGui::Button(("Fragment Shader : " + shaderName).c_str()))
     {
-        context.AddLayer<AssetSelectorLayer>(AssetType::TEXTURE2D);
-        WeakPtr<AssetSelectorLayer> layer = context.GetLayer<AssetSelectorLayer>();
-        if(layer.lock())
+        ShaderSelection(
+            [&matRef]
+            (WeakPtr<Shader> shader)
+            {
+                matRef.Load(matRef.GetVertexShader(), shader);
+            },
+            context
+        );
+    }
+
+    shaderName = "None";
+    if(matRef.GetVertexShader().lock())
+    {
+        WeakPtr<AssetMetaData> shaderMeta = Project::GetActive()->GetEditorAssetManager()->GetMetaData(matRef.GetVertexShader().lock()->id);
+        if(shaderMeta.lock())
         {
-            layer.lock()->SetSelectionCallback(
-                [&](AssetID id)
+            shaderName = shaderMeta.lock()->name;
+        }
+    }
+
+    if(ImGui::Button(("Vertex Shader : " + shaderName).c_str()))
+    {
+        ShaderSelection(
+            [&matRef]
+            (WeakPtr<Shader> shader)
+            {
+                matRef.Load(shader, matRef.GetFragmentShader());
+            },
+            context
+        );
+    }
+
+
+    std::vector<CustomShaderUniformBufferElement>& elements = matRef.GetCustomBufferLayout().GetElements();
+    for(auto& element : elements)
+    {
+        ImGui::Text((element.GetDisplayName() + " : ").c_str());
+
+        switch (element.GetType()) {
+            case ShaderElementType::Float:
+            {
+                // m_shaderProgram->SetFloat(element.GetName(), *(float*)element.GetData());
+                break;
+            }
+            case ShaderElementType::Float2:
+            {
+                // m_shaderProgram->SetFloat2(element.GetName(), {((float*)element.GetData())[0], ((float*)element.GetData())[1]});
+                break;
+            }
+            case ShaderElementType::Float3:
+            {
+                // m_shaderProgram->SetFloat3(element.GetName(), {((float*)element.GetData())[0], ((float*)element.GetData())[1], ((float*)element.GetData())[2]});
+                break;
+            }
+            case ShaderElementType::Float4:
+            {
+                if(!element.HasData())
                 {
-                    if(id == EMPTY_ASSET)
+                    element.SetData(glm::vec4(1));
+                }
+                glm::vec4& glmColor = *element.GetData<glm::vec4>();
+                ImGui::ColorPicker4("##MaterialAlbedoColor", glm::value_ptr(glmColor));
+                break;
+            }
+            case ShaderElementType::Mat3:break;
+            case ShaderElementType::Mat4:break;
+            case ShaderElementType::Int:break;
+            case ShaderElementType::Int2:break;
+            case ShaderElementType::Int3:break;
+            case ShaderElementType::Int4:break;
+            case ShaderElementType::Bool:break;
+            case ShaderElementType::Sampler2D:
+            {
+                if(!element.HasData())
+                {
+                    element.SetData<AssetID>(0);
+                }
+
+                std::string texName = "None";
+                AssetID& texId = *element.GetData<AssetID>();
+
+                WeakPtr<Texture2D> tex;
+                ImVec2 uv0{0, 0};
+                ImVec2 uv1{1, 1};
+
+                if(texId != EMPTY_ASSET)
+                {
+                    tex = Project::GetActive()->GetAssetManager()->GetAsset<Texture2D>(texId);
+
+                    WeakPtr<AssetMetaData> texMeta = Project::GetActive()->GetEditorAssetManager()->GetMetaData(texId);
+                    if(texMeta.lock())
                     {
-                        matRef.SetTexture({});
-                    }
-                    else
-                    {
-                        matRef.SetTexture(Project::GetActive()->GetAssetManager()->GetAsset<Texture2D>(id));
+                        texName = texMeta.lock()->name;
                     }
                 }
-            );
+
+                if(!tex.lock())
+                {
+                    tex = EngineAssetManager::Get().GetAsset("file_icon");
+                }
+                else
+                {
+                    uv0 = {1, 1};
+                    uv1 = {0, 0};
+                }
+
+                if(ImGui::ImageButton(
+                        ("Texture : " + texName + "##" + element.GetName()).c_str(),
+                        tex.lock()->GetTextureID(),
+                        {50, 50},
+                        uv0, uv1))
+                {
+                    TextureSelection(
+                        [&matRef, &texId]
+                        (WeakPtr<Texture2D> texture)
+                        {
+                            if(texture.lock())
+                            {
+                                texId = texture.lock()->id;
+                            }
+                        },
+                        context
+                    );
+                }
+                // m_shaderProgram->SetFloat(element.GetName(), Renderer3D::AddDrawTexture(*tex));
+                break;
+            }
         }
     }
+
+    // ImGui::Text("Albedo Color : ");
+    // glm::vec4 glmAlbedoColor = matRef.GetAlbedoColor();
+    // float albedoColor[4] = {glmAlbedoColor.r, glmAlbedoColor.g, glmAlbedoColor.b, glmAlbedoColor.a};
+    // ImGui::ColorPicker4("##MaterialAlbedoColor", albedoColor);
+    // matRef.SetAlbedoColor({albedoColor[0], albedoColor[1], albedoColor[2], albedoColor[3]});
+    //
+    // std::string albedoTexName = GetTextureName(matRef.GetAlbedoMap());
+    //
+    //
+    // ImGui::Text("Metallic : ");
+    // float metallic = matRef.GetMetallicPercentage();
+    // ImGui::SliderFloat("##MaterialMetallicPercentage", &metallic, 0.0f, 1.0f);
+    // matRef.SetMetallicPercentage(metallic);
+    //
+    // std::string metallicTexName = GetTextureName(matRef.GetMetallicMap());
+    // if(ImGui::Button(("Metallic Texture : " + metallicTexName ).c_str()))
+    // {
+    //     TextureSelection(
+    //         [&matRef]
+    //         (WeakPtr<Texture2D> texture)
+    //         {
+    //             matRef.SetMetallicTexture(texture);
+    //         },
+    //         context
+    //     );
+    // }
+    //
+    // ImGui::Text("Roughness : ");
+    // float roughness = matRef.GetRoughnessPercentage();
+    // ImGui::SliderFloat("##MaterialRoughnessPercentage", &roughness, 0.0f, 1.0f);
+    // matRef.SetRoughnessPercentage(roughness);
+    //
+    // std::string roughnessTexName = GetTextureName(matRef.GetRoughnessMap());
+    // if(ImGui::Button(("Roughness Texture : " + roughnessTexName).c_str()))
+    // {
+    //     TextureSelection(
+    //         [&matRef]
+    //         (WeakPtr<Texture2D> texture)
+    //         {
+    //             matRef.SetRoughnessMap(texture);
+    //         },
+    //         context
+    //     );
+    // }
+    //
+    // std::string occlusionTexName = GetTextureName(matRef.GetAmbiantOcclusionMap());
+    // if(ImGui::Button(("Occlusion Texture : " + occlusionTexName).c_str()))
+    // {
+    //     TextureSelection(
+    //         [&matRef]
+    //         (WeakPtr<Texture2D> texture)
+    //         {
+    //             matRef.SetAmbiantOcclusionMap(texture);
+    //         },
+    //         context
+    //     );
+    // }
 
     if(ImGui::Button("Save"))
     {
-        Project::GetActive()->GetEditorAssetManager()->DeleteMeta(metaData);
         MaterialSerializer::Serialize(*mat.lock(), metaData->path);
     }
 
@@ -97,6 +260,50 @@ void MaterialAssetInspector::Show(SharedPtr<AssetMetaData> metaData, Application
     }
 
     ImGui::PopStyleVar();
+}
+
+void MaterialAssetInspector::TextureSelection(std::function<void(WeakPtr<Texture2D>)> textureSelectedCallback, Application& context)
+{
+    context.AddLayer<AssetSelectorLayer>(AssetType::TEXTURE2D);
+    WeakPtr<AssetSelectorLayer> layer = context.GetLayer<AssetSelectorLayer>();
+    if(layer.lock())
+    {
+        layer.lock()->SetSelectionCallback(
+            [textureSelectedCallback](AssetID id)
+            {
+                textureSelectedCallback(AssetSelectionCheck<Texture2D>(id));
+            }
+        );
+    }
+}
+
+void MaterialAssetInspector::ShaderSelection(std::function<void(WeakPtr<Shader>)> shaderSelectedCallback, Application& context)
+{
+    context.AddLayer<AssetSelectorLayer>(AssetType::SHADER);
+    WeakPtr<AssetSelectorLayer> layer = context.GetLayer<AssetSelectorLayer>();
+    if(layer.lock())
+    {
+        layer.lock()->SetSelectionCallback(
+            [shaderSelectedCallback](AssetID id)
+            {
+                shaderSelectedCallback(AssetSelectionCheck<Shader>(id));
+            }
+        );
+    }
+}
+
+std::string MaterialAssetInspector::GetTextureName(WeakPtr<Texture2D> texture)
+{
+    std::string texName = "None";
+    if(texture.lock())
+    {
+        WeakPtr<AssetMetaData> texMeta = Project::GetActive()->GetEditorAssetManager()->GetMetaData(texture.lock()->id);
+        if(texMeta.lock())
+        {
+            texName = texMeta.lock()->name;
+        }
+    }
+    return texName;
 }
 
 void Texture2DAssetInspector::Show(SharedPtr<AssetMetaData> metaData, Application& context)

@@ -32,6 +32,7 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Editor/ImGuiLayer.hpp
             WorldBuilder/src/Core/ECS/TransformComponent.hpp
             WorldBuilder/src/Core/ECS/Entity.hpp
+            WorldBuilder/src/Core/ECS/LightComponent.hpp
             WorldBuilder/src/Core/Event/Event.cpp
             WorldBuilder/src/Core/Event/Event.hpp
             WorldBuilder/src/Core/Input/Input.cpp
@@ -65,6 +66,8 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Renderer/Material.hpp
             WorldBuilder/src/Core/Renderer/Texture2D.cpp
             WorldBuilder/src/Core/Renderer/Texture2D.hpp
+            WorldBuilder/src/Core/Renderer/CubeMap.cpp
+            WorldBuilder/src/Core/Renderer/CubeMap.hpp
             WorldBuilder/src/Core/Serializer/Serializer.cpp
             WorldBuilder/src/Core/Serializer/Serializer.hpp
             WorldBuilder/src/Core/Serializer/ProjectSerializer.cpp
@@ -79,6 +82,7 @@ add_library(WorldBuilder
             WorldBuilder/src/Core/Serializer/MaterialSerializer.hpp
             WorldBuilder/src/Core/Utils/FileSystem.cpp
             WorldBuilder/src/Core/Utils/FileSystem.hpp
+            WorldBuilder/src/Core/Utils/StringHelper.hpp
             WorldBuilder/src/Core/Window/Window.cpp
             WorldBuilder/src/Core/Window/Window.hpp
 
@@ -103,6 +107,8 @@ add_library(WorldBuilder
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglFrameBuffer.hpp
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglTexture2D.cpp
         WorldBuilder/src/Platform/Renderer/Opengl/OpenglTexture2D.hpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglCubeMap.cpp
+        WorldBuilder/src/Platform/Renderer/Opengl/OpenglCubeMap.hpp
 )
 
 target_link_libraries(WorldBuilder PRIVATE
@@ -114,6 +120,7 @@ target_link_libraries(WorldBuilder PRIVATE
     imgui
     yaml-cpp::yaml-cpp
     StbImplementation
+    ImGuizmo
 )
 
 target_include_directories(WorldBuilder PRIVATE
@@ -125,6 +132,7 @@ target_include_directories(WorldBuilder PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/imgui/imgui
     ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/yamlcpp/yamlcpp/include
     ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/stb/stb
+    ${CMAKE_CURRENT_SOURCE_DIR}/WorldBuilder/vendors/ImGuizmo/ImGuizmo
 )
 
 set_target_properties(WorldBuilder PROPERTIES

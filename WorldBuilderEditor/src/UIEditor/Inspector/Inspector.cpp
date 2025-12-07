@@ -1,4 +1,5 @@
 #include "UIEditor/Inspector/Inspector.hpp"
+#include "Core/ECS/LightComponent.hpp"
 #include "Core/Log/Log.hpp"
 #include "UIEditor/Inspector/AssetInspector.hpp"
 #include "Core/AssetManager/Asset.hpp"
@@ -43,6 +44,11 @@ void InspectorLayer::UpdateGUI()
                 ModelComponentInspector::Show(m_currentEntity.Get<ModelComponent>(), *GetContext());
             }
 
+            if(m_currentEntity.Has<PointLightComponent>())
+            {
+                PointLightComponentInspector::Show(m_currentEntity.Get<PointLightComponent>(), *GetContext());
+            }
+
             if(ImGui::Button("Add Component"))
             {
                 GetContext()->AddLayer<ComponentSelectorLayer>();
@@ -55,6 +61,12 @@ void InspectorLayer::UpdateGUI()
                             if(id == GetTypeID<ModelComponent>())
                             {
                                 m_currentEntity.AddComponent<ModelComponent>();
+                                m_currentEntity.AddComponent<TransformComponent>();
+                                //create default model
+                            }
+                            if(id == GetTypeID<PointLightComponent>())
+                            {
+                                m_currentEntity.AddComponent<PointLightComponent>();
                                 m_currentEntity.AddComponent<TransformComponent>();
                                 //create default model
                             }

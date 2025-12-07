@@ -20,6 +20,7 @@ static GLenum ShaderDataTypeToOpenGLBaseType(ShaderElementType type)
         case ShaderElementType::Int3: return GL_INT;
         case ShaderElementType::Int4: return GL_INT;
         case ShaderElementType::Bool: return GL_BOOL;
+        case ShaderElementType::Sampler2D: return GL_SAMPLER_2D;
     }
 
     CORE_LOG_ERROR("Unknown ShaderDataType %d", type);

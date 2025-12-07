@@ -6,7 +6,7 @@
 namespace WB
 {
 
-struct ModelComponent : public SelectableComponent
+struct ModelComponent
 {
     WeakPtr<ModelAsset> asset;
     WeakPtr<Material> material;

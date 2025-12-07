@@ -11,7 +11,8 @@ enum class ShaderElementType
     Bool,
     Float, Float2, Float3, Float4,
     Int, Int2, Int3, Int4,
-    Mat3, Mat4
+    Mat3, Mat4,
+    Sampler2D
 };
 
 struct VertexBufferElement
@@ -43,14 +44,14 @@ struct VertexBufferElement
             case ShaderElementType::Int3: return 3;
             case ShaderElementType::Int4: return 4;
             case ShaderElementType::Bool: return 1;
+            case ShaderElementType::Sampler2D: return 1;
         }
 
         CORE_LOG_ERROR("unknown Type : %d", Type);
         return 0;
     }
 
-private:
-    size_t ConvertShaderTypeToSize(ShaderElementType shaderType) const
+    static size_t ConvertShaderTypeToSize(ShaderElementType shaderType)
     {
         switch(shaderType)
         {
@@ -65,13 +66,12 @@ private:
             case ShaderElementType::Int4 : return 4 * 4;
             case ShaderElementType::Mat3 : return 4 * 3 * 3;
             case ShaderElementType::Mat4 : return 4 * 4 * 4;
+            case ShaderElementType::Sampler2D : return sizeof(AssetID);
         }
 
         CORE_LOG_ERROR("unknown given ShaderType : %d", shaderType);
         return 0;
     }
-
-
 };
 
 class BufferLayout
@@ -107,19 +107,10 @@ private:
 
 struct Vertex3D
 {
-    Vertex3D(glm::vec3 pos, glm::vec2 texCoords)
-        : Position(pos), TexCoords(texCoords)
-    {
-
-    }
-
-    Vertex3D(glm::vec3 pos)
-        : Position(pos)
-    {
-
-    }
+    Vertex3D() = default;
 
     glm::vec3 Position = glm::vec3(0.0f);
+    glm::vec3 Normal = glm::vec3(0.0f);
     glm::vec2 TexCoords = glm::vec2(0.0f, 1.0f);
 };
 

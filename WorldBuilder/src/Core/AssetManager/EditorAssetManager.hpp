@@ -91,6 +91,7 @@ private:
 
     WB_INLINE static constexpr size_t s_textureExtensionsCount = 2;
     WB_INLINE static constexpr const char* s_textureExtensions[2] = {".png", ".jpg"};
+    WB_INLINE static constexpr const char* s_modelExtensions[2] = {".fbx", ".obj"};
 };
 
 }

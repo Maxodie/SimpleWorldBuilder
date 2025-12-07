@@ -1,5 +1,6 @@
 #include "UIEditor/ViewportLayer.hpp"
 #include "glm/common.hpp"
+#include "UIEditor/GuizmoEditor.hpp"
 
 #include <imgui.h>
 
@@ -25,6 +26,7 @@ void ViewportLayer::UpdateGUI()
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0, 0});
     ImGui::Begin("Viewport");
     ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+    ImVec2 cursorPos = ImGui::GetCursorPos();
 
     if (m_viewportSize.x != viewportPanelSize.x || m_viewportSize.y != viewportPanelSize.y)
     {
@@ -49,6 +51,38 @@ void ViewportLayer::UpdateGUI()
     }
     uint32_t textureID = m_frameBuffer->GetColorAttachmentRendererID();
     ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_viewportSize.x, m_viewportSize.y }, ImVec2{0, 1}, ImVec2{1, 0});
+
+    //Guizmo buttons
+    {
+        ImGui::SetCursorPos(cursorPos);
+        if(ImGui::Button("Translate"))
+        {
+            GuizmoEditor::SetGuizmoType(GuizmoEditor::Type::Translate);
+        }
+        ImGui::SameLine();
+        if(ImGui::Button("Rotation"))
+        {
+            GuizmoEditor::SetGuizmoType(GuizmoEditor::Type::Rotate);
+        }
+        ImGui::SameLine();
+        if(ImGui::Button("Scale"))
+        {
+            GuizmoEditor::SetGuizmoType(GuizmoEditor::Type::Scale);
+        }
+        ImGui::SameLine();
+        if(ImGui::Button("Local"))
+        {
+            GuizmoEditor::SetGuizmoSpace(GuizmoEditor::Space::Local);
+        }
+        ImGui::SameLine();
+        if(ImGui::Button("World"))
+        {
+            GuizmoEditor::SetGuizmoSpace(GuizmoEditor::Space::World);
+        }
+    }
+
+
+    GuizmoEditor::Update(m_scene);
 
     ImGui::PopStyleVar();
     ImGui::End();

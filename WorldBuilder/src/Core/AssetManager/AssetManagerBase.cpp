@@ -1,4 +1,5 @@
 #include "Core/AssetManager/AssetManagerBase.hpp"
+#include "Core/Log/Log.hpp"
 #include "Core/Serializer/ScenePackageSerializer.hpp"
 #include "Core/Project.hpp"
 
@@ -18,6 +19,7 @@ void AssetManagerBase::ClearRegistry()
 {
     m_registry.clear();
     s_maxAssetID = EMPTY_ASSET;
+    CORE_LOG_SUCCESS("Asset Manager registry cleared");
 }
 
 void AssetManagerBase::AddPackage(SharedPtr<ScenePackage>& package)

@@ -11,12 +11,12 @@ static constexpr glm::vec3 ConvertAiToGlmVec3(aiVector3D& vec3)
     return {vec3.x, vec3.y, vec3.z};
 }
 
-static constexpr glm::vec2 ConvertAiToGlmTexCoords(aiVector3D& vec3)
+static constexpr glm::vec2 ConvertAiToGlmVec2(aiVector3D& vec3)
 {
     return {vec3.x, vec3.y};
 }
 
-static Mesh ProcessMesh(struct aiMesh* mesh, const struct aiScene* scene)
+static Mesh ProcessMesh(struct aiMesh* mesh, const struct aiScene* scene, bool shouldInverseVerticalTexCoords)
 {
     std::vector<Vertex3D> vertices;
     std::vector<uint32_t> indices;
@@ -24,13 +24,21 @@ static Mesh ProcessMesh(struct aiMesh* mesh, const struct aiScene* scene)
 
     for(uint32_t i=0; i < mesh->mNumVertices;  i++)
     {
+        vertices.emplace_back();
+        vertices[i].Position = ConvertAiToGlmVec3(mesh->mVertices[i]);
+        vertices[i].Normal = ConvertAiToGlmVec3(mesh->mNormals[i]);
+
         if(hasTexCoords)
         {
-            vertices.emplace_back(ConvertAiToGlmVec3(mesh->mVertices[i]), ConvertAiToGlmTexCoords(mesh->mTextureCoords[0][i]));
-        }
-        else
-        {
-            vertices.emplace_back(ConvertAiToGlmVec3(mesh->mVertices[i]));
+            if(shouldInverseVerticalTexCoords)
+            {
+                mesh->mTextureCoords[0][i].y *= -1;
+                vertices[i].TexCoords = ConvertAiToGlmVec2(mesh->mTextureCoords[0][i]);
+            }
+            else
+            {
+                vertices[i].TexCoords = ConvertAiToGlmVec2(mesh->mTextureCoords[0][i]);
+            }
         }
     }
 
@@ -43,25 +51,20 @@ static Mesh ProcessMesh(struct aiMesh* mesh, const struct aiScene* scene)
         }
     }
 
-    /*if(mesh->mMaterialIndex >= 0)*/
-    /*{*/
-    /**/
-    /*}*/
-
     return Mesh(vertices, indices);
 }
 
-static void ProcessNode(std::vector<Mesh>& Meshes, struct aiNode* node, const struct aiScene* scene)
+static void ProcessNode(std::vector<Mesh>& Meshes, struct aiNode* node, const struct aiScene* scene, bool shouldInverseVerticalTexCoords)
 {
     for(uint32_t i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        Meshes.push_back(ProcessMesh(mesh, scene));
+        Meshes.push_back(ProcessMesh(mesh, scene, shouldInverseVerticalTexCoords));
     }
 
     for(uint32_t i = 0; i < node->mNumChildren; i++)
     {
-        ProcessNode(Meshes, node->mChildren[i], scene);
+        ProcessNode(Meshes, node->mChildren[i], scene, shouldInverseVerticalTexCoords);
     }
 }
 
@@ -75,8 +78,8 @@ bool ModelImporter::Importe(const Path& path, ModelAsset& modelAsset)
         CORE_LOG_ERROR("assimp : %s", importer.GetErrorString());
         return false;
     }
-
-    ProcessNode(modelAsset.meshes, scene->mRootNode, scene);
+    bool shouldInverseVerticalTexCoords = FileSystem::HasExtension(path, ".obj");
+    ProcessNode(modelAsset.meshes, scene->mRootNode, scene, shouldInverseVerticalTexCoords);
     return true;
 }
 

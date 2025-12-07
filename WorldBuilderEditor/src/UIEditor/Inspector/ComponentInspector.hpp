@@ -22,4 +22,10 @@ public:
     static void Show(ModelComponent& model, Application& context);
 };
 
+class PointLightComponentInspector
+{
+public:
+    static void Show(PointLightComponent& light, Application& context);
+};
+
 }

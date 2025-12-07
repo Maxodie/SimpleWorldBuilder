@@ -5,9 +5,6 @@
 namespace WB
 {
 
-using AssetID = uint64_t;
-static const AssetID EMPTY_ASSET = 0u;
-
 enum class AssetType : uint8_t
 {
     UNKNOWN,
