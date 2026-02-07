@@ -34,7 +34,7 @@ mkdir build
 cmake --preset=debug -DCOMPILE_CONFIG_BUILD=True
 mingw32-make -C ./build -j8
 ```
-
+You can open the proj file in the `SimpleWorldBuilder/DefaultRessources/SandboxGame` folder as an exemple project
 
 ## Precompiled macros
 if you are in editor build : `WB_EDITOR`
